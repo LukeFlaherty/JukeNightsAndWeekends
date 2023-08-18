@@ -43,3 +43,5 @@ grab first two env locals from stripe and then:
 2. stripe listen --forward-to localhost:3000/api/webhooks in seperate terminal
 3. stripe trigger payment_intent.succeeded in seperate terminal
 4. put in webhook secret env var
+
+TODO: Build own version of https://www.npmjs.com/package/use-sound
