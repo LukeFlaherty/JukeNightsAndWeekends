@@ -35,6 +35,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## To develop with stripe
 
+STRIPE NOT WORKING 500 INTERNAL SERVER ERROR SOMETHING WITH HEADERS, FORGET ABOUT STRIPE FOR NOW
+
 grab first two env locals from stripe and then:
 
 1. run project npm run dev

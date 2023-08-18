@@ -26,6 +26,7 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
     }
     return uploadModal.onOpen();
     // TODO check for subscription here if needed
+    // NOT NEEDED, not blocking this feature behind subscription
   };
   return (
     <div className="flex flex-col">
