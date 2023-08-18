@@ -9,7 +9,6 @@ import {
   manageSubscriptionStatusChange,
 } from "@/libs/supabaseAdmin";
 
-// relavant events to handle
 const relevantEvents = new Set([
   "product.created",
   "product.updated",
@@ -25,7 +24,6 @@ export async function POST(request: Request) {
   const body = await request.text();
   const sig = headers().get("Stripe-Signature");
 
-  //   MAYBE ERROR maybe works, did before was live
   const webhookSecret =
     process.env.STRIPE_WEBHOOK_SECRET_LIVE ?? process.env.STRIPE_WEBHOOK_SECRET;
   let event: Stripe.Event;
