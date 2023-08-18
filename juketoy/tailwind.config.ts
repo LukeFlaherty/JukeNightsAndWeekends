@@ -7,7 +7,15 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        mainBrandColor: "#3D3D80",
+        lightModeBackground: "F4F4F4",
+        darkModeBackground: "#333333",
+        secondaryBrandColor: "#5E5E9E",
+        pastelBrandColor: "#C2C2D6",
+      },
+    },
   },
   plugins: [],
 };
