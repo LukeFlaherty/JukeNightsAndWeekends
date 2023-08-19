@@ -77,7 +77,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products }) => {
           }
 
           return product.prices.map((price) => (
-            // big green button that says subscribe for $5 a month EXAMPLE
+            // big button that says subscribe for $5 a month EXAMPLE
             <Button
               key={price.id}
               onClick={() => handleCheckout(price)}
