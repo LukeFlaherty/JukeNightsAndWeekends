@@ -112,7 +112,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         <AiFillStepBackward
           onClick={onPlayPrevious}
           size={30}
-          className="ttext-white cursor-pointer bg-pastelBrandColor rounded-full hover:text-neutral-400 transition"
+          className="ttext-white cursor-pointer h-10 w-10 bg-pastelBrandColor rounded-full hover:text-neutral-400 transition"
         />
         <div
           onClick={handlePlay}
@@ -123,7 +123,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         <AiFillStepForward
           onClick={onPlayNext}
           size={30}
-          className="text-white cursor-pointer bg-pastelBrandColor rounded-full hover:text-neutral-400 transition"
+          className="text-white cursor-pointer h-10 w-10 bg-pastelBrandColor rounded-full hover:text-neutral-400 transition"
         />
       </div>
 
