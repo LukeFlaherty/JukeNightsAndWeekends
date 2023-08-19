@@ -9,7 +9,10 @@ const Box: React.FC<BoxProps> = ({ children, className }) => {
   return (
     // reusable box component wit htwMerge allowing us to pass in extra classnames if we want
     <div
-      className={twMerge(`bg-neutral-900 rounded-lg h-fit w-full`, className)}
+      className={twMerge(
+        `bg-gradient-to-b from-mainBrandColor rounded-lg h-fit w-full`,
+        className
+      )}
     >
       {children}
     </div>
