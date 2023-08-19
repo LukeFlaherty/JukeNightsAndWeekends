@@ -87,10 +87,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
       "
       onClick={handleLike}
     >
-      <Icon
-        color={isLiked ? "text-mainBrandColor" : "text-mainBrandColor"}
-        size={25}
-      />
+      <Icon color={isLiked ? "#3D3D80" : "#3D3D80"} size={25} />
     </button>
   );
 };
