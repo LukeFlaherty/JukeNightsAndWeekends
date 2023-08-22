@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { HiHome } from "react-icons/hi";
@@ -13,6 +13,7 @@ import { useUser } from "@/hooks/useUser";
 import { FaUserAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import usePlayer from "@/hooks/usePlayer";
+import { useMemo } from "react";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -23,9 +24,28 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const player = usePlayer();
   const authModal = useAuthModal();
   const router = useRouter();
+  const pathname = usePathname();
 
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
+
+  const routes = useMemo(
+    () => [
+      {
+        icon: HiHome,
+        label: "Home",
+        active: pathname !== "/search",
+        href: "/",
+      },
+      {
+        icon: BiSearch,
+        label: "Search",
+        active: pathname === "/search",
+        href: "/search",
+      },
+    ],
+    [pathname]
+  );
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
@@ -63,10 +83,16 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         </div>
         {/* mobile */}
         <div className="flex md:hidden gap-x-2 items-center">
-          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
+          <button
+            onClick={() => router.push("/")}
+            className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition"
+          >
             <HiHome className="text-mainBrandColor" size={20} />
           </button>
-          <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
+          <button
+            onClick={() => router.push("/search")}
+            className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition"
+          >
             <BiSearch className="text-mainBrandColor" size={20} />
           </button>
         </div>
