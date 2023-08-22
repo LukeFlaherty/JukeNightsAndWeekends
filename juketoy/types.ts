@@ -10,6 +10,13 @@ export interface Song {
   image_path: string;
 }
 
+export interface Playlist {
+  id: string;
+  title: string;
+  author: string;
+  songs: Song[];
+}
+
 export interface UserDetails {
   id: string;
   first_name: string;

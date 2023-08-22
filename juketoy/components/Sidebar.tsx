@@ -8,16 +8,18 @@ import { HiHome } from "react-icons/hi";
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
-import { Song } from "@/types";
+import { Playlist, Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 import { twMerge } from "tailwind-merge";
+import Playlists from "./Playlists";
 
 interface SidebarProps {
   children: React.ReactNode;
   songs: Song[];
+  playlists: Playlist[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children, songs, playlists }) => {
   const pathname = usePathname();
 
   const player = usePlayer();
@@ -55,6 +57,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
             ))}
           </div>
           <Library songs={songs} />
+          <Playlists playlists={playlists} />
         </Box>
       </div>
       <main className="bg-lightModeBackground h-full flex-1 overflow-y-auto py-2 ">
