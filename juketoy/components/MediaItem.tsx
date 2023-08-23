@@ -10,6 +10,8 @@ import usePlayer from "@/hooks/usePlayer";
 import { useUser } from "@/hooks/useUser";
 import useDeleteSong from "@/hooks/useDeleteSong";
 import { on } from "events";
+import useGetPlaylistsByUserId from "@/hooks/useGetPlaylistsByUserId";
+import SelectPlaylistModal from "./SelectPlaylistModal";
 
 interface MediaItemProps {
   data: Song | Playlist;
@@ -21,10 +23,15 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
   const { user } = useUser();
-  const { deleteSong, error, loading } = useDeleteSong();
+  const { deleteSong, error } = useDeleteSong();
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const { playlists, isLoading } = useGetPlaylistsByUserId();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  console.log("PLAYLISTS:", playlists);
 
   const isSong = "song_path" in data;
 
@@ -51,6 +58,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
     }
   };
 
+  // if you click delete song
   const handleDeleteSong = async (
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
@@ -70,6 +78,21 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
     } else {
       // Handle the error. Maybe show an error message to the user.
     }
+  };
+
+  // if you click add to playlist
+  const handleAddToPlaylistClick = async (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    event.stopPropagation(); // <-- This will prevent the handleClick on the parent div
+    setModalOpen(true);
+  };
+
+  // Generate a hook for this:
+  const handleAddSongToPlaylist = (playlistId: string) => {
+    // Add your logic to add song to playlist using playlistId and data.id
+    console.log(`Adding song ${data.id} to playlist ${playlistId}`);
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -115,11 +138,21 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
             >
               <div
                 // onClick={addToPlaylist}
-                onClick={() => {}}
+                onClick={handleAddToPlaylistClick}
                 className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"
               >
                 Add to Playlist
               </div>
+              {isLoading ? (
+                <p>Loading...</p>
+              ) : (
+                <SelectPlaylistModal
+                  isOpen={isModalOpen}
+                  onClose={() => setModalOpen(false)}
+                  onPlaylistSelected={() => {}}
+                  playlists={playlists || []}
+                />
+              )}
 
               {/* This render is only condiiontal on showing delete song if it is owned by the current user */}
               {/* but since it is in the library, than it is by default. */}

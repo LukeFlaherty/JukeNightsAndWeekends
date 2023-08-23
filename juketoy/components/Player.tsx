@@ -18,7 +18,12 @@ const Player = () => {
     <div className="fixed bottom-0 bg-lightModeBackground w-full py-2 h-[80px] px-4">
       {/* use key to destroy whole element everytime song is changed via skip and stuff */}
       {/* reset hook bc player does not support dynamic url changes make my own eventually */}
-      <PlayerContent key={songUrl} song={song} songUrl={songUrl} />
+      <PlayerContent
+        key={songUrl}
+        song={song}
+        songUrl={songUrl}
+        onDeleteSong={() => {}}
+      />
     </div>
   );
 };
