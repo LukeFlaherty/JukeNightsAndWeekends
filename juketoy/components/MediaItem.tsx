@@ -1,6 +1,8 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
+import { FaEllipsisV } from "react-icons/fa"; // Step 2: Import the ellipsis icon
 
 import useLoadImage from "@/hooks/useLoadImage";
 import { Playlist, Song } from "@/types";
@@ -21,6 +23,14 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
     }
     return player.setId(data.id);
   };
+
+  const handleEllipsisClick = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+    // Your ellipsis click logic here
+  };
+
   return (
     <div
       onClick={handleClick}
@@ -34,10 +44,15 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick }) => {
           className="object-cover"
         />
       </div>
-      <div className="flex flex-col gap-y-1 overflow-hidden">
+      <div className="flex-grow flex flex-col gap-y-1 overflow-hidden">
         <p className="text-mainBrandColor truncate">{data.title}</p>
         <p className="text-white text-sm truncate">{data.author}</p>
       </div>
+      <FaEllipsisV
+        onClick={handleEllipsisClick}
+        className="text-mainBrandColor cursor-pointer hover:text-white transform transition-transform duration-300 hover:scale-110"
+      />
+      {/* Step 3: Add the ellipsis icon */}
     </div>
   );
 };
