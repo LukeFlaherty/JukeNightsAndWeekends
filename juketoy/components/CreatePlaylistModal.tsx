@@ -21,7 +21,9 @@ const CreatePlaylistModal = () => {
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
-      playlistName: "",
+      title: "",
+      description: "",
+      image: null,
     },
   });
 
@@ -41,7 +43,23 @@ const CreatePlaylistModal = () => {
         return;
       }
 
+      const imageFile = values.image?.[0]; // Grab the image file
+
       const uniqueID = uniqid();
+
+      // Upload Image code
+      const { data: imageData, error: imageError } =
+        await supabaseClient.storage
+          .from("images")
+          .upload(`image-${values.title}-${uniqueID}`, imageFile, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+      if (imageError) {
+        setIsLoading(false);
+        return toast.error("Failed image upload");
+      }
 
       const { error: supabaseError } = await supabaseClient
         .from("playlists")
@@ -49,6 +67,7 @@ const CreatePlaylistModal = () => {
           user_id: user.id,
           title: values.title,
           description: values.description,
+          image_path: imageData.path,
           // Add additional properties if needed
         });
 
@@ -83,6 +102,22 @@ const CreatePlaylistModal = () => {
           {...register("title", { required: true })}
           placeholder="Playlist title"
         />
+        <Input
+          id="description"
+          disabled={isLoading}
+          {...register("description", { required: true })}
+          placeholder="How would you describe this playlist?"
+        />
+        <div>
+          <div className="pb-1">Select a cover image for your playlist</div>
+          <Input
+            id="image"
+            type="file"
+            disabled={isLoading}
+            accept="image/*"
+            {...register("image", { required: true })}
+          />
+        </div>
         <Button disabled={isLoading} type="submit">
           Create
         </Button>

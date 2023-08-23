@@ -12,6 +12,7 @@ import { Playlist, Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
 import { twMerge } from "tailwind-merge";
 import Playlists from "./Playlists";
+import { useRouter } from "next/navigation";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -41,6 +42,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs, playlists }) => {
     ],
     [pathname]
   );
+
+  const router = useRouter();
+
+  const handlePlaylistClick = async (playlistId: string) => {
+    router.push(`/playlists/${playlistId}`);
+  };
 
   return (
     <div

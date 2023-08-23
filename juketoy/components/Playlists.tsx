@@ -13,6 +13,8 @@ import {
   TbChevronUp,
 } from "react-icons/tb";
 import AddItem from "./SidebarAddItem";
+import PlaylistItem from "./PlaylistItem";
+import { useRouter } from "next/navigation";
 
 interface PlaylistsProps {
   playlists: Playlist[];
@@ -22,6 +24,7 @@ const Playlists: React.FC<PlaylistsProps> = ({ playlists }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
+  const router = useRouter();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -61,15 +64,11 @@ const Playlists: React.FC<PlaylistsProps> = ({ playlists }) => {
           <>
             <AddItem isPlaylist={true} />
             {/* Render your playlist content here */}
-            {/* For example: */}
-            {playlists.map((playlist) => {
-              console.log(playlist); // Debug log to check playlist object
-              return (
-                <div key={playlist.id} className="py-2">
-                  {playlist.title}
-                </div>
-              );
-            })}
+            {playlists.map((playlist) => (
+              <div key={playlist.id} className="py-2">
+                <PlaylistItem playlist={playlist} onClick={() => {}} />
+              </div>
+            ))}
           </>
         )}
       </div>

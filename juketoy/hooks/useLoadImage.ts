@@ -1,7 +1,7 @@
-import { Song } from "@/types";
+import { Playlist, Song } from "@/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-const useLoadImage = (song: Song) => {
+const useLoadImage = (song: Song | Playlist) => {
   const supabaseClient = useSupabaseClient();
 
   if (!song) {

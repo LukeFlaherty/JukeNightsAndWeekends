@@ -14,6 +14,8 @@ export interface Playlist {
   id: string;
   title: string;
   author: string;
+  description: string;
+  image_path: string;
   songs: Song[];
 }
 
