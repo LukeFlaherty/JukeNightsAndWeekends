@@ -9,22 +9,31 @@ import { TbMenu2, TbChevronDown, TbChevronUp } from "react-icons/tb";
 import { useUser } from "@/hooks/useUser";
 import AddItem from "./SidebarAddItem";
 
+import useDeleteSong from "@/hooks/useDeleteSong";
+
 interface LibraryProps {
-  songs: Song[];
+  initialSongs: Song[];
 }
 
-const Library: React.FC<LibraryProps> = ({ songs }) => {
+const Library: React.FC<LibraryProps> = ({ initialSongs }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
+  const { deleteSong } = useDeleteSong();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [songs, setSongs] = useState<Song[]>(initialSongs);
 
   const onClick = () => {
     if (!user) {
       return authModal.onOpen();
     }
     setIsSidebarOpen(!isSidebarOpen); // Toggle the sidebar open/close state
+  };
+
+  const handleSongDeletion = async (songId: string) => {
+    await deleteSong(songId); // This is your deletion function
+    setSongs((prevSongs) => prevSongs.filter((song) => song.id !== songId));
   };
 
   return (
@@ -53,7 +62,11 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
           <>
             <AddItem isPlaylist={false} />
             {songs.map((song) => (
-              <LibraryItem key={song.id} song={song} />
+              <LibraryItem
+                key={song.id}
+                song={song}
+                onDelete={handleSongDeletion}
+              />
             ))}
           </>
         )}
