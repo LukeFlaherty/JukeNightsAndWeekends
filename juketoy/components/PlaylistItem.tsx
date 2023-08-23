@@ -20,7 +20,9 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist, onClick }) => {
     }
   };
 
-  return <MediaItem onClick={handleClick} data={playlist} />;
+  return (
+    <MediaItem onClick={handleClick} data={playlist} onDelete={() => {}} />
+  );
 };
 
 export default PlaylistItem;

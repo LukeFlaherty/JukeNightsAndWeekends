@@ -26,6 +26,8 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+  const isSong = "song_path" in data;
+
   const handleClick = () => {
     if (onClick) {
       return onClick(data.id);
@@ -100,40 +102,40 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
         <p className="text-mainBrandColor truncate">{data.title}</p>
         <p className="text-white text-sm truncate">{data.author}</p>
       </div>
-      <div className="relative">
-        {" "}
-        {/* Wrap the ellipsis and dropdown in a relative div */}
-        <FaEllipsisV
-          onClick={handleEllipsisClick}
-          className="text-mainBrandColor cursor-pointer hover:text-white transform transition-transform duration-300 hover:scale-110"
-        />
-        {isDropdownVisible && (
-          <div
-            ref={dropdownRef}
-            className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10" // Style as needed
-          >
+      {isSong && (
+        <div className="relative">
+          <FaEllipsisV
+            onClick={handleEllipsisClick}
+            className="text-mainBrandColor cursor-pointer hover:text-white transform transition-transform duration-300 hover:scale-110"
+          />
+          {isDropdownVisible && (
             <div
-              // onClick={addToPlaylist}
-              onClick={() => {}}
-              className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"
+              ref={dropdownRef}
+              className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10" // Style as needed
             >
-              Add to Playlist
-            </div>
-
-            {/* This render is only condiiontal on showing delete song if it is owned by the current user */}
-            {/* but since it is in the library, than it is by default. */}
-            {/* add a uploaderId, in the future if songs that dont belong to the user can end up in the library */}
-            {user && (
               <div
-                onClick={handleDeleteSong}
+                // onClick={addToPlaylist}
+                onClick={() => {}}
                 className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"
               >
-                Delete Song
+                Add to Playlist
               </div>
-            )}
-          </div>
-        )}
-      </div>
+
+              {/* This render is only condiiontal on showing delete song if it is owned by the current user */}
+              {/* but since it is in the library, than it is by default. */}
+              {/* add a uploaderId, in the future if songs that dont belong to the user can end up in the library */}
+              {user && (
+                <div
+                  onClick={handleDeleteSong}
+                  className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"
+                >
+                  Delete Song
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

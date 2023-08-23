@@ -36,6 +36,12 @@ const Library: React.FC<LibraryProps> = ({ initialSongs }) => {
     setSongs((prevSongs) => prevSongs.filter((song) => song.id !== songId));
   };
 
+  // TODO: Make this work so the library is updates automatically when a new song is added
+  //   const handleSongAdded = (newSong) => {
+  //     // Add the newly uploaded song to the existing list
+  //     setSongs(prevSongs => [...prevSongs, newSong]);
+  //  };
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between px-5">

@@ -16,9 +16,14 @@ import useSound from "use-sound";
 interface PlayerContentProps {
   song: Song;
   songUrl: string;
+  onDeleteSong: (id: string) => void;
 }
 
-const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
+const PlayerContent: React.FC<PlayerContentProps> = ({
+  song,
+  songUrl,
+  onDeleteSong,
+}) => {
   const player = usePlayer();
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -94,7 +99,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     <div className="grid grid-cols-2 md:grid-cols-3 h-full">
       <div className="flex w-full justify-start">
         <div className="flex items-center gap-x-4">
-          <MediaItem data={song} />
+          <MediaItem data={song} onDelete={onDeleteSong} />
           <LikeButton songId={song.id} />
         </div>
       </div>
