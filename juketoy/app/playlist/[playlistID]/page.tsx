@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Image from "next/image";
 
 // You'll need a function to get the playlist based on its ID
-import getPlaylistById from "@/actions/getPlaylistById";
 
 const PlaylistPage = () => {
   const router = useRouter();
