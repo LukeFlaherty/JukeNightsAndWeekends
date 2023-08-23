@@ -68,6 +68,7 @@ const CreatePlaylistModal = () => {
           title: values.title,
           description: values.description,
           image_path: imageData.path,
+          author: user.user_metadata.full_name,
           // Add additional properties if needed
         });
 

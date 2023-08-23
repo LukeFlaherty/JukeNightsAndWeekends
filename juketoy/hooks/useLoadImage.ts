@@ -1,16 +1,16 @@
 import { Playlist, Song } from "@/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-const useLoadImage = (song: Song | Playlist) => {
+const useLoadImage = (data: Song | Playlist) => {
   const supabaseClient = useSupabaseClient();
 
-  if (!song) {
+  if (!data) {
     return null;
   }
 
   const { data: imageData } = supabaseClient.storage
     .from("images")
-    .getPublicUrl(song.image_path);
+    .getPublicUrl(data.image_path);
 
   return imageData.publicUrl;
 };

@@ -36,6 +36,10 @@ const Playlists: React.FC<PlaylistsProps> = ({ playlists }) => {
     setIsSidebarOpen(!isSidebarOpen); // Toggle the sidebar open/close state
   };
 
+  const handlePlaylistClick = (playlistId: string) => {
+    router.push(`/playlist/${playlistId}`);
+  };
+
   return (
     <div className="flex flex-col pt-4">
       <div className="flex items-center justify-between px-5">
@@ -66,7 +70,10 @@ const Playlists: React.FC<PlaylistsProps> = ({ playlists }) => {
             {/* Render your playlist content here */}
             {playlists.map((playlist) => (
               <div key={playlist.id} className="py-2">
-                <PlaylistItem playlist={playlist} onClick={() => {}} />
+                <PlaylistItem
+                  playlist={playlist}
+                  onClick={() => handlePlaylistClick(playlist.id)}
+                />
               </div>
             ))}
           </>
