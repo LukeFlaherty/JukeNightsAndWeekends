@@ -3,7 +3,9 @@
 import React from "react";
 import Modal from "./Modal";
 import { Playlist } from "@/types";
-import useGetPlaylistsByUserId from "@/hooks/useGetPlaylistsByUserId";
+import PlaylistItem from "./PlaylistItem"; // Import the PlaylistItem component
+import { useRouter } from "next/navigation";
+import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
 
 interface SelectPlaylistModalProps {
   isOpen: boolean;
@@ -18,22 +20,34 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
   onPlaylistSelected,
   playlists,
 }) => {
+  const router = useRouter();
+
+  const handlePlaylistClick = (playlistId: string) => {
+    console.log("Im here in handlePlaylistClick");
+    onClose();
+    router.push(`/playlist/${playlistId}`);
+  };
+
+  const onChange = (open: boolean) => {
+    if (!open) {
+      onClose();
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
-      onChange={(open) => {
-        if (!open) onClose();
-      }}
+      onChange={onChange}
       title="Add to Playlist"
       description="Select a playlist to add the song to:"
     >
       {playlists.map((playlist) => (
-        <div
-          key={playlist.id}
-          onClick={() => onPlaylistSelected(playlist.id)}
-          className="cursor-pointer hover:bg-gray-200 p-2 rounded" // Add your styles here
-        >
-          {playlist.title}
+        <div key={playlist.id} className="mb-4">
+          <PlaylistItem
+            playlist={playlist}
+            onClick={handlePlaylistClick}
+            playlists={playlists}
+          />
         </div>
       ))}
     </Modal>

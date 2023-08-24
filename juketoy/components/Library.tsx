@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Song } from "@/types";
+import { Playlist, Song } from "@/types";
 import LibraryItem from "./LibraryItem";
 import useAuthModal from "@/hooks/useAuthModal";
 import useUploadModal from "@/hooks/useUploadModal";
@@ -13,9 +13,10 @@ import useDeleteSong from "@/hooks/useDeleteSong";
 
 interface LibraryProps {
   initialSongs: Song[];
+  playlists: Playlist[];
 }
 
-const Library: React.FC<LibraryProps> = ({ initialSongs }) => {
+const Library: React.FC<LibraryProps> = ({ initialSongs, playlists }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const { user } = useUser();
@@ -36,11 +37,10 @@ const Library: React.FC<LibraryProps> = ({ initialSongs }) => {
     setSongs((prevSongs) => prevSongs.filter((song) => song.id !== songId));
   };
 
-  // TODO: Make this work so the library is updates automatically when a new song is added
-  //   const handleSongAdded = (newSong) => {
-  //     // Add the newly uploaded song to the existing list
-  //     setSongs(prevSongs => [...prevSongs, newSong]);
-  //  };
+  // TODO: Implement logic here and drag down through componenets
+  // const handleSongAddedToPlaylist = async (songId: string, playlistId: string) => {
+  //   await addSongToPlaylist(songId, playlistId);
+  // };
 
   return (
     <div className="flex flex-col">
@@ -72,6 +72,7 @@ const Library: React.FC<LibraryProps> = ({ initialSongs }) => {
                 key={song.id}
                 song={song}
                 onDelete={handleSongDeletion}
+                playlists={playlists}
               />
             ))}
           </>

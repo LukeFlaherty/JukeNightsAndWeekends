@@ -7,9 +7,16 @@ import useLoadImage from "@/hooks/useLoadImage";
 interface PlaylistItemProps {
   playlist: Playlist;
   onClick?: (id: string) => void;
+  playlists: Playlist[];
 }
 
-const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist, onClick }) => {
+// needs both becuase this item sends us to the playlists dynamic page
+
+const PlaylistItem: React.FC<PlaylistItemProps> = ({
+  playlist,
+  onClick,
+  playlists,
+}) => {
   const { id, title, author, songs, image_path } = playlist;
 
   const imageUrl = useLoadImage(playlist);
@@ -21,7 +28,12 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist, onClick }) => {
   };
 
   return (
-    <MediaItem onClick={handleClick} data={playlist} onDelete={() => {}} />
+    <MediaItem
+      onClick={handleClick}
+      data={playlist}
+      onDelete={() => {}}
+      playlists={playlists}
+    />
   );
 };
 

@@ -73,6 +73,7 @@ const Playlists: React.FC<PlaylistsProps> = ({ playlists }) => {
                 <PlaylistItem
                   playlist={playlist}
                   onClick={() => handlePlaylistClick(playlist.id)}
+                  playlists={playlists}
                 />
               </div>
             ))}

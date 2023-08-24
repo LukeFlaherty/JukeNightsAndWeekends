@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs, playlists }) => {
               <SidebarItem key={item.label} {...item} />
             ))}
           </div>
-          <Library initialSongs={songs} />
+          <Library initialSongs={songs} playlists={playlists} />
           <Playlists playlists={playlists} />
         </Box>
       </div>

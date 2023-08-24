@@ -1,15 +1,20 @@
 "use client";
 
-import { Song } from "@/types";
+import { Playlist, Song } from "@/types";
 import MediaItem from "./MediaItem";
 import useOnPlay from "@/hooks/useOnPlay";
 
 interface LibraryItemProps {
   song: Song;
   onDelete: (songId: string) => void;
+  playlists: Playlist[];
 }
 
-const LibraryItem: React.FC<LibraryItemProps> = ({ song, onDelete }) => {
+const LibraryItem: React.FC<LibraryItemProps> = ({
+  song,
+  onDelete,
+  playlists,
+}) => {
   const onPlay = useOnPlay([song]);
 
   return (
@@ -18,6 +23,7 @@ const LibraryItem: React.FC<LibraryItemProps> = ({ song, onDelete }) => {
       key={song.id}
       data={song}
       onDelete={onDelete}
+      playlists={playlists}
     />
   );
 };

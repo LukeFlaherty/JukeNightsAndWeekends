@@ -35,7 +35,7 @@ export default async function RootLayout({
         <ToasterProvider />
         <SupabaseProvider>
           <UserProvider>
-            <ModalProvider products={products} />
+            <ModalProvider products={products} playlists={userPlaylists} />
             <Sidebar songs={userSongs} playlists={userPlaylists}>
               {children}
             </Sidebar>

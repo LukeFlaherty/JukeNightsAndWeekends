@@ -10,16 +10,23 @@ import usePlayer from "@/hooks/usePlayer";
 import { useUser } from "@/hooks/useUser";
 import useDeleteSong from "@/hooks/useDeleteSong";
 import { on } from "events";
-import useGetPlaylistsByUserId from "@/hooks/useGetPlaylistsByUserId";
 import SelectPlaylistModal from "./SelectPlaylistModal";
+
+import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
 
 interface MediaItemProps {
   data: Song | Playlist;
   onClick?: (id: string) => void;
   onDelete: (songId: string) => void;
+  playlists: Playlist[];
 }
 
-const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
+const MediaItem: React.FC<MediaItemProps> = ({
+  data,
+  onClick,
+  onDelete,
+  playlists,
+}) => {
   const player = usePlayer();
   const imageUrl = useLoadImage(data);
   const { user } = useUser();
@@ -28,13 +35,14 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const { playlists, isLoading } = useGetPlaylistsByUserId();
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const { isOpen, onOpen, onClose } = useSelectPlaylistModal();
+  const selectPlaylistModal = useSelectPlaylistModal();
 
-  console.log("PLAYLISTS:", playlists);
+  console.log("PLAYLISTS from MediaItem:", playlists);
 
   const isSong = "song_path" in data;
 
+  // makes it play a song on the click of the media item
   const handleClick = () => {
     if (onClick) {
       return onClick(data.id);
@@ -66,13 +74,6 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
 
     await deleteSong(data.id);
     if (!error) {
-      // Check if the song being deleted is the one currently playing
-      // maybe useless code
-      if (player.activeId === data.id) {
-        // Stop or reset the player
-        player.reset; // Assuming you have a method named stop. Replace this with the correct method if different.
-      }
-
       // Remove song from UI
       onDelete(data.id);
     } else {
@@ -85,14 +86,15 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
     event.stopPropagation(); // <-- This will prevent the handleClick on the parent div
-    setModalOpen(true);
+    selectPlaylistModal.onOpen();
+    // setDropdownVisible(false);
   };
 
   // Generate a hook for this:
   const handleAddSongToPlaylist = (playlistId: string) => {
     // Add your logic to add song to playlist using playlistId and data.id
     console.log(`Adding song ${data.id} to playlist ${playlistId}`);
-    setModalOpen(false);
+    selectPlaylistModal.onClose();
   };
 
   useEffect(() => {
@@ -137,22 +139,18 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, onClick, onDelete }) => {
               className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10" // Style as needed
             >
               <div
-                // onClick={addToPlaylist}
                 onClick={handleAddToPlaylistClick}
                 className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"
               >
                 Add to Playlist
               </div>
-              {isLoading ? (
-                <p>Loading...</p>
-              ) : (
-                <SelectPlaylistModal
-                  isOpen={isModalOpen}
-                  onClose={() => setModalOpen(false)}
-                  onPlaylistSelected={() => {}}
-                  playlists={playlists || []}
-                />
-              )}
+
+              <SelectPlaylistModal
+                isOpen={selectPlaylistModal.isOpen}
+                onClose={selectPlaylistModal.onClose}
+                onPlaylistSelected={handleAddSongToPlaylist}
+                playlists={playlists}
+              />
 
               {/* This render is only condiiontal on showing delete song if it is owned by the current user */}
               {/* but since it is in the library, than it is by default. */}

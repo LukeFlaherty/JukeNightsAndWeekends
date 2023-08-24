@@ -1,45 +1,42 @@
+import { useState } from "react";
 import { Playlist } from "@/types";
-import { useSessionContext } from "@supabase/auth-helpers-react";
-import { useEffect, useMemo, useState } from "react";
-import toast from "react-hot-toast";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
-const useGetPlaylistsByUserId = (userId?: string) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [playlists, setPlaylists] = useState<Playlist[] | undefined>(undefined);
-  const { supabaseClient } = useSessionContext();
+const useGetPlaylistsByUserId = () => {
+  const [playlists, setPlaylists] = useState<Playlist[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const supabaseClient = useSupabaseClient();
 
-  useEffect(() => {
-    if (!userId) {
-      return;
-    }
+  const fetchPlaylists = async (userId: string) => {
+    setLoading(true);
+    setError(null);
 
-    setIsLoading(true);
-
-    const fetchPlaylists = async () => {
+    try {
       const { data, error } = await supabaseClient
         .from("playlists")
         .select("*")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false });
+        .eq("user_id", userId);
 
       if (error) {
-        setIsLoading(false);
-        return toast.error(error.message);
+        throw error;
       }
 
-      setPlaylists(data as Playlist[]);
-      setIsLoading(false);
-    };
-    fetchPlaylists();
-  }, [userId, supabaseClient]);
+      if (data) {
+        setPlaylists(data as Playlist[]);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  return useMemo(
-    () => ({
-      isLoading,
-      playlists,
-    }),
-    [isLoading, playlists]
-  );
+  return { fetchPlaylists, playlists, loading, error };
 };
 
 export default useGetPlaylistsByUserId;
