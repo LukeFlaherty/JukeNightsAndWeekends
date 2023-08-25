@@ -38,7 +38,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
   // const { isOpen, onOpen, onClose } = useSelectPlaylistModal();
   const selectPlaylistModal = useSelectPlaylistModal();
 
-  console.log("PLAYLISTS from MediaItem:", playlists);
+  // console.log("PLAYLISTS from MediaItem:", playlists);
 
   const isSong = "song_path" in data;
 
@@ -88,13 +88,6 @@ const MediaItem: React.FC<MediaItemProps> = ({
     event.stopPropagation(); // <-- This will prevent the handleClick on the parent div
     selectPlaylistModal.onOpen();
     // setDropdownVisible(false);
-  };
-
-  // Generate a hook for this:
-  const handleAddSongToPlaylist = (playlistId: string) => {
-    // Add your logic to add song to playlist using playlistId and data.id
-    console.log(`Adding song ${data.id} to playlist ${playlistId}`);
-    selectPlaylistModal.onClose();
   };
 
   useEffect(() => {
@@ -148,8 +141,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
               <SelectPlaylistModal
                 isOpen={selectPlaylistModal.isOpen}
                 onClose={selectPlaylistModal.onClose}
-                onPlaylistSelected={handleAddSongToPlaylist}
+                onPlaylistSelected={onClick}
                 playlists={playlists}
+                songId={data.id}
               />
 
               {/* This render is only condiiontal on showing delete song if it is owned by the current user */}

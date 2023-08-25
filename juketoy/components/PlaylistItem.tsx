@@ -21,15 +21,15 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({
 
   const imageUrl = useLoadImage(playlist);
 
-  const handleClick = () => {
-    if (onClick) {
-      onClick(id);
-    }
-  };
+  // const handleClick = () => {
+  //   if (onClick) {
+  //     onClick(id);
+  //   }
+  // };
 
   return (
     <MediaItem
-      onClick={handleClick}
+      onClick={onClick}
       data={playlist}
       onDelete={() => {}}
       playlists={playlists}

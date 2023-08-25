@@ -6,12 +6,16 @@ import { Playlist } from "@/types";
 import PlaylistItem from "./PlaylistItem"; // Import the PlaylistItem component
 import { useRouter } from "next/navigation";
 import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
+import { useSessionContext } from "@supabase/auth-helpers-react";
+import { useUser } from "@/hooks/useUser";
+import { toast } from "react-hot-toast";
 
 interface SelectPlaylistModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onPlaylistSelected: (playlistId: string) => void;
+  onPlaylistSelected?: (playlistId: string) => void;
   playlists: Playlist[];
+  songId: string;
 }
 
 const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
@@ -19,13 +23,28 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
   onClose,
   onPlaylistSelected,
   playlists,
+  songId,
 }) => {
   const router = useRouter();
+  const { supabaseClient } = useSessionContext();
+  const user = useUser();
 
-  const handlePlaylistClick = (playlistId: string) => {
+  const handlePlaylistClick = async (playlistId: string) => {
     console.log("Im here in handlePlaylistClick");
-    onClose();
-    router.push(`/playlist/${playlistId}`);
+    console.log("playlistId:", playlistId);
+    console.log("songId:", songId);
+    const { error } = await supabaseClient.from("playlist_songs").insert({
+      song_id: songId,
+      playlist_id: playlistId,
+    });
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      onClose();
+      router.push(`/playlist/${playlistId}`);
+      toast.success(`Added to playlist! ${playlistId}`);
+    }
   };
 
   const onChange = (open: boolean) => {
