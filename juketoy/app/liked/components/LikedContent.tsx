@@ -49,6 +49,7 @@ const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
               onClick={(id: string) => onPlay(id)}
               data={song}
               onDelete={() => {}}
+              playlists={[]}
             />
           </div>
           <LikeButton songId={song.id} />

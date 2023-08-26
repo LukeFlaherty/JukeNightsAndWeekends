@@ -27,6 +27,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs }) => {
               onClick={(id: string) => onPlay(id)}
               data={song}
               onDelete={() => {}}
+              playlists={[]}
             />
           </div>
           <LikeButton songId={song.id} />

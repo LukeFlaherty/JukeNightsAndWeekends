@@ -18,7 +18,7 @@ interface MediaItemProps {
   data: Song | Playlist;
   onClick?: (id: string) => void;
   onDelete: (songId: string) => void;
-  playlists: Playlist[];
+  playlists?: Playlist[];
 }
 
 const MediaItem: React.FC<MediaItemProps> = ({
@@ -138,13 +138,15 @@ const MediaItem: React.FC<MediaItemProps> = ({
                 Add to Playlist
               </div>
 
-              <SelectPlaylistModal
-                isOpen={selectPlaylistModal.isOpen}
-                onClose={selectPlaylistModal.onClose}
-                playlists={playlists}
-                songs={[data]}
-                songId={data.id}
-              />
+              {playlists && (
+                <SelectPlaylistModal
+                  isOpen={selectPlaylistModal.isOpen}
+                  onClose={selectPlaylistModal.onClose}
+                  playlists={playlists}
+                  songs={[data]}
+                  songId={data.id}
+                />
+              )}
 
               {/* This render is only condiiontal on showing delete song if it is owned by the current user */}
               {/* but since it is in the library, than it is by default. */}
