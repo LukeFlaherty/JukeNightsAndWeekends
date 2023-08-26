@@ -141,8 +141,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
               <SelectPlaylistModal
                 isOpen={selectPlaylistModal.isOpen}
                 onClose={selectPlaylistModal.onClose}
-                onPlaylistSelected={onClick}
                 playlists={playlists}
+                songs={[data]}
                 songId={data.id}
               />
 

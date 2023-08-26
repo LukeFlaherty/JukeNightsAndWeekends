@@ -2,7 +2,7 @@
 
 import React from "react";
 import Modal from "./Modal";
-import { Playlist } from "@/types";
+import { Playlist, Song } from "@/types";
 import PlaylistItem from "./PlaylistItem"; // Import the PlaylistItem component
 import { useRouter } from "next/navigation";
 import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
@@ -13,29 +13,37 @@ import { toast } from "react-hot-toast";
 interface SelectPlaylistModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onPlaylistSelected?: (playlistId: string) => void;
   playlists: Playlist[];
-  songId: string;
+  songs: Song[];
+  songId?: string;
 }
 
 const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
   isOpen,
   onClose,
-  onPlaylistSelected,
   playlists,
+  songs,
   songId,
 }) => {
   const router = useRouter();
   const { supabaseClient } = useSessionContext();
   const user = useUser();
+  console.log("songId: in Modal", songId);
+
+  const getSongId = (songs: Song[]) => {
+    return songs[0].id;
+  };
+
+  // const songId = getSongId(songs);
 
   // suppossed to add a song into the database
   const handlePlaylistClick = async (playlistId: string) => {
     console.log("Im here in handlePlaylistClick");
     console.log("playlistId:", playlistId);
     console.log("songId:", songId);
+    console.log("songs:", songs);
     const { error } = await supabaseClient.from("playlist_songs").insert({
-      song_id: songId,
+      song_id: songs[0].id,
       playlist_id: playlistId,
     });
 
@@ -44,7 +52,7 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
     } else {
       onClose();
       router.push(`/playlist/${playlistId}`);
-      toast.success(`Added to playlist! ${playlistId}`);
+      toast.success(`Added ${songId} to playlist! ${playlistId}`);
     }
   };
 
