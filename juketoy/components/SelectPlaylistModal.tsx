@@ -29,6 +29,7 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
   const { supabaseClient } = useSessionContext();
   const user = useUser();
 
+  // suppossed to add a song into the database
   const handlePlaylistClick = async (playlistId: string) => {
     console.log("Im here in handlePlaylistClick");
     console.log("playlistId:", playlistId);

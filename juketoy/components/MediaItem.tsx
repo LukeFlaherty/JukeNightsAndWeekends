@@ -85,9 +85,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
   const handleAddToPlaylistClick = async (
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => {
+    handleEllipsisClick(event);
     event.stopPropagation(); // <-- This will prevent the handleClick on the parent div
     selectPlaylistModal.onOpen();
-    // setDropdownVisible(false);
   };
 
   useEffect(() => {
