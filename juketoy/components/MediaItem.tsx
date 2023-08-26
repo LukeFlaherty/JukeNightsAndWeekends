@@ -87,7 +87,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
   ) => {
     handleEllipsisClick(event);
     event.stopPropagation(); // <-- This will prevent the handleClick on the parent div
-    selectPlaylistModal.onOpen();
+    selectPlaylistModal.onOpen(data.id);
   };
 
   useEffect(() => {

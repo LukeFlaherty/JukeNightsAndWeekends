@@ -43,7 +43,7 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
     console.log("songId:", songId);
     console.log("songs:", songs);
     const { error } = await supabaseClient.from("playlist_songs").insert({
-      song_id: songs[0].id,
+      song_id: songId,
       playlist_id: playlistId,
     });
 
