@@ -28,7 +28,6 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
   const router = useRouter();
   const { supabaseClient } = useSessionContext();
   const user = useUser();
-  console.log("songId: in Modal", songId);
 
   const getSongId = (songs: Song[]) => {
     return songs[0].id;
@@ -38,10 +37,6 @@ const SelectPlaylistModal: React.FC<SelectPlaylistModalProps> = ({
 
   // suppossed to add a song into the database
   const handlePlaylistClick = async (playlistId: string) => {
-    console.log("Im here in handlePlaylistClick");
-    console.log("playlistId:", playlistId);
-    console.log("songId:", songId);
-    console.log("songs:", songs);
     const { error } = await supabaseClient.from("playlist_songs").insert({
       song_id: songId,
       playlist_id: playlistId,

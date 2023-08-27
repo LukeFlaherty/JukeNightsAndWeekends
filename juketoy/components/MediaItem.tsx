@@ -38,8 +38,6 @@ const MediaItem: React.FC<MediaItemProps> = ({
   // const { isOpen, onOpen, onClose } = useSelectPlaylistModal();
   const selectPlaylistModal = useSelectPlaylistModal();
 
-  // console.log("PLAYLISTS from MediaItem:", playlists);
-
   const isSong = "song_path" in data;
 
   // makes it play a song on the click of the media item

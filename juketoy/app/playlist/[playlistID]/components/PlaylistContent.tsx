@@ -25,6 +25,8 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
     }
   }, [isLoading, user, router]);
 
+  console.log("songs", songs);
+
   if (songs.length === 0) {
     return (
       <div

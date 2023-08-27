@@ -3,6 +3,8 @@ import { FC } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import useLoadImage from "@/hooks/useLoadImage";
+import PlaylistContent from "./components/PlaylistContent";
+import { get } from "http";
 
 interface pageProps {
   params: { playlistID: string };
@@ -10,6 +12,8 @@ interface pageProps {
 
 const playlistPage: FC<pageProps> = async ({ params }) => {
   const playlist = await getPlaylistDetails(params.playlistID);
+  const playlistSongs = await getPlaylistDetails(params.playlistID);
+  console.log("playlist", playlist);
   // TODO : make image work using useLoadImage
   const imagePath = playlist?.image_path.startsWith("http")
     ? playlist.image_path
@@ -40,6 +44,7 @@ const playlistPage: FC<pageProps> = async ({ params }) => {
         </div>
       </Header>
       {/* <LikedContent songs={songs} /> */}
+      <PlaylistContent songs={playlist?.songs || []} />
     </div>
   );
 };
