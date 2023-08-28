@@ -9,8 +9,6 @@ const getPlaylistDetails = async (
     cookies: cookies,
   });
 
-  console.log("Fetching playlist with ID:", playlistId);
-
   const { data, error } = await supabase
     .from("playlists")
     .select("*")

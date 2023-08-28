@@ -19,7 +19,7 @@ const playlistPage: FC<pageProps> = async ({ params }) => {
   const imagePath = playlist?.image_path.startsWith("http")
     ? playlist.image_path
     : "/images/liked.png";
-  console.log("ERROR:", playlist?.image_path);
+  // console.log("ERROR:", playlist?.image_path);
   console.log("got playlist songs", playlistSongs);
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">

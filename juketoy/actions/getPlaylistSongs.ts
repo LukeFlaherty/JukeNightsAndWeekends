@@ -1,4 +1,3 @@
-// actions/getPlaylistSongs.ts
 import { Song } from "@/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -17,8 +16,12 @@ const getPlaylistSongs = async (playlistId: string): Promise<Song[] | null> => {
 
   if (error || !data) return null;
 
+  console.log("ERROR NEW: ", error);
+  console.log("DATA NEW: ", data);
+
   // Fetch song details for each song id
   const songIds = data.map((item) => item.song_id);
+  console.log("Fetching song details for song IDs:", songIds);
 
   const { data: songData, error: songError } = await supabase
     .from("songs")
