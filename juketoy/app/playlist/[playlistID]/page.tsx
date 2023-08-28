@@ -14,13 +14,13 @@ interface pageProps {
 const playlistPage: FC<pageProps> = async ({ params }) => {
   const playlist = await getPlaylistDetails(params.playlistID);
   const playlistSongs = await getPlaylistSongs(params.playlistID); // New line
-  console.log("playlist", playlist);
+  // console.log("playlist", playlist);
   // TODO : make image work using useLoadImage
   const imagePath = playlist?.image_path.startsWith("http")
     ? playlist.image_path
     : "/images/liked.png";
   // console.log("ERROR:", playlist?.image_path);
-  console.log("got playlist songs", playlistSongs);
+  // console.log("got playlist songs", playlistSongs);
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">
       <Header>

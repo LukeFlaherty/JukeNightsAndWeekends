@@ -8,15 +8,17 @@ import { useUser } from "@/hooks/useUser";
 import MediaItem from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
+import DeleteButton from "./DeleteButton";
 
 interface PlaylistContentProps {
   songs: Song[];
 }
 
+const SHOW_DUPLICATES = true; // Toggle this to show/hide duplicate songs
+
 const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
   const router = useRouter();
   const { isLoading, user } = useUser();
-
   const onPlay = useOnPlay(songs);
 
   useEffect(() => {
@@ -25,9 +27,18 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
     }
   }, [isLoading, user, router]);
 
-  console.log("songs", songs);
+  let displaySongs = songs;
 
-  if (songs.length === 0) {
+  if (!SHOW_DUPLICATES) {
+    const seenSongs = new Set();
+    displaySongs = songs.filter((song) => {
+      const duplicate = seenSongs.has(song.id);
+      seenSongs.add(song.id);
+      return !duplicate;
+    });
+  }
+
+  if (displaySongs.length === 0) {
     return (
       <div
         className="
@@ -44,8 +55,11 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
   }
   return (
     <div className="flex flex-col gap-y-2 w-full p-6">
-      {songs.map((song) => (
-        <div key={song.id} className="flex items-center gap-x-4 w-full">
+      {displaySongs.map((song, index) => (
+        <div
+          key={`${song.id}-${index}`}
+          className="flex items-center gap-x-4 w-full"
+        >
           <div className="flex-1">
             <MediaItem
               onClick={(id: string) => onPlay(id)}
@@ -55,6 +69,7 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
             />
           </div>
           <LikeButton songId={song.id} />
+          <DeleteButton playlistSongId={song.id} />
         </div>
       ))}
     </div>
