@@ -7,30 +7,25 @@ const getPlaylistSongs = async (playlistId: string): Promise<Song[] | null> => {
     cookies: cookies,
   });
 
-  console.log("Fetching songs for playlist with ID:", playlistId);
-
-  const { data, error } = await supabase
+  const { data: playlistSongsData, error: playlistSongsError } = await supabase
     .from("playlist_songs")
     .select("*")
     .eq("playlist_id", playlistId);
 
-  if (error || !data) return null;
+  if (playlistSongsError || !playlistSongsData) return null;
 
-  console.log("ERROR NEW: ", error);
-  console.log("DATA NEW: ", data);
+  const songPromises = playlistSongsData.map(async (playlistSongEntry) => {
+    const { data: songData, error: songError } = await supabase
+      .from("songs")
+      .select("*")
+      .eq("id", playlistSongEntry.song_id);
 
-  // Fetch song details for each song id
-  const songIds = data.map((item) => item.song_id);
-  console.log("Fetching song details for song IDs:", songIds);
+    if (songError || !songData) return null;
+    return songData[0]; // Since each ID will correspond to a unique song, we take the first entry.
+  });
 
-  const { data: songData, error: songError } = await supabase
-    .from("songs")
-    .select("*")
-    .in("id", songIds);
-
-  if (songError || !songData) return null;
-
-  return songData as Song[];
+  const songs = await Promise.all(songPromises);
+  return songs.filter((song) => song !== null) as Song[];
 };
 
 export default getPlaylistSongs;
