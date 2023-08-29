@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
+import { FaMusic } from "react-icons/fa"; // <-- Importing an icon for Artists, you can change this
 
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
@@ -22,8 +23,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ children, songs, playlists }) => {
   const pathname = usePathname();
-
   const player = usePlayer();
+  const router = useRouter();
 
   const routes = useMemo(
     () => [
@@ -39,11 +40,16 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs, playlists }) => {
         active: pathname === "/search",
         href: "/search",
       },
+      // Adding the Artists navigation link
+      {
+        icon: FaMusic,
+        label: "Artists",
+        active: pathname.startsWith("/artists"),
+        href: "/artists",
+      },
     ],
     [pathname]
   );
-
-  const router = useRouter();
 
   const handlePlaylistClick = async (playlistId: string) => {
     router.push(`/playlists/${playlistId}`);
