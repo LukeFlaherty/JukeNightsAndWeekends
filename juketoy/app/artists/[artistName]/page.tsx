@@ -4,6 +4,7 @@ import ArtistContent from "../[artistName]/components/ArtistContent";
 import { Song } from "@/types";
 import getArtistDetails from "@/actions/getArtistDetails";
 import getArtistSongs from "@/actions/getArtistSongs";
+import getAllArtists from "@/actions/getAllArtists";
 
 interface ArtistDetailProps {
   params: { artistID: string };
@@ -14,6 +15,9 @@ const ArtistDetail: FC<ArtistDetailProps> = async ({ params }) => {
   // artist name, description, profile_image, uuid
   const artistSongs = await getArtistSongs(params.artistID);
   // artistID: uuid, songId, title, duration, url, album, artist, albumImage
+  const artists = (await getAllArtists()) || [];
+
+  console.log("WHATEVER THIS IS:", params.artistID);
 
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">
