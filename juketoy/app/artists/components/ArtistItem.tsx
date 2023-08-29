@@ -1,17 +1,26 @@
 "use client";
+import useLoadArtistImage from "@/hooks/useLoadArtistImage";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface ArtistItemProps {
   artistName: string;
+  artistImagePath: string;
 }
 
-const ArtistItem: React.FC<ArtistItemProps> = ({ artistName }) => {
+const ArtistItem: React.FC<ArtistItemProps> = ({
+  artistName,
+  artistImagePath,
+}) => {
   const router = useRouter();
+  const artistImageUrl = useLoadArtistImage(artistImagePath);
 
   const handleArtistClick = () => {
     router.push(`/artists/${artistName}`);
   };
+
+  console.log("ARTIST NAME", artistName);
+  console.log("ARTIST IMAGE PATH", artistImagePath);
 
   return (
     <div
@@ -21,11 +30,13 @@ const ArtistItem: React.FC<ArtistItemProps> = ({ artistName }) => {
       <div className="relative aspect-square w-full h-full rounded-md overflow-hidden">
         <Image
           className="object-cover"
-          src="/path_to_default_artist_image.png" // This can be updated with dynamic paths for artist images
+          src={artistImageUrl || "public/images/liked.png"} // Use the local image if artistImageUrl is null
           fill
           alt={artistName}
         />
+        {artistName}
       </div>
+
       <div className="flex flex-col items-start w-full pt-4 gap-y-1">
         <p className="font-semibold truncate w-full text-mainBrandColor">
           {artistName}

@@ -10,6 +10,14 @@ export interface Song {
   image_path: string;
 }
 
+export interface Artist {
+  artist_id: string;
+  name: string;
+  bio: string;
+  profile_image_path: string;
+  songs: Song[];
+}
+
 export interface Playlist {
   id: string;
   title: string;
