@@ -37,13 +37,13 @@ const ArtistDetail: FC<pageProps> = async ({ params }) => {
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">
       <Header>
-        <div className=" rounded-lg h-full w-full overflow-hidden overflow-y-auto">
+        <div className="rounded-lg h-full w-full overflow-hidden overflow-y-auto">
           <h1 className="text-mainBrandColor text-3xl font-semibold">
-            Songs by {params.artistName}
+            Songs by {artistDetails?.name}
           </h1>
         </div>
       </Header>
-      {/* <ArtistContent songs={artistSongs || []} /> */}
+      <ArtistContent artist={artistDetails} songs={artistSongs || []} />
     </div>
   );
 };
