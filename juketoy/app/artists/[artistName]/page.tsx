@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Image from "next/image";
 // create new file for the artist detail page
 import ArtistContent from "../[artistName]/components/ArtistContent";
 import { Song } from "@/types";
@@ -8,6 +9,7 @@ import getAllArtists from "@/actions/getAllArtists";
 import getArtistIdByName from "@/actions/getArtistIdByName";
 
 import Header from "@/components/Header";
+import useLoadArtistImage from "@/hooks/useLoadArtistImage";
 
 interface pageProps {
   params: { artistName: string };
@@ -22,6 +24,7 @@ const ArtistDetail: FC<pageProps> = async ({ params }) => {
   }
   const artistDetails = await getArtistDetails(artistId);
   const artistSongs = await getArtistSongs(artistDetails!.artist_id);
+  // const artistImageUrl = useLoadArtistImage(artistDetails!.profile_image_path);
 
   console.log("ARTIST DETAILS:", artistDetails);
   console.log("ARTIST SONGS:", artistSongs);
@@ -37,13 +40,8 @@ const ArtistDetail: FC<pageProps> = async ({ params }) => {
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">
       <Header>
-        <div className="rounded-lg h-full w-full overflow-hidden overflow-y-auto">
-          <h1 className="text-mainBrandColor text-3xl font-semibold">
-            Songs by {artistDetails?.name}
-          </h1>
-        </div>
+        <ArtistContent artist={artistDetails} songs={artistSongs || []} />
       </Header>
-      <ArtistContent artist={artistDetails} songs={artistSongs || []} />
     </div>
   );
 };

@@ -3,11 +3,15 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import Image from "next/image";
+
 import { Artist, Song } from "@/types";
 import { useUser } from "@/hooks/useUser";
 import MediaItem from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
+import Header from "@/components/Header";
+import useLoadArtistImage from "@/hooks/useLoadArtistImage";
 
 interface ArtistContentProps {
   songs: Song[];
@@ -20,6 +24,8 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
   const router = useRouter();
   const { isLoading, user } = useUser();
   const onPlay = useOnPlay(songs);
+
+  const artistImageUrl = useLoadArtistImage(artist!.profile_image_path);
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -42,18 +48,25 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
     <div className="flex flex-col gap-y-2 w-full p-6">
       {/* Artist details */}
       {artist && (
-        <div className="mb-6 flex flex-col gap-y-2">
-          <h2 className="text-xl font-semibold">{artist.name}</h2>
-          <p className="text-sm text-gray-600">{artist.bio}</p>
-          {artist.profile_image_path && (
+        <div className="mt-10">
+          <div className="flex flex-col md:flex-row items-center gap-x-5">
             <div className="relative h-32 w-32 lg:h-44 lg:w-44">
-              <img
-                src={artist.profile_image_path}
-                alt={`${artist.name} profile`}
-                className="object-cover w-full h-full rounded-full"
+              <Image
+                fill
+                alt="Playlist"
+                className="object-cover"
+                src={artistImageUrl || "/images/default_artist.png"}
               />
             </div>
-          )}
+            <div className="flex flex-col gap-y-2 mt-4 md:mt-0">
+              <p className="hidden md:block font-semibold text-sm ">
+                {artist.bio}
+              </p>
+              <h1 className="text-white text-4xl sm:text-5xl lg:text-7xl font-bold">
+                {artist.name}
+              </h1>
+            </div>
+          </div>
         </div>
       )}
 
