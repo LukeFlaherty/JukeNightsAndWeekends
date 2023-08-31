@@ -30,6 +30,8 @@ const AuthModal = () => {
       ? "Log In to your account"
       : "Sign Up for a new account";
 
+  const [isArtist, setIsArtist] = useState(false);
+
   useEffect(() => {
     if (session) {
       const user = session.user as User;
@@ -42,7 +44,27 @@ const AuthModal = () => {
     }
   }, [session, router, onClose]);
 
-  const [isArtist, setIsArtist] = useState(false);
+  // New useEffect for handling custom fields update after registration
+  useEffect(() => {
+    const { data: authListener } = supabaseClient.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === "SIGNED_IN" && isArtist) {
+          await supabaseClient
+            .from("users")
+            .update({
+              is_artist: true,
+              artist_approval_status: "pending",
+            })
+            .eq("id", session?.user.id);
+        }
+      }
+    );
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      authListener.subscription?.unsubscribe();
+    };
+  }, [isArtist, supabaseClient]);
 
   const onChange = (open: boolean) => {
     if (!open) {

@@ -37,4 +37,5 @@ export interface UserDetails {
   avatar_url?: string;
   is_artist: boolean;
   artist_approval_status: string;
+  is_admin?: boolean;
 }
