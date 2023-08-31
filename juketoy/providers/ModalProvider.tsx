@@ -1,26 +1,19 @@
 "use client";
 
 import AuthModal from "@/components/AuthModal";
-import SubscribeModal from "@/components/SubscribeModal";
 import UploadModal from "@/components/UploadModal";
 import { useEffect, useState } from "react";
-import { ProductWithPrice, Song } from "@/types";
 import CreatePlaylistModal from "@/components/CreatePlaylistModal";
 import SelectPlaylistModal from "@/components/SelectPlaylistModal";
-import { Playlist } from "@/types";
+import { Playlist, Song } from "@/types";
 import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
 
 interface ModalProviderProps {
-  products: ProductWithPrice[];
   playlists: Playlist[];
   songs: Song[];
 }
 
-const ModalProvider: React.FC<ModalProviderProps> = ({
-  products,
-  playlists,
-  songs,
-}) => {
+const ModalProvider: React.FC<ModalProviderProps> = ({ playlists, songs }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const selectPlaylistModal = useSelectPlaylistModal();
@@ -37,7 +30,6 @@ const ModalProvider: React.FC<ModalProviderProps> = ({
     <>
       <AuthModal />
       <UploadModal />
-      <SubscribeModal products={products} />
       <CreatePlaylistModal />
       <SelectPlaylistModal
         playlists={playlists}

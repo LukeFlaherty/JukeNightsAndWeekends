@@ -9,20 +9,40 @@ import {
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { User as SupabaseUser } from "@supabase/auth-helpers-react";
+
+export interface User extends SupabaseUser {
+  is_artist: boolean;
+  artist_approval_status: string; // Or use 'pending' | 'approved' | 'rejected' if you're certain about the values
+}
 
 const AuthModal = () => {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const { session } = useSessionContext();
-  const { onClose, isOpen } = useAuthModal();
+  const { onClose, isOpen, actionType } = useAuthModal();
+
+  const modalTitle =
+    actionType === "login" ? "Welcome back" : "Create a new account";
+  const modalDescription =
+    actionType === "login"
+      ? "Log In to your account"
+      : "Sign Up for a new account";
 
   useEffect(() => {
     if (session) {
-      router.refresh();
+      const user = session.user as User;
+      if (user.is_artist && user.artist_approval_status === "pending") {
+        router.push("/pending-approval");
+      } else {
+        router.refresh();
+      }
       onClose();
     }
   }, [session, router, onClose]);
+
+  const [isArtist, setIsArtist] = useState(false);
 
   const onChange = (open: boolean) => {
     if (!open) {
@@ -32,11 +52,49 @@ const AuthModal = () => {
 
   return (
     <Modal
-      title="Welcome back"
-      description="Log In to your account"
+      title={modalTitle}
+      description={modalDescription}
       isOpen={isOpen}
       onChange={onChange}
     >
+      {actionType === "signup" && (
+        <>
+          <div className="flex items-center my-3">
+            <input
+              type="checkbox"
+              id="artistCheckbox"
+              checked={isArtist}
+              onChange={() => setIsArtist(!isArtist)}
+              className="mr-2 h-5 w-5 border rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none"
+            />
+            <label
+              htmlFor="artistCheckbox"
+              className="text-md font-medium ml-3"
+            >
+              Register as an Artist
+            </label>
+          </div>
+
+          <p className="text-sm text-center mb-5 text-gray-600">
+            This will not activate your account until a member of our team
+            approves you.
+          </p>
+
+          {isArtist && (
+            <>
+              <input
+                type="text"
+                placeholder="Artist Name"
+                className="mt-2 p-2 w-full border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+              />
+              <textarea
+                placeholder="Brief Bio - You can change later"
+                className="mt-2 p-2 w-full h-24 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+              ></textarea>
+            </>
+          )}
+        </>
+      )}
       <Auth
         theme="dark"
         magicLink
