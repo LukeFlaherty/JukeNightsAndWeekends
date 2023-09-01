@@ -11,8 +11,8 @@ export interface Song {
 }
 
 export interface Artist {
-  created_at: string; // added
-  artist_upload_id: string; // added
+  created_at: string;
+  artist_upload_id: string;
   artist_id: string;
   name: string;
   bio: string;
