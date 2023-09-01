@@ -21,20 +21,16 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
   }
   const router = useRouter();
 
-  console.log("1", currentUser);
-  console.log("2", isAdmin(currentUser.userDetails));
+  console.log("1", artists);
   console.log("3", currentUser.userDetails);
 
   useEffect(() => {
     if (!isAdmin(currentUser.userDetails)) {
       // If the user isn't an admin, redirect them to the homepage or a 404 page.
-      //   router.push("/");
+      // router.push("/");
     }
   }, [currentUser]);
 
-  useEffect(() => {
-    // We will fetch pending artists here soon
-  }, []);
   return (
     <div>
       ArtistApprovalTable

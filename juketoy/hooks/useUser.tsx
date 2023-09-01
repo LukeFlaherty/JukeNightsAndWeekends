@@ -6,7 +6,6 @@ import {
   useSessionContext,
   useUser as useSupaUser,
 } from "@supabase/auth-helpers-react";
-import getUserDetails from "@/actions/getUserDetails";
 
 type UserContextType = {
   accessToken: string | null;

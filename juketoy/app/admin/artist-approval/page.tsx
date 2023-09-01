@@ -13,18 +13,6 @@ interface pageProps {
 
 const ArtistApproval: React.FC<pageProps> = ({ artists }) => {
   // const pendingArtists = getPendingArtists();
-  // const currentUser = useUser();
-
-  // export interface UserDetails {
-  //   id: string;
-  //   first_name: string;
-  //   last_name: string;
-  //   full_name?: string;
-  //   avatar_url?: string;
-  //   is_artist: boolean;
-  //   artist_approval_status: string;
-  // }
-  // cosnt currentUserDetails = MyUserContextProvider();
 
   const pendingArtists = [
     {
