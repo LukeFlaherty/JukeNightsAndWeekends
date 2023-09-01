@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import { useUser } from "@/hooks/useUser";
 import { UserDetails } from "@/types";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface ArtistApprovalTableProps {
   artists: UserDetails[];
@@ -13,23 +13,23 @@ interface ArtistApprovalTableProps {
 const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
   artists,
 }) => {
-  const [pendingArtists, setPendingArtists] = useState([]);
   const currentUser = useUser();
 
   function isAdmin(userDetails: UserDetails | null) {
     return userDetails?.is_admin ?? false;
   }
+
   const router = useRouter();
 
   console.log("1", artists);
   console.log("3", currentUser.userDetails);
 
-  useEffect(() => {
-    if (!isAdmin(currentUser.userDetails)) {
-      // If the user isn't an admin, redirect them to the homepage or a 404 page.
-      // router.push("/");
-    }
-  }, [currentUser]);
+  // You can uncomment this logic if you want to redirect non-admins
+  // useEffect(() => {
+  //   if (!isAdmin(currentUser.userDetails)) {
+  //     router.push("/");
+  //   }
+  // }, [currentUser]);
 
   return (
     <div>
