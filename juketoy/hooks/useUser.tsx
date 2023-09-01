@@ -6,6 +6,7 @@ import {
   useSessionContext,
   useUser as useSupaUser,
 } from "@supabase/auth-helpers-react";
+import getUserDetails from "@/actions/getUserDetails";
 
 type UserContextType = {
   accessToken: string | null;
@@ -29,17 +30,45 @@ export const MyUserContextProvider = (props: Props) => {
     supabaseClient: supabase,
   } = useSessionContext();
 
-  //   supabase user
+  // supabase user
   const user = useSupaUser();
 
-  //   token
+  // token
   const accessToken = session?.access_token ?? null;
 
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
-  // two actions using supabase to fetch from db
-  const getUserDetails = () => supabase.from("users").select("*").single();
+  // Local getUserDetails function
+  const fetchUserDetails = async (userId: string) => {
+    setIsLoadingData(true);
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", userId)
+        .single();
+
+      if (error) {
+        console.error("Failed to fetch user details:", error);
+        return null;
+      }
+
+      setUserDetails(data);
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+    } finally {
+      setIsLoadingData(false);
+    }
+  };
+
+  useEffect(() => {
+    // If there's a user, fetch the user details
+    if (user?.id) {
+      fetchUserDetails(user.id);
+    }
+  }, [user]);
+
   const value = {
     accessToken,
     user,

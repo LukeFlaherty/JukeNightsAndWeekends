@@ -5,12 +5,15 @@ import React, { useEffect, useState } from "react";
 import UserProvider from "@/providers/UserProvider";
 import Header from "@/components/Header";
 
+import { MyUserContextProvider, useUser } from "@/hooks/useUser";
+
 interface pageProps {
   artists: UserDetails[];
 }
 
 const ArtistApproval: React.FC<pageProps> = ({ artists }) => {
   // const pendingArtists = getPendingArtists();
+  // const currentUser = useUser();
 
   // export interface UserDetails {
   //   id: string;
@@ -21,6 +24,8 @@ const ArtistApproval: React.FC<pageProps> = ({ artists }) => {
   //   is_artist: boolean;
   //   artist_approval_status: string;
   // }
+  // cosnt currentUserDetails = MyUserContextProvider();
+
   const pendingArtists = [
     {
       id: "1",
