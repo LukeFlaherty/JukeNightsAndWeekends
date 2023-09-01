@@ -30,7 +30,7 @@ const ArtistItem: React.FC<ArtistItemProps> = ({
       <div className="relative aspect-square w-full h-full rounded-md overflow-hidden">
         <Image
           className="object-cover"
-          src={artistImageUrl || "public/images/liked.png"} // Use the local image if artistImageUrl is null
+          src={artistImageUrl || "/public/images/default_user.jpeg"} // Use the local image if artistImageUrl is null
           fill
           alt={artistName}
         />

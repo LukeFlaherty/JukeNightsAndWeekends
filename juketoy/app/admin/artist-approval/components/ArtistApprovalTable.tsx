@@ -9,6 +9,7 @@ import React from "react";
 import toast from "react-hot-toast";
 
 import useUpdateUser from "@/hooks/useUpdateUser";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 
 interface ArtistApprovalTableProps {
   artists: UserDetails[];
@@ -18,14 +19,14 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
   artists,
 }) => {
   const currentUser = useUser();
+  const { supabaseClient } = useSessionContext();
+  const router = useRouter();
 
   const { updateUser, loading: updating, error } = useUpdateUser();
 
   function isAdmin(userDetails: UserDetails | null) {
     return userDetails?.is_admin ?? false;
   }
-
-  const router = useRouter();
 
   const handleAccept = async (userId: string) => {
     if (!userId) return;
@@ -35,8 +36,28 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
         artist_approval_status: "approved",
         is_artist: true,
       });
+
+      // Now, add the new artist entry into the artists table.
+      const user = artists.find((artist) => artist.id === userId);
+
+      if (user) {
+        const { error: insertError } = await supabaseClient
+          .from("artists")
+          .insert({
+            artist_id: userId, // This links the artist entry to the user
+            name: user.full_name,
+            bio: "", // You might want to set some default bio or keep it empty for now
+            profile_image_path: user.avatar_url,
+            // ... Any other default values for new artists
+          });
+
+        if (insertError) {
+          toast.error(insertError.message);
+          return;
+        }
+      }
+
       toast.success("Artist approved!");
-      // You might want to refetch or reload the data to reflect the change immediately.
     } catch (err) {
       toast.error("Error while accepting the artist.");
       console.error("Error while accepting the artist:", err);
