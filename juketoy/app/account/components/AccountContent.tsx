@@ -110,6 +110,7 @@ const AccountContent = () => {
         </div>
         <div>
           <h3 className="font-medium text-sm mb-1">Avatar:</h3>
+          {/* TODO Changing avatar does not work - pls change */}
           <div className="flex items-center">
             <Image
               src={userDetails?.avatar_url || "/images/default_user.jpeg"}
