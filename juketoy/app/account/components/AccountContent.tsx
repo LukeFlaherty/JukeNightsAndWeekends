@@ -20,6 +20,11 @@ const AccountContent = () => {
 
   const [editedFullName, setEditedFullName] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [artistRequestSuccess, setArtistRequestSuccess] =
+    useState<boolean>(false);
+  const [artistRequestError, setArtistRequestError] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     if (!isLoading && !userDetails) {
@@ -59,6 +64,17 @@ const AccountContent = () => {
       // Refresh the user details to reflect the change in UI.
       // You can use a function from the useUser hook or whichever method you employ to refetch user details.
       // TODO
+    }
+  };
+
+  const handleArtistRequest = async () => {
+    try {
+      if (userDetails?.id) {
+        await updateUser(userDetails.id, { artist_approval_status: "pending" });
+        setArtistRequestSuccess(true);
+      }
+    } catch (err) {
+      setArtistRequestError("Failed to submit request. Please try again.");
     }
   };
 
@@ -136,7 +152,34 @@ const AccountContent = () => {
         </div>
         <div>
           <h3 className="font-medium text-sm mb-1">Artist:</h3>
-          <p>{userDetails?.is_artist ? "Yes" : "No"}</p>
+          {userDetails?.is_artist ? (
+            <p>Yes</p>
+          ) : (
+            <div>
+              <p>No</p>
+              {userDetails?.artist_approval_status === "Pending" ? (
+                <p>Your request is pending approval.</p>
+              ) : (
+                <>
+                  <p>You can request to become an artist.</p>
+                  <button
+                    onClick={handleArtistRequest}
+                    className="mt-2 bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                  >
+                    Request Artist Access
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+          {artistRequestSuccess && (
+            <div className="mt-4 text-green-500">
+              Your request has been submitted!
+            </div>
+          )}
+          {artistRequestError && (
+            <div className="mt-4 text-red-500">{artistRequestError}</div>
+          )}
         </div>
         <div>
           <h3 className="font-medium text-sm mb-1">Approval Status:</h3>
