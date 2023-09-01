@@ -104,6 +104,7 @@ const AuthModal = () => {
 
           {isArtist && (
             <>
+              {/* TODO: Make this save somewhere lol */}
               <input
                 type="text"
                 placeholder="Artist Name"
