@@ -58,6 +58,7 @@ const AccountContent = () => {
 
       // Refresh the user details to reflect the change in UI.
       // You can use a function from the useUser hook or whichever method you employ to refetch user details.
+      // TODO
     }
   };
 
