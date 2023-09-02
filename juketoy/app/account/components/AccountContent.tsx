@@ -141,7 +141,7 @@ const AccountContent = () => {
     // added avatarUpdateLoading
     return <div className="mb-7 px-6">Loading...</div>;
   }
-
+  // TODO: Replace buttons with the button component we have
   return (
     <div className="mb-7 px-6">
       <h2 className="text-xl font-semibold mb-4">Your Account</h2>
@@ -359,7 +359,7 @@ const AccountContent = () => {
         {userDetails?.artist_approval_status === "approved" && (
           <div className="mt-8">
             <Link
-              href="/account/uploadMusic"
+              href="/account/upload-music"
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Upload Music as an Artist

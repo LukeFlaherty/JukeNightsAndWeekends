@@ -1,5 +1,4 @@
 import { type } from "os";
-import Stripe from "stripe";
 
 export interface Song {
   id: string;
@@ -7,6 +6,16 @@ export interface Song {
   author: string;
   title: string;
   song_path: string;
+  image_path: string;
+}
+
+export interface ArtistSong {
+  id: string;
+  created_at: string;
+  song_id: string;
+  title: string;
+  song_path: string;
+  artist_id: string;
   image_path: string;
 }
 
