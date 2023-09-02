@@ -5,6 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 // If not, you might have to create one.
 type ArtistDetails = {
   bio: string;
+  name: string;
   // ... any other fields from the artist table you might need in the future.
 };
 
@@ -24,7 +25,7 @@ const useUpdateArtist = () => {
       const { error } = await supabaseClient
         .from("artists")
         .update(updates)
-        .eq("id", artistId);
+        .eq("artist_id", artistId);
 
       if (error) {
         throw error;

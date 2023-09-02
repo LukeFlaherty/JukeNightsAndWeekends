@@ -37,6 +37,12 @@ const AccountContent = () => {
   const [artistBio, setArtistBio] = useState<string>(""); // New state
   const [artistImagePath, setArtistImagePath] = useState<string>(""); // New state
 
+  const [artistName, setArtistName] = useState<string>(""); // New state for artist name
+  const [isEditingName, setIsEditingName] = useState(false); // New state for toggling editing of the artist's name
+
+  const [isIdHidden, setIsIdHidden] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
+
   useEffect(() => {
     if (!isLoading && !userDetails) {
       router.replace("/");
@@ -46,6 +52,17 @@ const AccountContent = () => {
       setEditedFullName(userDetails.full_name);
     }
   }, [isLoading, userDetails, router]);
+
+  // initialize these when the component mounts
+  useEffect(() => {
+    if (artistDetails?.bio) {
+      setArtistBio(artistDetails.bio);
+    }
+    if (artistDetails?.name) {
+      // If there's an artist name in artistDetails, set it
+      setArtistName(artistDetails.name);
+    }
+  }, [artistDetails]);
 
   const handleUpdateFullName = async () => {
     if (userDetails?.id && editedFullName !== null) {
@@ -92,8 +109,29 @@ const AccountContent = () => {
   const handleUpdateBio = async () => {
     if (userDetails?.id && artistBio) {
       await updateArtist(userDetails.id, { bio: artistBio });
-
+      setIsEditingBio(false);
       // Handle artistUpdating and artistUpdateError if needed.
+    }
+  };
+
+  const handleUpdateName = async () => {
+    if (userDetails?.id && artistName) {
+      await updateArtist(userDetails.id, { name: artistName });
+      setIsEditingName(false); // Reset the editing state for artist name
+      // Handle any additional artist updating logic and error handling as needed.
+    }
+  };
+
+  const handleCopyToClipboard = () => {
+    if (navigator.clipboard && artistDetails?.artist_upload_id) {
+      navigator.clipboard
+        .writeText(artistDetails.artist_upload_id)
+        .then(() => {
+          setIsCopied(true);
+          // Set a timer to remove the "Copied to clipboard" message after 2 seconds.
+          setTimeout(() => setIsCopied(false), 2000);
+        })
+        .catch((err) => console.error("Failed to copy text: ", err));
     }
   };
 
@@ -246,6 +284,74 @@ const AccountContent = () => {
             )}
             {artistUpdateError && (
               <p className="text-red-500">{artistUpdateError}</p>
+            )}
+          </div>
+        )}
+        {/* artist name */}
+        {userDetails?.is_artist && (
+          <div>
+            <h3 className="font-medium text-sm mb-1">Artist Name:</h3>
+            {isEditingName ? (
+              <div>
+                <input
+                  type="text"
+                  value={artistName || ""}
+                  onChange={(e) => setArtistName(e.target.value)}
+                  className="w-full border p-2 rounded mb-2 text-white"
+                />
+                <div className="flex mt-2">
+                  <button
+                    onClick={handleUpdateName} // We'll define this function in the next step.
+                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => setIsEditingName(false)}
+                    className="bg-gray-500 text-white px-4 py-1 rounded hover:bg-gray-600"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span>{artistDetails?.name || "Not Set"}</span>
+                <button
+                  onClick={() => setIsEditingName(true)}
+                  className="ml-2 bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                >
+                  Edit
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+        {/* artist upload code */}
+        {userDetails?.is_artist && (
+          <div className="mt-4">
+            <h3 className="font-medium text-sm mb-1">Artist Upload ID:</h3>
+            <div className="flex items-center">
+              <span>
+                {isIdHidden ? "************" : artistDetails?.artist_upload_id}
+              </span>
+              <button
+                onClick={() => setIsIdHidden(!isIdHidden)}
+                className="ml-2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+              >
+                {isIdHidden ? "Reveal" : "Hide"}
+              </button>
+              {!isIdHidden && (
+                <button
+                  onClick={handleCopyToClipboard}
+                  className="ml-2 bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                >
+                  Copy
+                </button>
+              )}
+            </div>
+            {isCopied && (
+              <span className="text-green-500">Copied to clipboard!</span>
             )}
           </div>
         )}

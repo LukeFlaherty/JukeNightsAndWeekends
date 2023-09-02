@@ -6,6 +6,8 @@ import { UserDetails } from "@/types";
 import { useRouter } from "next/navigation";
 import React from "react";
 
+import Image from "next/image";
+
 import toast from "react-hot-toast";
 
 import useUpdateUser from "@/hooks/useUpdateUser";
@@ -113,10 +115,13 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
                 >
                   <td className="border px-4 py-2">{artist.full_name}</td>
                   <td className="border px-4 py-2">
-                    <img
-                      src={artist.avatar_url}
-                      alt={artist.full_name}
-                      className="h-12 w-12 rounded-full"
+                    <Image
+                      src={artist.avatar_url || "/default-avatar.png"}
+                      alt={artist.full_name || "Artist avatar"}
+                      width={48} // h-12 converted to pixels (1 rem = 16px, 3 rem = 48px)
+                      height={48} // w-12 converted to pixels
+                      className="rounded-full"
+                      layout="fixed"
                     />
                   </td>
                   <td className="border px-4 py-2">

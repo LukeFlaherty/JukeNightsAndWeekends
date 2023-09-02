@@ -19,7 +19,7 @@ const ArtistListContent: React.FC<ArtistListContentProps> = ({ artists }) => {
   useEffect(() => {
     if (!isLoading && !user) {
       router.replace("/");
-      return authModal.onOpen();
+      // return authModal.onOpen();
     }
   }, [isLoading, user, router]);
 
@@ -43,6 +43,7 @@ const ArtistListContent: React.FC<ArtistListContentProps> = ({ artists }) => {
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 gap-4 mt-4">
       {artists.map((artist) => (
         <ArtistItem
+          key={artist.artist_id} // assuming artist has a unique id property
           artistName={artist.name}
           artistImagePath={artist.profile_image_path}
         />

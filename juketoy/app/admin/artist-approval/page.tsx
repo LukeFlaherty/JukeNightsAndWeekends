@@ -9,7 +9,6 @@ interface pageProps {
 
 const ArtistApproval: React.FC<pageProps> = async ({ artists }) => {
   const pendingArtists = await getPendingArtists();
-  console.log("ALL PENDING ARTISTS:", pendingArtists);
   const filteredPendingArtists = pendingArtists!.filter(
     (artist) => artist.artist_approval_status === "pending"
   );
