@@ -3,11 +3,7 @@ import ArtistApprovalTable from "./components/ArtistApprovalTable";
 import Header from "@/components/Header";
 import getPendingArtists from "@/actions/getPendingArtists";
 
-interface pageProps {
-  artists: UserDetails[];
-}
-
-const ArtistApproval: React.FC<pageProps> = async ({ artists }) => {
+const ArtistApproval = async () => {
   const pendingArtists = await getPendingArtists();
   const filteredPendingArtists = pendingArtists!.filter(
     (artist) => artist.artist_approval_status === "pending"
