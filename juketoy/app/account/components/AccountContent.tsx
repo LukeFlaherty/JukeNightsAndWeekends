@@ -8,6 +8,7 @@ import useUploadAvatar from "@/hooks/useUploadAvatar";
 import useUpdateUserAvatar from "@/hooks/useUpdateUserAvatar";
 import useLoadUserImage from "@/hooks/useLoadUserImage";
 import useUpdateArtist from "@/hooks/useUpdateArtist";
+import Link from "next/link";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -353,6 +354,16 @@ const AccountContent = () => {
             {isCopied && (
               <span className="text-green-500">Copied to clipboard!</span>
             )}
+          </div>
+        )}
+        {userDetails?.artist_approval_status === "approved" && (
+          <div className="mt-8">
+            <Link
+              href="/account/uploadMusic"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Upload Music as an Artist
+            </Link>
           </div>
         )}
       </div>
