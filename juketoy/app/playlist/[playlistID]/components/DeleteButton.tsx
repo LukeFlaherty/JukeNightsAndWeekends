@@ -19,7 +19,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ playlistSongId }) => {
 
   const handleDelete = async () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpenLogin();
     }
 
     const { error } = await supabaseClient
