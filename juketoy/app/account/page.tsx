@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 
 import AccountContent from "./components/AccountContent";
+import getArtistDetails from "@/actions/getArtistDetails";
 
 const Account = () => {
   return (

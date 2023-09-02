@@ -1,4 +1,4 @@
-import { UserDetails } from "@/types";
+import { ArtistDetails, UserDetails } from "@/types";
 
 import { User } from "@supabase/auth-helpers-nextjs";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -11,6 +11,7 @@ type UserContextType = {
   accessToken: string | null;
   user: User | null;
   userDetails: UserDetails | null;
+  artistDetails: ArtistDetails | null;
   isLoading: boolean;
 };
 
@@ -37,6 +38,9 @@ export const MyUserContextProvider = (props: Props) => {
 
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const [artistDetails, setArtistDetails] = useState<ArtistDetails | null>(
+    null
+  );
 
   // Local getUserDetails function
   const fetchUserDetails = async (userId: string) => {
@@ -47,6 +51,8 @@ export const MyUserContextProvider = (props: Props) => {
         .select("*")
         .eq("id", userId)
         .single();
+
+      console.log("DATAAAAA2", data);
 
       if (error) {
         console.error("Failed to fetch user details:", error);
@@ -61,17 +67,47 @@ export const MyUserContextProvider = (props: Props) => {
     }
   };
 
+  const fetchArtistDetails = async (userId: string) => {
+    setIsLoadingData(true);
+    try {
+      const { data, error } = await supabase
+        .from("artists")
+        .select("*")
+        .eq("artist_id", userId)
+        .single();
+
+      console.log("DATAAAAA", data);
+
+      if (error) {
+        console.error("Failed to fetch artist details:", error);
+        return null;
+      }
+
+      setArtistDetails(data);
+    } catch (error) {
+      console.error("Failed to fetch artist details:", error);
+    } finally {
+      setIsLoadingData(false);
+    }
+  };
+
   useEffect(() => {
-    // If there's a user, fetch the user details
     if (user?.id) {
       fetchUserDetails(user.id);
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user?.id && userDetails?.is_artist) {
+      fetchArtistDetails(user.id);
+    }
+  }, [user, userDetails]);
+
   const value = {
     accessToken,
     user,
     userDetails,
+    artistDetails,
     isLoading: isLoadingUser || isLoadingData,
   };
 

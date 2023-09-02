@@ -37,3 +37,11 @@ export interface UserDetails {
   artist_approval_status: string;
   is_admin?: boolean;
 }
+
+export interface ArtistDetails {
+  id: string;
+  name: string;
+  bio: string;
+  profile_image_path: string;
+  artist_upload_id: string;
+}

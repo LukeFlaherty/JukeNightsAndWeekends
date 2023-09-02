@@ -7,11 +7,18 @@ import Image from "next/image";
 import useUploadAvatar from "@/hooks/useUploadAvatar";
 import useUpdateUserAvatar from "@/hooks/useUpdateUserAvatar";
 import useLoadUserImage from "@/hooks/useLoadUserImage";
+import useUpdateArtist from "@/hooks/useUpdateArtist";
 
 const AccountContent = () => {
   const router = useRouter();
-  const { isLoading, userDetails } = useUser();
+  const { isLoading, userDetails, artistDetails } = useUser();
   const { updateUser, loading: updating, error } = useUpdateUser();
+  const {
+    updateArtist,
+    loading: artistUpdating,
+    error: artistUpdateError,
+  } = useUpdateArtist();
+
   const {
     updateUserAvatar,
     loading: avatarUpdateLoading,
@@ -20,11 +27,15 @@ const AccountContent = () => {
 
   const [editedFullName, setEditedFullName] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditingBio, setIsEditingBio] = useState(false);
+
   const [artistRequestSuccess, setArtistRequestSuccess] =
     useState<boolean>(false);
   const [artistRequestError, setArtistRequestError] = useState<string | null>(
     null
   );
+  const [artistBio, setArtistBio] = useState<string>(""); // New state
+  const [artistImagePath, setArtistImagePath] = useState<string>(""); // New state
 
   useEffect(() => {
     if (!isLoading && !userDetails) {
@@ -75,6 +86,14 @@ const AccountContent = () => {
       }
     } catch (err) {
       setArtistRequestError("Failed to submit request. Please try again.");
+    }
+  };
+
+  const handleUpdateBio = async () => {
+    if (userDetails?.id && artistBio) {
+      await updateArtist(userDetails.id, { bio: artistBio });
+
+      // Handle artistUpdating and artistUpdateError if needed.
     }
   };
 
@@ -189,6 +208,47 @@ const AccountContent = () => {
           <h3 className="font-medium text-sm mb-1">Admin:</h3>
           <p>{userDetails?.is_admin ? "Yes" : "No"}</p>
         </div>
+        {userDetails?.is_artist && (
+          <div>
+            <h3 className="font-medium text-sm mb-1">Artist Bio:</h3>
+            {isEditingBio ? (
+              <div>
+                <textarea
+                  value={artistBio || ""}
+                  onChange={(e) => setArtistBio(e.target.value)}
+                  className="w-full border p-2 rounded mb-2 text-white"
+                />
+                <div className="flex mt-2">
+                  <button
+                    onClick={handleUpdateBio}
+                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => setIsEditingBio(false)}
+                    className="bg-gray-500 text-white px-4 py-1 rounded hover:bg-gray-600"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <span>{artistDetails?.bio || "Not Set"}</span>
+                <button
+                  onClick={() => setIsEditingBio(true)}
+                  className="ml-2 bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
+                >
+                  Edit
+                </button>
+              </div>
+            )}
+            {artistUpdateError && (
+              <p className="text-red-500">{artistUpdateError}</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
