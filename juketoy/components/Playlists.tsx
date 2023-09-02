@@ -30,7 +30,7 @@ const Playlists: React.FC<PlaylistsProps> = ({ playlists }) => {
 
   const onClick = () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpenLogin();
     }
     // return uploadModal.onOpen();
     setIsSidebarOpen(!isSidebarOpen); // Toggle the sidebar open/close state

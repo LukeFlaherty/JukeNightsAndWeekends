@@ -10,7 +10,7 @@ const useOnPlay = (songs: Song[]) => {
 
   const onPlay = (id: string) => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpenLogin();
     }
 
     // to block playing somgs to subscribed users, for signed in users or something in future?

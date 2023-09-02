@@ -46,7 +46,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
 
   const handleLike = async () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpenLogin();
     }
 
     if (isLiked) {

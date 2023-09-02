@@ -27,7 +27,7 @@ const Library: React.FC<LibraryProps> = ({ initialSongs, playlists }) => {
 
   const onClick = () => {
     if (!user) {
-      return authModal.onOpen();
+      return authModal.onOpenLogin();
     }
     setIsSidebarOpen(!isSidebarOpen); // Toggle the sidebar open/close state
   };
