@@ -44,6 +44,8 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
     });
   }
 
+  console.log("I AM HERE", artist);
+
   return (
     <div className="flex flex-col gap-y-2 w-full p-6">
       {/* Artist details */}

@@ -34,6 +34,7 @@ const ArtistDetail: FC<pageProps> = async ({ params }) => {
   console.log("ARTISTID from params:", params);
 
   // const artistDetails = artists.find(artist => artist.name === artistName);
+  console.log(artistId);
 
   // console.log("WHATEVER THIS IS:", params.artistID);
 
