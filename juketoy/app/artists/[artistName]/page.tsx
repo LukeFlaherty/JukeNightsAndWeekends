@@ -17,10 +17,16 @@ interface pageProps {
 
 const ArtistDetail: FC<pageProps> = async ({ params }) => {
   const artists = (await getAllArtists()) || [];
-  const artistId = getArtistIdByName(params.artistName, artists);
+  const decodedArtistName = decodeURIComponent(params.artistName);
+  const artistId = getArtistIdByName(decodedArtistName, artists);
   if (!artistId) {
-    // Handle the error - maybe show a message or redirect the user
-    return;
+    return (
+      <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">
+        <div className="p-4 bg-red-100 border-red-400 text-red-700">
+          Artist not found, there has been an issue.
+        </div>
+      </div>
+    );
   }
   const artistDetails = await getArtistDetails(artistId);
   const artistSongs = await getArtistSongs(artistDetails!.artist_id);
