@@ -24,6 +24,7 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
   const router = useRouter();
   const { isLoading, user } = useUser();
   const onPlay = useOnPlay(songs);
+  console.log("ARTIST SONGS:", songs);
 
   const artistImageUrl = useLoadArtistImage(artist!.profile_image_path);
 
@@ -43,8 +44,6 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
       return !duplicate;
     });
   }
-
-  console.log("I AM HERE", artist);
 
   return (
     <div className="flex flex-col gap-y-2 w-full p-6">
