@@ -9,6 +9,7 @@ import { useUser } from "@/hooks/useUser";
 import uniqid from "uniqid";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
+import { Song } from "@/types";
 
 const UploadMusicForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +51,7 @@ const UploadMusicForm = () => {
 
       if (songError) {
         setIsLoading(false);
+        console.error("Song upload error:", songError); // Logging the exact error
         return toast.error("Failed song upload");
       }
 
@@ -64,22 +66,61 @@ const UploadMusicForm = () => {
 
       if (imageError) {
         setIsLoading(false);
+        console.error("Song upload error:", songError); // Logging the exact error
         return toast.error("Failed image upload");
       }
 
       // if everything went right, create a record in the artist_songs table
-      const { error: supabaseError } = await supabaseClient
+      // const { error: supabaseError } = await supabaseClient
+      //   .from("artist_songs")
+      //   .insert({
+      //     title: values.title,
+      //     artist_id: user.id, // assuming the artist's ID is the same as the user's ID
+      //     song_path: songData.path,
+      //     song_img_path: imageData.path, // Note: changed from image_path to song_img_path
+      //   });
+
+      // if (supabaseError) {
+      //   setIsLoading(false);
+      //   return toast.error(supabaseError.message);
+      // }
+
+      // Step 1: Insert song into the songs table
+      const songInsertResult = await supabaseClient
+        .from("songs")
+        .insert({
+          user_id: user.id, // Adjust as needed based on your database's fields
+          title: values.title,
+          author: userDetails?.full_name || "Unknown Artist",
+          song_path: songData.path,
+          image_path: imageData.path,
+        })
+        .single();
+
+      if (songInsertResult.error) {
+        setIsLoading(false);
+        console.error("Song upload error:", songError); // Logging the exact error
+        return toast.error("Failed inserting song into songs table");
+      }
+
+      const insertedSongId = (songInsertResult.data as Song).id;
+      console.log("INSERTED", insertedSongId);
+
+      // Step 2: Insert the song reference into the artist_songs table using the insertedSongId
+      const artistSongInsertResult = await supabaseClient
         .from("artist_songs")
         .insert({
           title: values.title,
+          song_id: insertedSongId,
           artist_id: user.id, // assuming the artist's ID is the same as the user's ID
-          song_path: songData.path,
-          song_img_path: imageData.path, // Note: changed from image_path to song_img_path
+          song_path: songData.path, // This might be redundant since you've added it to the songs table
+          song_img_path: imageData.path, // Also possibly redundant
         });
 
-      if (supabaseError) {
+      if (artistSongInsertResult.error) {
         setIsLoading(false);
-        return toast.error(supabaseError.message);
+        console.error("Song upload error in artist:", songError); // Logging the exact error
+        return toast.error("Failed inserting song into artist_songs table");
       }
 
       router.refresh();
@@ -89,6 +130,7 @@ const UploadMusicForm = () => {
       // Assuming you want to close the modal if you're using it elsewhere
       // uploadModal.onClose();
     } catch (error) {
+      console.log("Error occurred:", error); // Logging the exact error
       toast.error("Something went wrong, try again");
     } finally {
       setIsLoading(false);
