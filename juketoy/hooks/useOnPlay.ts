@@ -13,15 +13,15 @@ const useOnPlay = (songs: Song[]) => {
       return authModal.onOpenLogin();
     }
 
-    // to block playing somgs to subscribed users, for signed in users or something in future?
-    // if(!subscription) {
-    //   return SubscribeModal.onOpen();
-    // }
-
-    // play song
-    player.setId(id);
-    // create "playlist" of next songs
-    player.setIds(songs.map((song) => song.id));
+    console.log("onPlay", id);
+    console.log("songs", songs);
+    console.log("player", player);
+    const songToPlay = songs.find((song) => song.id === id);
+    console.log("SONG TO PLAY", songToPlay);
+    if (songToPlay) {
+      player.setActiveSong(songToPlay);
+      player.setSongs(songs);
+    }
   };
   return onPlay;
 };

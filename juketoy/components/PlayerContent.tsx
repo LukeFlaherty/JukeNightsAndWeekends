@@ -32,31 +32,35 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
   const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
   const onPlayNext = () => {
-    if (player.ids.length === 0) {
+    if (player.songs.length === 0) {
       return;
     }
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    const nextSong = player.ids[currentIndex + 1];
+    const currentIndex = player.songs.findIndex(
+      (s) => s.id === player.activeSong?.id
+    );
+    const nextSong = player.songs[currentIndex + 1];
 
-    // if we are at last song and hit next it loops
+    // if we are at the last song and hit next it loops
     if (!nextSong) {
-      return player.setId(player.ids[0]);
+      return player.setActiveSong(player.songs[0]);
     }
-    player.setId(nextSong);
+    player.setActiveSong(nextSong);
   };
 
   const onPlayPrevious = () => {
-    if (player.ids.length === 0) {
+    if (player.songs.length === 0) {
       return;
     }
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    const previousSong = player.ids[currentIndex - 1];
+    const currentIndex = player.songs.findIndex(
+      (s) => s.id === player.activeSong?.id
+    );
+    const previousSong = player.songs[currentIndex - 1];
 
-    // loads last song from array
+    // loads the last song from the array
     if (!previousSong) {
-      return player.setId(player.ids[player.ids.length - 1]);
+      return player.setActiveSong(player.songs[player.songs.length - 1]);
     }
-    player.setId(previousSong);
+    player.setActiveSong(previousSong);
   };
 
   // this is what cant change dynamically so we had to use the key to reload component

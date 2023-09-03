@@ -18,13 +18,12 @@ interface ArtistContentProps {
   artist: Artist | null;
 }
 
-const SHOW_DUPLICATES = true; // Toggle this to show/hide duplicate songs
+// const SHOW_DUPLICATES = true; // Toggle this to show/hide duplicate songs
 
 const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
   const router = useRouter();
   const { isLoading, user } = useUser();
   const onPlay = useOnPlay(songs);
-  console.log("ARTIST SONGS:", songs);
 
   const artistImageUrl = useLoadArtistImage(artist!.profile_image_path);
 
@@ -34,16 +33,16 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
     }
   }, [isLoading, user, router]);
 
-  let displaySongs = songs;
+  // let displaySongs = songs;
 
-  if (!SHOW_DUPLICATES) {
-    const seenSongs = new Set();
-    displaySongs = songs.filter((song) => {
-      const duplicate = seenSongs.has(song.id);
-      seenSongs.add(song.id);
-      return !duplicate;
-    });
-  }
+  // if (!SHOW_DUPLICATES) {
+  //   const seenSongs = new Set();
+  //   displaySongs = songs.filter((song) => {
+  //     const duplicate = seenSongs.has(song.id);
+  //     seenSongs.add(song.id);
+  //     return !duplicate;
+  //   });
+  // }
 
   return (
     <div className="flex flex-col gap-y-2 w-full p-6">
@@ -72,12 +71,12 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
       )}
 
       {/* Conditionally display songs or no songs message */}
-      {displaySongs.length === 0 ? (
+      {songs.length === 0 ? (
         <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
           No songs by this artist.
         </div>
       ) : (
-        displaySongs.map((song, index) => (
+        songs.map((song, index) => (
           <div
             key={`${song.id}-${index}`}
             className="flex items-center gap-x-4 w-full"

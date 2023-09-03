@@ -45,7 +45,13 @@ const MediaItem: React.FC<MediaItemProps> = ({
     if (onClick) {
       return onClick(data.id);
     }
-    return player.setId(data.id);
+    // if ("artist_id" in data) {
+    //   // This checks if the data is from an artist_song
+    //   return player.setActiveSong(data.songs[0]);
+    if ("song_path" in data) {
+      // This checks if the data is of type Song
+      return player.setActiveSong(data);
+    }
   };
 
   const handleEllipsisClick = (

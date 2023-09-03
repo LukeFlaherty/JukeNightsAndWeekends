@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs, playlists }) => {
     <div
       className={twMerge(
         `flex h-full`,
-        player.activeId && "h-[calc(100%-80px)]"
+        player.activeSong?.id && "h-[calc(100%-80px)]"
       )}
     >
       <div className="hidden md:flex flex-col bg-lightModeBackground h-full w-[300px] p-2">
