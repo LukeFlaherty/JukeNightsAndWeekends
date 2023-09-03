@@ -52,8 +52,6 @@ export const MyUserContextProvider = (props: Props) => {
         .eq("id", userId)
         .single();
 
-      console.log("DATAAAAA2", data);
-
       if (error) {
         console.error("Failed to fetch user details:", error);
         return null;
@@ -75,8 +73,6 @@ export const MyUserContextProvider = (props: Props) => {
         .select("*")
         .eq("artist_id", userId)
         .single();
-
-      console.log("DATAAAAA", data);
 
       if (error) {
         console.error("Failed to fetch artist details:", error);

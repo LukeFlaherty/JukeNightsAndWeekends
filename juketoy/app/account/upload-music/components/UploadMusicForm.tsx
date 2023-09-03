@@ -89,7 +89,7 @@ const UploadMusicForm = () => {
       const songInsertResult = await supabaseClient
         .from("songs")
         .insert({
-          user_id: user.id, // Adjust as needed based on your database's fields
+          user_id: user.id,
           title: values.title,
           author: userDetails?.full_name || "Unknown Artist",
           song_path: songData.path,
@@ -99,27 +99,53 @@ const UploadMusicForm = () => {
 
       if (songInsertResult.error) {
         setIsLoading(false);
-        console.error("Song upload error:", songError); // Logging the exact error
+        console.error("Song upload error:", songInsertResult.error); // Log the error from songInsertResult
         return toast.error("Failed inserting song into songs table");
       }
+      console.log("songInsertResult:", songInsertResult);
 
-      const insertedSongId = (songInsertResult.data as Song).id;
-      console.log("INSERTED", insertedSongId);
+      const recentlyAddedSong = await supabaseClient
+        .from("songs")
+        .select("id")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (recentlyAddedSong.error) {
+        setIsLoading(false);
+        console.error(
+          "Fetch recently added song error:",
+          recentlyAddedSong.error
+        );
+        return toast.error("Failed fetching the inserted song");
+      }
+
+      const insertedSongId = recentlyAddedSong.data.id;
+
+      // const insertedSongId = (songInsertResult.data as Song).id;
+      // const insertedSongId = (songInsertResult.data[0] as Song).id;
+
+      // console.log("INSERTED", insertedSongId);
 
       // Step 2: Insert the song reference into the artist_songs table using the insertedSongId
       const artistSongInsertResult = await supabaseClient
         .from("artist_songs")
         .insert({
           title: values.title,
-          song_id: insertedSongId,
-          artist_id: user.id, // assuming the artist's ID is the same as the user's ID
-          song_path: songData.path, // This might be redundant since you've added it to the songs table
-          song_img_path: imageData.path, // Also possibly redundant
+          id: insertedSongId, // Use the retrieved song ID
+          artist_id: user.id,
+          song_path: songData.path,
+          song_img_path: imageData.path,
         });
 
+      // Handle any errors
       if (artistSongInsertResult.error) {
         setIsLoading(false);
-        console.error("Song upload error in artist:", songError); // Logging the exact error
+        console.error(
+          "Song upload error in artist:",
+          artistSongInsertResult.error
+        ); // Logging the exact error
         return toast.error("Failed inserting song into artist_songs table");
       }
 
