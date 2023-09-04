@@ -4,7 +4,6 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import useLoadImage from "@/hooks/useLoadImage";
 import PlaylistContent from "./components/PlaylistContent";
-import { get } from "http";
 import getPlaylistSongs from "@/actions/getPlaylistSongs";
 
 interface pageProps {
@@ -14,6 +13,7 @@ interface pageProps {
 const playlistPage: FC<pageProps> = async ({ params }) => {
   const playlist = await getPlaylistDetails(params.playlistID);
   const playlistSongs = await getPlaylistSongs(params.playlistID); // New line
+  // const playlistImage = useLoadImage(playlist?.image_path);
   // console.log("playlist", playlist);
   // TODO : make image work using useLoadImage
   const imagePath = playlist?.image_path.startsWith("http")
