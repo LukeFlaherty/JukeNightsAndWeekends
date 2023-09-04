@@ -1,7 +1,7 @@
 "use client";
 
 import useLoadImage from "@/hooks/useLoadImage";
-import { Song } from "@/types";
+import { Playlist, Song } from "@/types";
 import Image from "next/image";
 import PlayButton from "./PlayButton";
 import { FaEllipsisV } from "react-icons/fa";
@@ -9,18 +9,23 @@ import { useState, useRef, useEffect } from "react";
 import { useUser } from "@/hooks/useUser";
 import useDeleteSong from "@/hooks/useDeleteSong";
 import { toast } from "react-hot-toast";
+import SelectPlaylistModal from "./SelectPlaylistModal";
+import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
 
 interface SongItemProps {
   data: Song;
   onClick: (id: string) => void;
+  playlists?: Playlist[];
 }
 
-const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
+const SongItem: React.FC<SongItemProps> = ({ data, onClick, playlists }) => {
   const imagePath = useLoadImage(data);
   const { user } = useUser();
   const { deleteSong, error } = useDeleteSong();
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const selectPlaylistModal = useSelectPlaylistModal();
 
   const handleEllipsisClick = (
     event: React.MouseEvent<HTMLElement, MouseEvent>
@@ -36,6 +41,15 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
     ) {
       setDropdownVisible(false);
     }
+  };
+
+  // if you click add to playlist
+  const handleAddToPlaylistClick = async (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    handleEllipsisClick(event);
+    event.stopPropagation(); // <-- This will prevent the handleClick on the parent div
+    selectPlaylistModal.onOpen(data.id);
   };
 
   const handleDeleteSong = async (
@@ -91,11 +105,24 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
         {isDropdownVisible && (
           <div
             ref={dropdownRef}
-            className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10"
+            className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10" // Style as needed
           >
-            <div className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white">
+            <div
+              onClick={handleAddToPlaylistClick}
+              className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"
+            >
               Add to Playlist
             </div>
+
+            {playlists && (
+              <SelectPlaylistModal
+                isOpen={selectPlaylistModal.isOpen}
+                onClose={selectPlaylistModal.onClose}
+                playlists={playlists}
+                songs={[data]}
+                songId={data.id}
+              />
+            )}
             {user?.id === data.user_id && (
               <div
                 onClick={handleDeleteSong}

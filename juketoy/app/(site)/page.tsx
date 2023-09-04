@@ -2,11 +2,13 @@ import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "./components/PageContent";
+import getPlaylistsByUserId from "@/actions/getPlaylistsByUserId";
 
 export const revalidate = 0;
 
 export default async function Home() {
   const songs = await getSongs();
+  const userPlaylists = await getPlaylistsByUserId();
 
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">
@@ -30,7 +32,7 @@ export default async function Home() {
             Newest Songs
           </h1>
         </div>
-        <PageContent songs={songs} />
+        <PageContent songs={songs} playlists={userPlaylists} />
       </div>
     </div>
   );

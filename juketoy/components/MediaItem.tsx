@@ -155,7 +155,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
               {/* This render is only condiiontal on showing delete song if it is owned by the current user */}
               {/* but since it is in the library, than it is by default. */}
               {/* add a uploaderId, in the future if songs that dont belong to the user can end up in the library */}
-              {user && (
+              {user?.id === data.user_id && (
                 <div
                   onClick={handleDeleteSong}
                   className="text-black cursor-pointer px-4 py-2 hover:bg-hoverColor hover:text-white"

@@ -2,13 +2,14 @@
 
 import SongItem from "@/components/SongItem";
 import useOnPlay from "@/hooks/useOnPlay";
-import { Song } from "@/types";
+import { Playlist, Song } from "@/types";
 
 interface PageContentProps {
   songs: Song[];
+  playlists: Playlist[];
 }
 
-const PageContent: React.FC<PageContentProps> = ({ songs }) => {
+const PageContent: React.FC<PageContentProps> = ({ songs, playlists }) => {
   const onPlay = useOnPlay(songs);
 
   if (songs.length === 0) {
@@ -21,6 +22,7 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
           key={item.id}
           onClick={(id: string) => onPlay(id)}
           data={item}
+          playlists={playlists}
         />
       ))}
     </div>
