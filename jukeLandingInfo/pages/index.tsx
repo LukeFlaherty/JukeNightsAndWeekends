@@ -27,13 +27,22 @@ import { Em } from "components/typography";
 import { NextjsLogo, ChakraLogo } from "components/logos";
 import {
   FiArrowRight,
+  FiBarChart2,
   FiBox,
   FiCheck,
+  FiCheckCircle,
   FiCode,
   FiCopy,
+  FiDollarSign,
+  FiFeather,
   FiFlag,
+  FiGlobe,
   FiGrid,
+  FiHeadphones,
+  FiHeart,
+  FiHexagon,
   FiLock,
+  FiMusic,
   FiSearch,
   FiSliders,
   FiSmile,
@@ -42,6 +51,7 @@ import {
   FiToggleLeft,
   FiTrendingUp,
   FiUserPlus,
+  FiUsers,
 } from "react-icons/fi";
 import { Features } from "components/features";
 import { BackgroundGradient } from "components/gradients/background-gradient";
@@ -65,8 +75,8 @@ const Home: NextPage = () => {
   return (
     <Box>
       <SEO
-        title="Saas UI Landingspage"
-        description="Free SaaS landingspage starter kit"
+        title="Juke - What is it?"
+        description="Discover Music Like Never Before with Juke."
       />
       <Box>
         <HeroSection />
@@ -77,7 +87,7 @@ const Home: NextPage = () => {
 
         <TestimonialsSection />
 
-        <PricingSection />
+        {/* <PricingSection /> */}
 
         <FaqSection />
       </Box>
@@ -97,30 +107,34 @@ const HeroSection: React.FC = () => {
             px="0"
             title={
               <FallInPlace>
-                Build beautiful
-                <Br /> software faster
+                Revolutionizing the
+                <Br /> <Em>Music Industry</Em>
               </FallInPlace>
             }
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
-                Saas UI is a <Em>React component library</Em>
-                <Br /> that doesn&apos;t get in your way and helps you <Br />{" "}
-                build intuitive SaaS products with speed.
+                <Em>Join</Em> the Juke Movement. <Br />
+                <Em>Embrace</Em> Web3 Innovation. <Br />
+                <Em>Support</Em> Artists and <Em>Earn $</Em> While Listening
               </FallInPlace>
             }
           >
             <FallInPlace delay={0.8}>
-              <HStack pt="4" pb="12" spacing="8">
-                <NextjsLogo height="28px" /> <ChakraLogo height="20px" />
-              </HStack>
+              {/* <HStack pt="4" pb="12" spacing="8">
+                {/* <NextjsLogo height="28px" /> */}
+              {/* </HStack> */}
 
-              <ButtonGroup spacing={4} alignItems="center">
-                <ButtonLink colorScheme="primary" size="lg" href="/signup">
+              <ButtonGroup pt="8" spacing={4} alignItems="center">
+                <ButtonLink
+                  colorScheme="primary"
+                  size="lg"
+                  href="https://juke-git-main-lukeflaherty.vercel.app/"
+                >
                   Sign Up
                 </ButtonLink>
                 <ButtonLink
                   size="lg"
-                  href="https://demo.saas-ui.dev"
+                  href="https://calendly.com/lukejflaherty"
                   variant="outline"
                   rightIcon={
                     <Icon
@@ -135,7 +149,7 @@ const HeroSection: React.FC = () => {
                     />
                   }
                 >
-                  View demo
+                  Book Demo
                 </ButtonLink>
               </ButtonGroup>
             </FallInPlace>
@@ -152,11 +166,11 @@ const HeroSection: React.FC = () => {
             <FallInPlace delay={1}>
               <Box overflow="hidden" height="100%">
                 <Image
-                  src="/static/screenshots/list.png"
+                  src="/static/screenshots/new/list.png"
                   layout="fixed"
                   width={1200}
                   height={762}
-                  alt="Screenshot of a ListPage in Saas UI Pro"
+                  alt="Screenshot of the home page in Juke"
                   quality="75"
                   priority
                 />
@@ -174,33 +188,34 @@ const HeroSection: React.FC = () => {
         pt="20"
         features={[
           {
-            title: "Accessible",
-            icon: FiSmile,
-            description: "All components strictly follow WAI-ARIA standards.",
+            title: "Discover Unique Sounds",
+            icon: FiMusic,
+            description:
+              "Explore a diverse range of music from emerging artists.",
             iconPosition: "left",
             delay: 0.6,
           },
           {
-            title: "Themable",
-            icon: FiSliders,
+            title: "Empower Independent Artists",
+            icon: FiHeart,
             description:
-              "Fully customize all components to your brand with theme support and style props.",
+              "Support talented artists directly and help them thrive.",
             iconPosition: "left",
             delay: 0.8,
           },
           {
-            title: "Composable",
-            icon: FiGrid,
+            title: "Earn While You Listen",
+            icon: FiDollarSign,
             description:
-              "Compose components to fit your needs and mix them together to create new ones.",
+              "Get rewarded with cryptocurrency for streaming tracks.",
             iconPosition: "left",
             delay: 1,
           },
           {
-            title: "Productive",
-            icon: FiThumbsUp,
+            title: "Seamless & User-Friendly",
+            icon: FiCheckCircle,
             description:
-              "Designed to reduce boilerplate and fully typed, build your product at speed.",
+              "Enjoy a smooth experience while navigating our intuitive platform.",
             iconPosition: "left",
             delay: 1.1,
           },
@@ -214,15 +229,19 @@ const HeroSection: React.FC = () => {
 const HighlightsSection = () => {
   const { value, onCopy, hasCopied } = useClipboard("yarn add @saas-ui/react");
 
+  // Inside your component function
+  const redirectToApp = () => {
+    window.location.href = "https://juke-git-main-lukeflaherty.vercel.app/";
+  };
+
   return (
     <Highlights>
-      <HighlightsItem colSpan={[1, null, 2]} title="Core components">
+      <HighlightsItem colSpan={[1, null, 2]} title="Unlock the Potential">
         <VStack alignItems="flex-start" spacing="8">
           <Text color="muted" fontSize="xl">
-            Get started for free with <Em>30+ open source components</Em>.
-            Including authentication screens with Clerk, Supabase and Magic.
-            Fully functional forms with React Hook Form. Data tables with React
-            Table.
+            Explore the endless possibilities with <Em>powerful features</Em>{" "}
+            that elevate your music experience. Unleash the artist in you and
+            discover new dimensions of creativity.
           </Text>
 
           <Flex
@@ -235,19 +254,20 @@ const HighlightsSection = () => {
             pe="2"
             bg="primary.900"
             _dark={{ bg: "gray.900" }}
+            cursor="pointer"
+            onClick={redirectToApp} // Adjust the route accordingly
           >
             <Box>
               <Text color="yellow.400" display="inline">
-                yarn add
+                Join Now
               </Text>{" "}
               <Text color="cyan.300" display="inline">
-                @saas-ui/react
+                for Free
               </Text>
             </Box>
             <IconButton
-              icon={hasCopied ? <FiCheck /> : <FiCopy />}
-              aria-label="Copy install command"
-              onClick={onCopy}
+              icon={<FiArrowRight />} // Arrow icon
+              aria-label="Redirect to app"
               variant="ghost"
               ms="4"
               isRound
@@ -256,50 +276,43 @@ const HighlightsSection = () => {
           </Flex>
         </VStack>
       </HighlightsItem>
-      <HighlightsItem title="Solid foundations">
+      <HighlightsItem title="Elevate Your Music Experience">
         <Text color="muted" fontSize="lg">
-          We don&apos;t like to re-invent the wheel, neither should you. We
-          selected the most productive and established tools in the scene and
-          build Saas UI on top of it.
+          We bring you <Em>innovative tools</Em> designed to amplify your
+          connection with music. Experience the future of music exploration with
+          Juke.
         </Text>
       </HighlightsItem>
       <HighlightsTestimonialItem
-        name="Renata Alink"
-        description="Founder"
+        name="Alex Martin"
+        description="Indie Artist"
         avatar="/static/images/avatar.jpg"
-        gradient={["pink.200", "purple.500"]}
+        gradient={["blue.200", "green.500"]}
       >
-        “Saas UI helped us set up a beautiful modern UI in no time. It saved us
-        hundreds of hours in development time and allowed us to focus on
-        business logic for our specific use-case from the start.”
+        “Juke has been a game-changer for me as an indie artist. It empowers me
+        to share my music directly with listeners and earn rewards for my
+        creativity. Truly revolutionary!”
       </HighlightsTestimonialItem>
       <HighlightsItem
         colSpan={[1, null, 2]}
-        title="Start your next idea two steps ahead"
+        title="Unleash Your Creative Journey"
       >
         <Text color="muted" fontSize="lg">
-          We took care of all your basic frontend needs, so you can start
-          building functionality that makes your product unique.
+          Embrace a platform that offers you the tools and opportunities to
+          connect with your audience, monetize your talent, and shape the future
+          of the music industry.
         </Text>
         <Wrap mt="8">
           {[
-            "authentication",
-            "navigation",
-            "crud",
-            "settings",
-            "multi-tenancy",
-            "layouts",
-            "billing",
-            "a11y testing",
-            "server-side rendering",
-            "documentation",
-            "onboarding",
-            "storybooks",
-            "theming",
-            "upselling",
-            "unit testing",
-            "feature flags",
-            "responsiveness",
+            "Direct Fan Engagement",
+            "Monetization",
+            "Collaboration",
+            "Innovative Playlists",
+            "Music Analytics",
+            "Artist Communities",
+            "Blockchain Integration",
+            "Interactive Experiences",
+            "Empowering Features",
           ].map((value) => (
             <Tag
               key={value}
@@ -328,16 +341,16 @@ const FeaturesSection = () => {
           textAlign="left"
           as="p"
         >
-          Not your standard
-          <Br /> dashboard template.
+          Elevate Your Music Experience
+          <Br /> with Unique Features.
         </Heading>
       }
       description={
         <>
-          Saas UI Pro includes everything you need to build modern frontends.
+          Juke offers a diverse set of features to enhance your music journey.
           <Br />
-          Use it as a template for your next product or foundation for your
-          design system.
+          Whether you&apos;re an artist or a listener, our tools empower you to
+          create and discover like never before.
         </>
       }
       align="left"
@@ -345,71 +358,66 @@ const FeaturesSection = () => {
       iconSize={4}
       features={[
         {
-          title: "Components.",
-          icon: FiBox,
+          title: "Artist Tools.",
+          icon: FiMusic,
           description:
-            "All premium components are available on a private NPM registery, no more copy pasting and always up-to-date.",
+            "Empower musicians with tools for monetization, promotion, and direct fan engagement.",
           variant: "inline",
         },
         {
-          title: "Starterkits.",
-          icon: FiLock,
+          title: "Listener Experience.",
+          icon: FiHeadphones,
           description:
-            "Example apps in Next.JS, Electron. Including authentication, billing, example pages, everything you need to get started FAST.",
+            "Curated playlists, AI-powered recommendations, and interactive features for a tailored experience.",
           variant: "inline",
         },
         {
-          title: "Documentation.",
-          icon: FiSearch,
+          title: "Web3 Integration.",
+          icon: FiHexagon,
           description:
-            "Extensively documented, including storybooks, best practices, use-cases and examples.",
+            "Embrace the decentralized future with blockchain-based authenticity, ownership, and rewards.",
           variant: "inline",
         },
         {
-          title: "Onboarding.",
-          icon: FiUserPlus,
+          title: "Revenue Streams.",
+          icon: FiDollarSign,
           description:
-            "Add user onboarding flows, like tours, hints and inline documentation without breaking a sweat.",
+            "Artists can earn through streaming, NFTs, and virtual events. Listeners can support favorites directly.",
           variant: "inline",
         },
         {
-          title: "Feature flags.",
-          icon: FiFlag,
+          title: "Collaborative Space.",
+          icon: FiUsers,
           description:
-            "Implement feature toggles for your billing plans with easy to use hooks. Connect Flagsmith, or other remote config services once you're ready.",
+            "Connect with other artists, collaborate on projects, and engage with a vibrant community.",
           variant: "inline",
         },
         {
-          title: "Upselling.",
-          icon: FiTrendingUp,
+          title: "Personalization.",
+          icon: FiHeart,
           description:
-            "Components and hooks for upgrade flows designed to make upgrading inside your app frictionless.",
+            "Tailor your experience, discover new genres, and connect deeply with music that resonates.",
           variant: "inline",
         },
         {
-          title: "Themes.",
-          icon: FiToggleLeft,
+          title: "Innovation.",
+          icon: FiFeather,
           description:
-            "Includes multiple themes with darkmode support, always have the perfect starting point for your next project.",
+            "Stay ahead with cutting-edge features, from AI-generated music to virtual reality concerts.",
           variant: "inline",
         },
         {
-          title: "Generators.",
-          icon: FiTerminal,
+          title: "Analytics.",
+          icon: FiBarChart2,
           description:
-            "Extend your design system while maintaininig code quality and consistency with built-in generators.",
+            "Gain insights into your audience, track performance, and make informed decisions.",
           variant: "inline",
         },
         {
-          title: "Monorepo.",
-          icon: FiCode,
-          description: (
-            <>
-              All code is available as packages in a high-performance{" "}
-              <Link href="https://turborepo.com">Turborepo</Link>, you have full
-              control to modify and adjust it to your workflow.
-            </>
-          ),
+          title: "Global Reach.",
+          icon: FiGlobe,
+          description:
+            "Reach fans worldwide, breaking down geographical barriers and expanding your reach.",
           variant: "inline",
         },
       ]}
@@ -468,10 +476,10 @@ export async function getStaticProps() {
   return {
     props: {
       announcement: {
-        title: "Support us by becoming a stargazer! 🚀 ",
+        title: "Follow us on Twitter for updates! 🚀 ",
         description:
-          '<img src="https://img.shields.io/github/stars/saas-js/saas-ui.svg?style=social&label=Star" />',
-        href: "https://github.com/saas-js/saas-ui",
+          '<img src="https://img.shields.io/twitter/follow/:jukefyi" />',
+        href: "https://twitter.com/jukefyi",
         action: false,
       },
     },
