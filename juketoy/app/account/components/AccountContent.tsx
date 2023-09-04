@@ -36,13 +36,18 @@ const AccountContent = () => {
     null
   );
   const [artistBio, setArtistBio] = useState<string>(""); // New state
-  const [artistImagePath, setArtistImagePath] = useState<string>(""); // New state
+  const [selectedArtistImage, setSelectedArtistImage] = useState<File | null>(
+    null
+  );
 
   const [artistName, setArtistName] = useState<string>(""); // New state for artist name
   const [isEditingName, setIsEditingName] = useState(false); // New state for toggling editing of the artist's name
 
   const [isIdHidden, setIsIdHidden] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
+
+  // for refreshing on updates
+  const [refreshData, setRefreshData] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !userDetails) {
@@ -78,6 +83,10 @@ const AccountContent = () => {
 
   const currentAvatarPublicUrl = useLoadUserImage({
     image_path: userDetails?.avatar_url || "",
+  });
+
+  const currentArtistImagePublicUrl = useLoadUserImage({
+    image_path: artistDetails?.profile_image_path || "",
   });
 
   const handleAvatarChange = async () => {
@@ -136,6 +145,21 @@ const AccountContent = () => {
     }
   };
 
+  const handleArtistImageChange = async () => {
+    if (!selectedArtistImage || !userDetails) return;
+
+    const newArtistImageUploadPath = await uploadAvatar(selectedArtistImage); // Assuming you're using the same upload method
+
+    if (newArtistImageUploadPath) {
+      await updateArtist(userDetails.id, {
+        profile_image_path: newArtistImageUploadPath,
+      });
+
+      // Refresh the artist details to reflect the change in UI.
+      // TODO
+    }
+  };
+
   // TODO: make it use the loading.tsx
   if (isLoading || updating || avatarUpdateLoading) {
     // added avatarUpdateLoading
@@ -182,12 +206,14 @@ const AccountContent = () => {
           )}
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
+        {/* avatar changing */}
         <div>
           <h3 className="font-medium text-sm mb-1">Avatar:</h3>
           {/* TODO Changing avatar does not work - pls change */}
           <div className="flex items-center">
+            {/* avatar image */}
             <Image
-              src={userDetails?.avatar_url || "/images/default_user.jpeg"}
+              src={currentAvatarPublicUrl || "/images/default_user.jpeg"}
               alt={userDetails?.full_name || "User"}
               width={64}
               height={64}
@@ -354,6 +380,35 @@ const AccountContent = () => {
             {isCopied && (
               <span className="text-green-500">Copied to clipboard!</span>
             )}
+          </div>
+        )}
+        {/* artist image uploader */}
+        {userDetails?.is_artist && (
+          <div>
+            <h3 className="font-medium text-sm mb-1">Artist Image:</h3>
+            <div className="flex items-center">
+              <Image
+                src={
+                  currentArtistImagePublicUrl || "/images/default_artist.jpeg"
+                } // Provide a default artist image if desired
+                alt={artistDetails?.name || "Artist"}
+                width={64}
+                height={64}
+                className="rounded-full mr-2"
+              />
+              <input
+                type="file"
+                onChange={(e) =>
+                  setSelectedArtistImage(e.target.files?.[0] || null)
+                }
+              />
+              <button
+                onClick={handleArtistImageChange}
+                className="ml-2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+              >
+                Upload
+              </button>
+            </div>
           </div>
         )}
         {userDetails?.artist_approval_status === "approved" && (

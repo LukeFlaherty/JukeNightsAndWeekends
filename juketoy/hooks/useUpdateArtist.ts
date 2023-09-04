@@ -6,6 +6,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 type ArtistDetails = {
   bio: string;
   name: string;
+  profile_image_path: string;
   // ... any other fields from the artist table you might need in the future.
 };
 
