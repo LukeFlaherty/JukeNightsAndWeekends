@@ -12,7 +12,13 @@ import Link from "next/link";
 
 const AccountContent = () => {
   const router = useRouter();
-  const { isLoading, userDetails, artistDetails } = useUser();
+  const {
+    isLoading,
+    userDetails,
+    artistDetails,
+    fetchUserDetails,
+    fetchArtistDetails,
+  } = useUser();
   const { updateUser, loading: updating, error } = useUpdateUser();
   const {
     updateArtist,
@@ -75,6 +81,7 @@ const AccountContent = () => {
       await updateUser(userDetails.id, { full_name: editedFullName });
       setIsEditing(false);
     }
+    fetchUserDetails(userDetails?.id || "");
   };
 
   const { uploadAvatar } = useUploadAvatar();
@@ -102,6 +109,7 @@ const AccountContent = () => {
       // Refresh the user details to reflect the change in UI.
       // You can use a function from the useUser hook or whichever method you employ to refetch user details.
       // TODO
+      fetchUserDetails(userDetails.id);
     }
   };
 
@@ -114,6 +122,7 @@ const AccountContent = () => {
     } catch (err) {
       setArtistRequestError("Failed to submit request. Please try again.");
     }
+    fetchArtistDetails(userDetails?.id || "");
   };
 
   const handleUpdateBio = async () => {
@@ -122,6 +131,7 @@ const AccountContent = () => {
       setIsEditingBio(false);
       // Handle artistUpdating and artistUpdateError if needed.
     }
+    fetchUserDetails(userDetails?.id || "");
   };
 
   const handleUpdateName = async () => {
@@ -130,6 +140,7 @@ const AccountContent = () => {
       setIsEditingName(false); // Reset the editing state for artist name
       // Handle any additional artist updating logic and error handling as needed.
     }
+    fetchArtistDetails(userDetails?.id || "");
   };
 
   const handleCopyToClipboard = () => {
@@ -157,6 +168,7 @@ const AccountContent = () => {
 
       // Refresh the artist details to reflect the change in UI.
       // TODO
+      fetchArtistDetails(userDetails.id);
     }
   };
 

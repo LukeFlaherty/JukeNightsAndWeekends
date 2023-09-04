@@ -13,6 +13,8 @@ type UserContextType = {
   userDetails: UserDetails | null;
   artistDetails: ArtistDetails | null;
   isLoading: boolean;
+  fetchUserDetails: (userId: string) => Promise<any>;
+  fetchArtistDetails: (userId: string) => Promise<any>;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -42,7 +44,7 @@ export const MyUserContextProvider = (props: Props) => {
     null
   );
 
-  // Local getUserDetails function
+  // Exporting this function
   const fetchUserDetails = async (userId: string) => {
     setIsLoadingData(true);
     try {
@@ -65,6 +67,7 @@ export const MyUserContextProvider = (props: Props) => {
     }
   };
 
+  // Exporting this function as well
   const fetchArtistDetails = async (userId: string) => {
     setIsLoadingData(true);
     try {
@@ -104,6 +107,8 @@ export const MyUserContextProvider = (props: Props) => {
     user,
     userDetails,
     artistDetails,
+    fetchUserDetails, // include this
+    fetchArtistDetails, // and this
     isLoading: isLoadingUser || isLoadingData,
   };
 
