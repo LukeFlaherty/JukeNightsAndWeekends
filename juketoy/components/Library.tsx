@@ -19,7 +19,7 @@ interface LibraryProps {
 const Library: React.FC<LibraryProps> = ({ initialSongs, playlists }) => {
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
-  const { user } = useUser();
+  const { user, fetchUserDetails } = useUser();
   const { deleteSong } = useDeleteSong();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -30,6 +30,7 @@ const Library: React.FC<LibraryProps> = ({ initialSongs, playlists }) => {
       return authModal.onOpenLogin();
     }
     setIsSidebarOpen(!isSidebarOpen); // Toggle the sidebar open/close state
+    fetchUserDetails(user.id);
   };
 
   const handleSongDeletion = async (songId: string) => {

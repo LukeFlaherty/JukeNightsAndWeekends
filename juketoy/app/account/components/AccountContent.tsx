@@ -9,6 +9,7 @@ import useUpdateUserAvatar from "@/hooks/useUpdateUserAvatar";
 import useLoadUserImage from "@/hooks/useLoadUserImage";
 import useUpdateArtist from "@/hooks/useUpdateArtist";
 import Link from "next/link";
+import Loading from "../loading";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -176,6 +177,7 @@ const AccountContent = () => {
   if (isLoading || updating || avatarUpdateLoading) {
     // added avatarUpdateLoading
     return <div className="mb-7 px-6">Loading...</div>;
+    // return <Loading />;
   }
   // TODO: Replace buttons with the button component we have
   return (
