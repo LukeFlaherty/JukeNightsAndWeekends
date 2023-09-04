@@ -1,32 +1,75 @@
-import * as React from 'react'
+import * as React from "react";
 
 const faq = {
-  title: 'Frequently asked questions',
-  // description: '',
+  title: "Frequently Asked Questions",
   items: [
     {
-      q: 'How many products can I use Saas UI Pro for?',
+      q: "How can artists earn on Juke?",
       a: (
         <>
-          The single license can be used for one commercial application or SaaS
-          product and unlimited internal tools. You can buy as many licenses as
-          you need. <br /> The unlimited license does not have any restrictions.
+          Juke empowers artists to earn through its innovative web3-based model.
+          Artists receive fair compensation for their music directly from
+          listeners, leveraging blockchain technology to ensure transparency and
+          ownership.
         </>
       ),
     },
     {
-      q: 'Can I use Saas UI Pro for client work?',
-      a: "Yes, that's totally up to you, as long as it fits the license you purchase.",
+      q: "How can listeners earn on Juke?",
+      a: (
+        <>
+          Listeners on Juke have the opportunity to earn by participating in
+          various engagement activities. This includes sharing feedback,
+          discovering new artists, and contributing to the growth of the music
+          community.
+        </>
+      ),
     },
     {
-      q: 'Can I use Saas UI Pro for Open Source projects?',
-      a: 'No currently not. A large part of Saas UI is already released under MIT license. We try to give back to the community as much as possible.',
+      q: "How does Juke help me set up my crypto wallet?",
+      a: (
+        <>
+          Juke provides step-by-step guides and resources to assist you in
+          setting up your crypto wallet. Whether you're new to the world of
+          blockchain or an experienced user, our user-friendly tutorials ensure
+          a seamless wallet setup process.
+        </>
+      ),
     },
     {
-      q: 'Does Saas UI include Figma, Sketch or other design files?',
-      a: 'No, Saas UI does not include any design assets. Maintaining design resources costs a lot of extra effort. We believe small teams can move much faster by designing directly in code, with help of Storybooks.',
+      q: "What makes Juke different from other music platforms?",
+      a: (
+        <>
+          Juke stands out by embracing Web3 innovation. Unlike traditional
+          platforms, we prioritize fair compensation for artists and offer
+          listeners the chance to actively engage and earn within the music
+          ecosystem. Our platform fosters a new era of collaboration and
+          value-sharing between creators and their audience.
+        </>
+      ),
+    },
+    {
+      q: "How many artists can I discover on Juke?",
+      a: (
+        <>
+          Juke's diverse catalog features a multitude of emerging and
+          established artists. You can explore a wide range of musical genres,
+          ensuring you'll always find something new and exciting to listen to.
+        </>
+      ),
+    },
+    {
+      q: "Can I collaborate with other artists on Juke?",
+      a: (
+        <>
+          Absolutely! Juke encourages collaboration between artists. You can
+          connect with fellow creators, share your work, and even collaborate on
+          tracks. Our platform is designed to foster a supportive community of
+          musicians.
+        </>
+      ),
     },
   ],
-}
+};
 
-export default faq
+export default faq;
