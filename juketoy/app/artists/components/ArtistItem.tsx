@@ -19,9 +19,6 @@ const ArtistItem: React.FC<ArtistItemProps> = ({
     router.push(`/artists/${artistName}`);
   };
 
-  console.log("ARTIST NAME", artistName);
-  console.log("ARTIST IMAGE PATH", artistImagePath);
-
   return (
     <div
       onClick={handleArtistClick}

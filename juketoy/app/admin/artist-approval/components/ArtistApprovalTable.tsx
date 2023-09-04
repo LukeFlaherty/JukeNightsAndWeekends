@@ -82,9 +82,6 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
     }
   };
 
-  console.log("1", artists);
-  console.log("3", currentUser.userDetails);
-
   // You can uncomment this logic if you want to redirect non-admins
   // useEffect(() => {
   //   if (!isAdmin(currentUser.userDetails)) {

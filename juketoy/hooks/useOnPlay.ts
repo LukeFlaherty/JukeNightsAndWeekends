@@ -13,11 +13,7 @@ const useOnPlay = (songs: Song[]) => {
       return authModal.onOpenLogin();
     }
 
-    console.log("onPlay", id);
-    console.log("songs", songs);
-    console.log("player", player);
     const songToPlay = songs.find((song) => song.id === id);
-    console.log("SONG TO PLAY", songToPlay);
     if (songToPlay) {
       player.setActiveSong(songToPlay);
       player.setSongs(songs);
