@@ -46,7 +46,10 @@ const playlistPage: FC<pageProps> = async ({ params }) => {
         </div>
       </Header>
       {/* <LikedContent songs={songs} /> */}
-      <PlaylistContent songs={playlistSongs || []} />
+      <PlaylistContent
+        songs={playlistSongs || []}
+        playlistId={playlist?.id || ""}
+      />
     </div>
   );
 };

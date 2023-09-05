@@ -7,35 +7,38 @@ import { useSessionContext } from "@supabase/auth-helpers-react";
 
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
+import useDeleteSongFromPlaylist from "@/hooks/useDeleteSongFromPlaylist";
 
 interface DeleteButtonProps {
   playlistSongId: string;
+  playlistId: string;
+  songId: string;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ playlistSongId }) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({
+  playlistSongId,
+  playlistId,
+  songId,
+}) => {
   const { supabaseClient } = useSessionContext();
   const authModal = useAuthModal();
   const { user } = useUser();
+  const { deleteFromPlaylist, error } = useDeleteSongFromPlaylist();
 
   const handleDelete = async () => {
     if (!user) {
       return authModal.onOpenLogin();
     }
 
-    const { error } = await supabaseClient
-      .from("playlist_songs")
-      .delete()
-      .eq("song_id", playlistSongId)
-      .single();
+    await deleteFromPlaylist(playlistSongId); // <-- using the hook's delete function
 
     if (error) {
-      // toast.error(error.message);
-      // TODO: Need to add user_id ot the playlist_songs table so that I can specify who can delete
-      toast.error("Error deleting song from playlist! (Not Implemented Yet)");
+      toast.error("Error deleting song from playlist!");
     } else {
-      toast.success("Song removed from playlist!");
-      // Optional: Refresh the page or update the UI to reflect the deletion
-      // You can use any other approach to trigger an update in your UI
+      // toast.success(`Song ${playlistSongId} removed from playlist!`);
+      toast.success(`Song removed from playlist, refresh to see!`);
+      // Optional: Refresh the page or update the UI to reflect the deletion.
+      // You can use any other approach to trigger an update in your UI.
       // For instance, if using a state manager or local state, you can filter out the deleted song from the list.
     }
   };

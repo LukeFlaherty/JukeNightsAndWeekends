@@ -9,6 +9,10 @@ export interface Song {
   image_path: string;
 }
 
+export interface PlaylistSong extends Song {
+  playlist_song_id: string;
+}
+
 export interface ArtistSong {
   id: string;
   created_at: string;

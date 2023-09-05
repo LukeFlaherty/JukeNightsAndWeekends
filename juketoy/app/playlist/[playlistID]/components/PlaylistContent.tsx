@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { Song } from "@/types";
+import { PlaylistSong, Song } from "@/types";
 import { useUser } from "@/hooks/useUser";
 import MediaItem from "@/components/MediaItem";
 import LikeButton from "@/components/LikeButton";
@@ -11,12 +11,16 @@ import useOnPlay from "@/hooks/useOnPlay";
 import DeleteButton from "./DeleteButton";
 
 interface PlaylistContentProps {
-  songs: Song[];
+  songs: PlaylistSong[];
+  playlistId: string;
 }
 
 const SHOW_DUPLICATES = true; // Toggle this to show/hide duplicate songs
 
-const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
+const PlaylistContent: React.FC<PlaylistContentProps> = ({
+  songs,
+  playlistId,
+}) => {
   const router = useRouter();
   const { isLoading, user } = useUser();
   const onPlay = useOnPlay(songs);
@@ -55,21 +59,25 @@ const PlaylistContent: React.FC<PlaylistContentProps> = ({ songs }) => {
   }
   return (
     <div className="flex flex-col gap-y-2 w-full p-6">
-      {displaySongs.map((song, index) => (
+      {displaySongs.map((playlistSong, index) => (
         <div
-          key={`${song.id}-${index}`}
+          key={`${playlistSong.id}-${index}`}
           className="flex items-center gap-x-4 w-full"
         >
           <div className="flex-1">
             <MediaItem
               onClick={(id: string) => onPlay(id)}
-              data={song}
+              data={playlistSong}
               onDelete={() => {}}
               playlists={[]}
             />
           </div>
-          <LikeButton songId={song.id} />
-          <DeleteButton playlistSongId={song.id} />
+          <LikeButton songId={playlistSong.id} />
+          <DeleteButton
+            playlistSongId={playlistSong.playlist_song_id}
+            playlistId={playlistId}
+            songId={playlistSong.id}
+          />
         </div>
       ))}
     </div>
