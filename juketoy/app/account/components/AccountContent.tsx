@@ -181,11 +181,12 @@ const AccountContent = () => {
   }
   // TODO: Replace buttons with the button component we have
   return (
-    <div className="mb-7 px-6">
-      <h2 className="text-xl font-semibold mb-4">Your Account</h2>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <h3 className="font-medium text-sm mb-1">Full Name:</h3>
+    <div className="mb-10 px-8 py-5 bg-gray-800 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-white">Your Account</h2>
+      <div className="grid grid-cols-2 gap-6">
+        {/* Full Name Section */}
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">Full Name</h3>
           {isEditing ? (
             <div className="flex items-center">
               <input
@@ -220,10 +221,10 @@ const AccountContent = () => {
           )}
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
-        {/* avatar changing */}
-        <div>
-          <h3 className="font-medium text-sm mb-1">Avatar:</h3>
-          {/* TODO Changing avatar does not work - pls change */}
+        {/* Avatar Section */}
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">Avatar</h3>
+
           <div className="flex items-center">
             {/* avatar image */}
             <Image
@@ -248,8 +249,9 @@ const AccountContent = () => {
             <div className="text-red-500 mt-2">{avatarUpdateError}</div>
           )}
         </div>
-        <div>
-          <h3 className="font-medium text-sm mb-1">Artist:</h3>
+        {/* Artist Section */}
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">Artist</h3>
           {userDetails?.is_artist ? (
             <p>Yes</p>
           ) : (
@@ -279,17 +281,22 @@ const AccountContent = () => {
             <div className="mt-4 text-red-500">{artistRequestError}</div>
           )}
         </div>
-        <div>
-          <h3 className="font-medium text-sm mb-1">Approval Status:</h3>
+        {/* Approval Status Section */}
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">
+            Approval Status
+          </h3>
           <p>{userDetails?.artist_approval_status || "Not Set"}</p>
         </div>
-        <div>
-          <h3 className="font-medium text-sm mb-1">Admin:</h3>
+        {/* Admin Section */}
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">Admin</h3>
           <p>{userDetails?.is_admin ? "Yes" : "No"}</p>
         </div>
+        {/* Artist Bio Section */}
         {userDetails?.is_artist && (
-          <div>
-            <h3 className="font-medium text-sm mb-1">Artist Bio:</h3>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <h3 className="font-medium text-lg mb-2 text-white">Artist Bio</h3>
             {isEditingBio ? (
               <div>
                 <textarea
@@ -328,10 +335,10 @@ const AccountContent = () => {
             )}
           </div>
         )}
-        {/* artist name */}
+        {/* Artist Name Section */}
         {userDetails?.is_artist && (
-          <div>
-            <h3 className="font-medium text-sm mb-1">Artist Name:</h3>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <h3 className="font-medium text-lg mb-2 text-white">Artist Name</h3>
             {isEditingName ? (
               <div>
                 <input
@@ -368,10 +375,12 @@ const AccountContent = () => {
             )}
           </div>
         )}
-        {/* artist upload code */}
+        {/* Artist Upload ID Section */}
         {userDetails?.is_artist && (
-          <div className="mt-4">
-            <h3 className="font-medium text-sm mb-1">Artist Upload ID:</h3>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <h3 className="font-medium text-lg mb-2 text-white">
+              Artist Upload ID
+            </h3>
             <div className="flex items-center">
               <span>
                 {isIdHidden ? "************" : artistDetails?.artist_upload_id}
@@ -396,10 +405,12 @@ const AccountContent = () => {
             )}
           </div>
         )}
-        {/* artist image uploader */}
+        {/* Artist Image Uploader */}
         {userDetails?.is_artist && (
-          <div>
-            <h3 className="font-medium text-sm mb-1">Artist Image:</h3>
+          <div className="bg-gray-900 p-4 rounded-lg">
+            <h3 className="font-medium text-lg mb-2 text-white">
+              Artist Image
+            </h3>
             <div className="flex items-center">
               <Image
                 src={
@@ -425,11 +436,12 @@ const AccountContent = () => {
             </div>
           </div>
         )}
+        {/* Upload Music */}
         {userDetails?.artist_approval_status === "approved" && (
-          <div className="mt-8">
+          <div className="mt-8 col-span-2">
             <Link
               href="/account/upload-music"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="block text-center w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
             >
               Upload Music as an Artist
             </Link>
