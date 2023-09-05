@@ -25,11 +25,11 @@ const siteConfig = {
       },
       {
         label: "Login",
-        href: "https://https://app.juke.fyi//",
+        href: "https://app.juke.fyi/",
       },
       {
         label: "Sign Up",
-        href: "https://https://app.juke.fyi//",
+        href: "https://app.juke.fyi/",
         variant: "primary",
       },
     ],
