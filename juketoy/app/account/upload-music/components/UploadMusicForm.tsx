@@ -136,7 +136,7 @@ const UploadMusicForm = () => {
           id: insertedSongId, // Use the retrieved song ID
           artist_id: user.id,
           song_path: songData.path,
-          song_img_path: imageData.path,
+          image_path: imageData.path,
         });
 
       // Handle any errors
