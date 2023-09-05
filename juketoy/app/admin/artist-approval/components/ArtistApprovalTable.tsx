@@ -1,9 +1,7 @@
 "use client";
 
-import Header from "@/components/Header";
 import { useUser } from "@/hooks/useUser";
 import { UserDetails } from "@/types";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 import Image from "next/image";
@@ -12,6 +10,7 @@ import toast from "react-hot-toast";
 
 import useUpdateUser from "@/hooks/useUpdateUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import useLoadArtistImage from "@/hooks/useLoadArtistImage";
 
 interface ArtistApprovalTableProps {
   artists: UserDetails[];
@@ -22,7 +21,9 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
 }) => {
   const currentUser = useUser();
   const { supabaseClient } = useSessionContext();
-  const router = useRouter();
+  const artistImages = artists.map((artist) =>
+    useLoadArtistImage(artist.avatar_url || null)
+  );
 
   const { updateUser, loading: updating, error } = useUpdateUser();
 
@@ -113,10 +114,10 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
                   <td className="border px-4 py-2">{artist.full_name}</td>
                   <td className="border px-4 py-2">
                     <Image
-                      src={artist.avatar_url || "/default-avatar.png"}
+                      src={artistImages[index] || "/default-avatar.png"}
                       alt={artist.full_name || "Artist avatar"}
-                      width={48} // h-12 converted to pixels (1 rem = 16px, 3 rem = 48px)
-                      height={48} // w-12 converted to pixels
+                      width={48}
+                      height={48}
                       className="rounded-full"
                       layout="fixed"
                     />
