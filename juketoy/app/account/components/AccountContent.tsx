@@ -181,11 +181,13 @@ const AccountContent = () => {
   }
   // TODO: Replace buttons with the button component we have
   return (
-    <div className="mb-10 px-8 py-5 bg-gray-800 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-white">Your Account</h2>
+    <div className="mb-10 px-8 py-5 bg-lightModeBackground rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-mainBrandColor">
+        Your Account
+      </h2>
       <div className="grid grid-cols-2 gap-6">
         {/* Full Name Section */}
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Full Name</h3>
           {isEditing ? (
             <div className="flex items-center">
@@ -210,7 +212,9 @@ const AccountContent = () => {
             </div>
           ) : (
             <div className="flex items-center">
-              <span>{editedFullName || "Not Set"}</span>
+              <span className="text-mainBrandColor">
+                {editedFullName || "Not Set"}
+              </span>
               <button
                 onClick={() => setIsEditing(true)}
                 className="ml-2 bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600"
@@ -222,7 +226,7 @@ const AccountContent = () => {
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
         {/* Avatar Section */}
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Avatar</h3>
 
           <div className="flex items-center">
@@ -250,7 +254,7 @@ const AccountContent = () => {
           )}
         </div>
         {/* Artist Section */}
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Artist</h3>
           {userDetails?.is_artist ? (
             <p>Yes</p>
@@ -282,20 +286,20 @@ const AccountContent = () => {
           )}
         </div>
         {/* Approval Status Section */}
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">
             Approval Status
           </h3>
           <p>{userDetails?.artist_approval_status || "Not Set"}</p>
         </div>
         {/* Admin Section */}
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Admin</h3>
           <p>{userDetails?.is_admin ? "Yes" : "No"}</p>
         </div>
         {/* Artist Bio Section */}
         {userDetails?.is_artist && (
-          <div className="bg-gray-900 p-4 rounded-lg">
+          <div className="bg-hoverColor p-4 rounded-lg">
             <h3 className="font-medium text-lg mb-2 text-white">Artist Bio</h3>
             {isEditingBio ? (
               <div>
@@ -337,7 +341,7 @@ const AccountContent = () => {
         )}
         {/* Artist Name Section */}
         {userDetails?.is_artist && (
-          <div className="bg-gray-900 p-4 rounded-lg">
+          <div className="bg-hoverColor p-4 rounded-lg">
             <h3 className="font-medium text-lg mb-2 text-white">Artist Name</h3>
             {isEditingName ? (
               <div>
@@ -377,7 +381,7 @@ const AccountContent = () => {
         )}
         {/* Artist Upload ID Section */}
         {userDetails?.is_artist && (
-          <div className="bg-gray-900 p-4 rounded-lg">
+          <div className="bg-hoverColor p-4 rounded-lg">
             <h3 className="font-medium text-lg mb-2 text-white">
               Artist Upload ID
             </h3>
@@ -407,7 +411,7 @@ const AccountContent = () => {
         )}
         {/* Artist Image Uploader */}
         {userDetails?.is_artist && (
-          <div className="bg-gray-900 p-4 rounded-lg">
+          <div className="bg-hoverColor p-4 rounded-lg">
             <h3 className="font-medium text-lg mb-2 text-white">
               Artist Image
             </h3>
