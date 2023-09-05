@@ -128,7 +128,7 @@ const HeroSection: React.FC = () => {
                 <ButtonLink
                   colorScheme="primary"
                   size="lg"
-                  href="https://juke-git-main-lukeflaherty.vercel.app/"
+                  href="https://https://app.juke.fyi//"
                 >
                   Sign Up
                 </ButtonLink>
@@ -231,7 +231,7 @@ const HighlightsSection = () => {
 
   // Inside your component function
   const redirectToApp = () => {
-    window.location.href = "https://juke-git-main-lukeflaherty.vercel.app/";
+    window.location.href = "https://https://app.juke.fyi//";
   };
 
   return (

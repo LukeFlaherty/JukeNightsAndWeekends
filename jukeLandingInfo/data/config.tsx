@@ -25,11 +25,11 @@ const siteConfig = {
       },
       {
         label: "Login",
-        href: "https://juke-git-main-lukeflaherty.vercel.app/",
+        href: "https://https://app.juke.fyi//",
       },
       {
         label: "Sign Up",
-        href: "https://juke-git-main-lukeflaherty.vercel.app/",
+        href: "https://https://app.juke.fyi//",
         variant: "primary",
       },
     ],
