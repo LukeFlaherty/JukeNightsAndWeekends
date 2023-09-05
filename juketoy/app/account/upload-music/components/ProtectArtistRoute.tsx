@@ -18,7 +18,7 @@ const ProtectArtistRoute: React.FC<ProtectArtistRouteProps> = ({
     if (!user || userDetails?.artist_approval_status !== "approved") {
       router.push("/account");
     }
-  }, [user, router]);
+  }, [user, router, userDetails?.artist_approval_status]);
 
   // If the user is not defined yet, we can return null or some loading state.
   // This prevents flashing of content.

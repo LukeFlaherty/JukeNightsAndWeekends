@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import useUpdateUser from "@/hooks/useUpdateUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import useLoadArtistImage from "@/hooks/useLoadArtistImage";
+import useLoadArtistImages from "@/hooks/useLoadArtistImages";
 
 interface ArtistApprovalTableProps {
   artists: UserDetails[];
@@ -21,9 +22,8 @@ const ArtistApprovalTable: React.FC<ArtistApprovalTableProps> = ({
 }) => {
   const currentUser = useUser();
   const { supabaseClient } = useSessionContext();
-  const artistImages = artists.map((artist) =>
-    useLoadArtistImage(artist.avatar_url || null)
-  );
+  const avatarUrls = artists.map((artist) => artist.avatar_url || null);
+  const artistImages = useLoadArtistImages(avatarUrls);
 
   const { updateUser, loading: updating, error } = useUpdateUser();
 
