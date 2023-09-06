@@ -98,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <BiSearch className="text-mainBrandColor" size={20} />
           </button>
         </div>
-        <div className="flex justify-between items-center gap-x-4">
+        <div className="flex gap-x-4 items-center">
           {user ? (
             <div className="flex gap-x-4 items-center">
               <Button onClick={handleLogout} className="bg-white px-6 py-2">
@@ -113,27 +113,25 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             </div>
           ) : (
             <>
-              <div>
+              <div className="flex gap-x-4 items-center">
                 <Button
                   onClick={authModal.onOpenSignup}
                   className="bg-transparent text-neutral-300 font-medium"
                 >
                   Sign Up
                 </Button>
-              </div>
-              <div>
                 <Button
                   onClick={authModal.onOpenLogin}
-                  className="bg-white px-6 py-2 "
+                  className="bg-white px-6 py-2"
                 >
                   Log In
                 </Button>
-                <ConnectWallet
-                  theme="light"
-                  btnTitle="Connect Wallet"
-                  className="bg-white px-6 py-2 "
-                />
               </div>
+              <ConnectWallet
+                theme="light"
+                btnTitle="Connect Wallet"
+                className="bg-white px-6 py-2"
+              />
             </>
           )}
         </div>

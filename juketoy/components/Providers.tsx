@@ -1,5 +1,6 @@
 "use client";
 
+// TODO: Move all providers into here
 import { ThirdwebProvider, metamaskWallet } from "@thirdweb-dev/react";
 import { RedlightChain } from "@thirdweb-dev/chains";
 

@@ -10,16 +10,7 @@ import getSongsByUserId from "@/actions/getSongsByUserId";
 import Player from "@/components/Player";
 import getPlaylistsByUserId from "@/actions/getPlaylistsByUserId";
 
-import { ThirdwebProvider } from "@/components/ThirdwebProvider"; // Import ThirdwebProvider from your components
-
-import { Gnosis } from "@thirdweb-dev/chains";
-import {
-  metamaskWallet,
-  coinbaseWallet,
-  WalletConfig,
-} from "@thirdweb-dev/react";
-import type { MetaMaskWallet, CoinbaseWallet } from "@thirdweb-dev/wallets";
-import Providers from "@/components/Providers";
+import ThirdwebProvider from "@/components/ThirdwebProvider";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -41,7 +32,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Providers>
+        <ThirdwebProvider>
           <ToasterProvider />
           <SupabaseProvider>
             <UserProvider>
@@ -52,7 +43,7 @@ export default async function RootLayout({
               <Player />
             </UserProvider>
           </SupabaseProvider>
-        </Providers>
+        </ThirdwebProvider>
       </body>
     </html>
   );
