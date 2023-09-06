@@ -128,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 </Button>
               </div>
               <ConnectWallet
-                theme="dark"
+                theme="light"
                 btnTitle="Connect"
                 className="bg-white px-3 py-2 hover:opacity-75"
               />
