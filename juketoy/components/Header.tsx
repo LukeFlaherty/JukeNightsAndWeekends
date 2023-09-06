@@ -116,7 +116,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               <div className="flex gap-x-4 items-center">
                 <Button
                   onClick={authModal.onOpenSignup}
-                  className="bg-transparent text-neutral-300 font-medium"
+                  className="bg-transparent text-neutral-300 font-medium whitespace-nowrap"
                 >
                   Sign Up
                 </Button>
@@ -128,9 +128,9 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 </Button>
               </div>
               <ConnectWallet
-                theme="light"
-                btnTitle="Connect Wallet"
-                className="bg-white px-6 py-2"
+                theme="dark"
+                btnTitle="Connect"
+                className="bg-white px-3 py-2 hover:opacity-75"
               />
             </>
           )}
