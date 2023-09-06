@@ -10,6 +10,17 @@ import getSongsByUserId from "@/actions/getSongsByUserId";
 import Player from "@/components/Player";
 import getPlaylistsByUserId from "@/actions/getPlaylistsByUserId";
 
+import { ThirdwebProvider } from "@/components/ThirdwebProvider"; // Import ThirdwebProvider from your components
+
+import { Gnosis } from "@thirdweb-dev/chains";
+import {
+  metamaskWallet,
+  coinbaseWallet,
+  WalletConfig,
+} from "@thirdweb-dev/react";
+import type { MetaMaskWallet, CoinbaseWallet } from "@thirdweb-dev/wallets";
+import Providers from "@/components/Providers";
+
 const font = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -30,16 +41,18 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
-        <SupabaseProvider>
-          <UserProvider>
-            <ModalProvider playlists={userPlaylists} songs={userSongs} />
-            <Sidebar songs={userSongs} playlists={userPlaylists}>
-              {children}
-            </Sidebar>
-            <Player />
-          </UserProvider>
-        </SupabaseProvider>
+        <Providers>
+          <ToasterProvider />
+          <SupabaseProvider>
+            <UserProvider>
+              <ModalProvider playlists={userPlaylists} songs={userSongs} />
+              <Sidebar songs={userSongs} playlists={userPlaylists}>
+                {children}
+              </Sidebar>
+              <Player />
+            </UserProvider>
+          </SupabaseProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -15,6 +15,8 @@ import toast from "react-hot-toast";
 import usePlayer from "@/hooks/usePlayer";
 import { useMemo } from "react";
 
+import { ConnectWallet } from "@thirdweb-dev/react";
+
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
@@ -126,6 +128,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 >
                   Log In
                 </Button>
+                <ConnectWallet
+                  theme="light"
+                  btnTitle="Connect Wallet"
+                  className="bg-white px-6 py-2 "
+                />
               </div>
             </>
           )}
