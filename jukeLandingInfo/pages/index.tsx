@@ -114,8 +114,11 @@ const HeroSection: React.FC = () => {
             description={
               <FallInPlace delay={0.4} fontWeight="medium">
                 <Em>Join</Em> the Juke Movement. <Br />
+                <Em>Invest</Em> in Artists
+                <Br />
+                <Em>Earn $</Em> While Listening
+                <Br />
                 <Em>Embrace</Em> Web3 Innovation. <Br />
-                <Em>Support</Em> Artists and <Em>Earn $</Em> While Listening
               </FallInPlace>
             }
           >
