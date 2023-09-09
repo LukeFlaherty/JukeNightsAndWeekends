@@ -9,6 +9,7 @@ export const revalidate = 0;
 export default async function Home() {
   const songs = await getSongs();
   const userPlaylists = await getPlaylistsByUserId();
+  // const address = useAddress();
 
   return (
     <div className="bg-lightModeBackground rounded-lg h-full w-full overflow-hidden overflow-y-auto">

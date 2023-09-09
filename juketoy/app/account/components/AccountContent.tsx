@@ -10,6 +10,7 @@ import useLoadUserImage from "@/hooks/useLoadUserImage";
 import useUpdateArtist from "@/hooks/useUpdateArtist";
 import Link from "next/link";
 import Loading from "../loading";
+import { useAddress } from "@thirdweb-dev/react";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -55,6 +56,9 @@ const AccountContent = () => {
 
   // for refreshing on updates
   const [refreshData, setRefreshData] = useState(false);
+
+  // Initialize wallet address
+  const address = useAddress();
 
   useEffect(() => {
     if (!isLoading && !userDetails) {
@@ -181,7 +185,7 @@ const AccountContent = () => {
   }
   // TODO: Replace buttons with the button component we have
   return (
-    <div className="mb-10 px-8 py-5 bg-lightModeBackground rounded-lg shadow-lg">
+    <div className="mb-10 px-8 py-5 bg-lightModeBackground rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-mainBrandColor">
         Your Account
       </h2>
@@ -225,6 +229,18 @@ const AccountContent = () => {
           )}
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
+        {/* Wallet Address Section */}
+        <div className="bg-hoverColor p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">
+            Wallet Address
+          </h3>
+          <div className="flex items-center">
+            <span className="text-mainBrandColor">
+              {address || "Not Connected"}
+            </span>
+          </div>
+        </div>
+
         {/* Avatar Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Avatar</h3>

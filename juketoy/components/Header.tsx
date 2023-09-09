@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import usePlayer from "@/hooks/usePlayer";
 import { useMemo } from "react";
 
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -27,6 +27,9 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const authModal = useAuthModal();
   const router = useRouter();
   const pathname = usePathname();
+
+  // const address = useAddress();
+  // console.log("address", address);
 
   const supabaseClient = useSupabaseClient();
   const { user } = useUser();
