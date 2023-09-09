@@ -98,6 +98,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <BiSearch className="text-mainBrandColor" size={20} />
           </button>
         </div>
+
         <div className="flex gap-x-4 items-center">
           {user ? (
             <div className="flex gap-x-4 items-center">
@@ -127,13 +128,14 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                   Log In
                 </Button>
               </div>
-              <ConnectWallet
-                theme="light"
-                btnTitle="Connect"
-                className="bg-white px-3 py-2 hover:opacity-75"
-              />
             </>
           )}
+          {/* Always show the "Connect Wallet" button */}
+          <ConnectWallet
+            theme="light"
+            btnTitle="Connect"
+            className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
+          />
         </div>
       </div>
       {children}
