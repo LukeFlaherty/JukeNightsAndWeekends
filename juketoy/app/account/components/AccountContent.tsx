@@ -11,6 +11,8 @@ import useUpdateArtist from "@/hooks/useUpdateArtist";
 import Link from "next/link";
 import Loading from "../loading";
 import { useAddress } from "@thirdweb-dev/react";
+import ManageMusicButton from "./ManageMusicButton";
+import UploadMusicButton from "./UploadMusicButton";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -457,16 +459,12 @@ const AccountContent = () => {
           </div>
         )}
         {/* Upload Music */}
-        {userDetails?.artist_approval_status === "approved" && (
-          <div className="mt-8 col-span-2">
-            <Link
-              href="/account/upload-music"
-              className="block text-center w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
-            >
-              Upload Music as an Artist
-            </Link>
-          </div>
-        )}
+        <UploadMusicButton
+          showButton={userDetails?.artist_approval_status === "approved"}
+        />
+
+        {/* Manage Music Button */}
+        <ManageMusicButton isArtist={userDetails?.is_artist || false} />
       </div>
     </div>
   );
