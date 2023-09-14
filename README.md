@@ -10,3 +10,6 @@ Building a version I can show to people, sign in and maybe blockchain flow of st
 
 
 Song uploading in Toy app are protected by uniqid package
+
+
+Built as an investment platform and music player as hobby
