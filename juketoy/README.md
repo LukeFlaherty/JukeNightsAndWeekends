@@ -26,3 +26,5 @@ https://vercel.com/lukeflaherty/juke
 https://juke-lukeflaherty.vercel.app/
 
 TODO: Build own version of https://www.npmjs.com/package/use-sound
+
+Investing platform
