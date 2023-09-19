@@ -1,5 +1,4 @@
 "use client";
-
 import { FC } from "react";
 import { Song } from "@/types";
 import MediaItem from "@/components/MediaItem";
@@ -7,6 +6,7 @@ import LikeButton from "@/components/LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
+import useLoadArtistImage from "@/hooks/useLoadArtistImage";
 
 const ManageMusicContent = () => {
   const router = useRouter();
@@ -18,6 +18,10 @@ const ManageMusicContent = () => {
     fetchArtistDetails,
   } = useUser();
 
+  const currentAvatarPublicUrl = useLoadArtistImage(
+    artistDetails?.profile_image_path || ""
+  );
+
   return (
     <div className="flex flex-col gap-y-2 w-full p-6">
       <span>
@@ -26,10 +30,11 @@ const ManageMusicContent = () => {
       {/* Artist details */}
       <div className="mt-10">
         <div className="flex flex-col md:flex-row items-center gap-x-5">
-          <div className="relative h-32 w-32 lg:h-44 lg:w-44">
+          <div className="relative h-32 w-32 lg:h-44 lg:w-44 rounded-md overflow-hidden">
             <img
-              className="object-cover"
-              src={userDetails?.avatar_url || "/images/default_artist.png"}
+              className="object-cover h-full w-full"
+              src={currentAvatarPublicUrl || "/images/default_artist.png"}
+              alt="Artist Image"
             />
           </div>
           <div className="flex flex-col gap-y-2">
