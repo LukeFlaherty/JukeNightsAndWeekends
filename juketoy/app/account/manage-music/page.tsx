@@ -26,8 +26,8 @@ const ManageMusic = () => {
           <p className="mb-8">
             Welcome to the Music Management Portal, where you can take control
             of your artistic journey. Here, you can manage and organize your
-            music collection effortlessly. Below, you'll find tools and options
-            to handle your songs and albums. Here's what you can do:
+            music collection effortlessly. Below, you will find tools and
+            options to handle your songs and albums.
           </p>
           <ul className="list-disc ml-6 mb-8">
             <li>
@@ -47,10 +47,7 @@ const ManageMusic = () => {
               part of your repertoire.
             </li>
           </ul>
-          <p>
-            Feel free to explore and manage your music library. We're here to
-            support your artistic journey!
-          </p>
+          <p>Feel free to explore and manage your music library.</p>
           <ManageMusicContent />
         </Header>
       </div>
