@@ -1,7 +1,7 @@
 "use client";
 
 import useLoadImage from "@/hooks/useLoadImage";
-import { Playlist, Song } from "@/types";
+import { Playlist, Song, UserDetails } from "@/types";
 import Image from "next/image";
 import PlayButton from "./PlayButton";
 import { FaEllipsisV } from "react-icons/fa";
@@ -11,6 +11,7 @@ import useDeleteSong from "@/hooks/useDeleteSong";
 import { toast } from "react-hot-toast";
 import SelectPlaylistModal from "./SelectPlaylistModal";
 import useSelectPlaylistModal from "@/hooks/useSelectPlaylistModal";
+import { getUserDetails } from "@/hooks/useGetUserDetails";
 
 interface SongItemProps {
   data: Song;
@@ -18,12 +19,18 @@ interface SongItemProps {
   playlists?: Playlist[];
 }
 
-const SongItem: React.FC<SongItemProps> = ({ data, onClick, playlists }) => {
+const SongItem: React.FC<SongItemProps> = async ({
+  data,
+  onClick,
+  playlists,
+}) => {
   const imagePath = useLoadImage(data);
   const { user } = useUser();
   const { deleteSong, error } = useDeleteSong();
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // const userDetails = (await getUserDetails(data.user_id)) as UserDetails; // Cast to UserDetails
 
   const selectPlaylistModal = useSelectPlaylistModal();
 
@@ -93,7 +100,12 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick, playlists }) => {
           {data.title}
         </p>
         <p className="text-white text-sm pb-4 w-full truncate">{data.author}</p>
+        {/* TODO: Make it show the username who uploaded it and not the user id */}
+        {/* <p className="text-white text-sm pb-4 w-full truncate">
+          {data?.user_id}
+        </p> */}
       </div>
+
       <div className="absolute bottom-24 right-5">
         <PlayButton />
       </div>
