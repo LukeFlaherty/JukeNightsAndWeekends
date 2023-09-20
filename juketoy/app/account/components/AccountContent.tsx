@@ -59,6 +59,29 @@ const AccountContent = () => {
   // for refreshing on updates
   const [refreshData, setRefreshData] = useState(false);
 
+  const holdings = [
+    {
+      artist: "Taylor Swift",
+      shares: 25,
+    },
+    {
+      artist: "Ed Sheeran",
+      shares: 10,
+    },
+    {
+      artist: "Beyoncé",
+      shares: 15,
+    },
+    {
+      artist: "Billie Eilish",
+      shares: 8,
+    },
+    {
+      artist: "Ariana Grande",
+      shares: 12,
+    },
+  ];
+
   // Initialize wallet address
   const address = useAddress();
 
@@ -241,6 +264,41 @@ const AccountContent = () => {
               {address || "Not Connected"}
             </span>
           </div>
+        </div>
+
+        {/* Investment Holdings Section */}
+        <div className="bg-hoverColor p-4 rounded-lg col-span-2">
+          <h3 className="font-medium text-lg mb-2 text-white">
+            Investment Holdings
+          </h3>
+          <table className="w-full text-mainBrandColor mt-2 border-collapse">
+            <thead>
+              <tr>
+                <th className="border-b border-gray-600 text-left py-2">
+                  Artist
+                </th>
+                <th className="border-b border-gray-600 text-right py-2">
+                  Shares
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {holdings && holdings.length > 0 ? (
+                holdings.map((holding) => (
+                  <tr key={holding.artist}>
+                    <td className="py-2">{holding.artist}</td>
+                    <td className="text-right py-2">{holding.shares}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2} className="text-center py-2 italic">
+                    No artist shares held.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
 
         {/* Avatar Section */}
