@@ -4,6 +4,8 @@
 - An additional revenue stream for artists
 - A music player experience for listeners
 
+Should we add artists ahead of time to increase traffic and give the funds to artists at a later date?
+
 ### What if I dont know anything about crypto or web3?
 
 That is fine because we use email wallets and guest wallets that allow you to have a low-knowledge experience and buy shares of your favorite artists with nothing but your credit card. While still seeing your shares in your wallet!
