@@ -4,7 +4,7 @@
 - An additional revenue stream for artists
 - A music player experience for listeners
 
-Should we add artists ahead of time to increase traffic and give the funds to artists at a later date?
+Nah, just going to bring people on manually, but busy rn with life so I cant wait to get bak to it
 
 ### What if I dont know anything about crypto or web3?
 
