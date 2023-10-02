@@ -13,12 +13,17 @@ import useOnPlay from "@/hooks/useOnPlay";
 import Header from "@/components/Header";
 import useLoadArtistImage from "@/hooks/useLoadArtistImage";
 
+import SharePriceGraph from "./SharePriceGraph";
+
 interface ArtistContentProps {
   songs: Song[];
   artist: Artist | null;
 }
 
 // const SHOW_DUPLICATES = true; // Toggle this to show/hide duplicate songs
+// TODO: Mock share price and label data, replace with real data.
+const mockSharePrices = [110, 112, 111, 115, 113, 118, 120];
+const mockLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
   const router = useRouter();
@@ -69,6 +74,9 @@ const ArtistContent: React.FC<ArtistContentProps> = ({ songs, artist }) => {
           </div>
         </div>
       )}
+
+      {/* Share Price Graph */}
+      <SharePriceGraph prices={mockSharePrices} labels={mockLabels} />
 
       {/* Conditionally display songs or no songs message */}
       {songs.length === 0 ? (

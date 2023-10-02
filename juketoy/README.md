@@ -4,6 +4,10 @@
 - An additional revenue stream for artists
 - A music player experience for listeners
 
+### Can I listen to music?
+
+- We are doing our best to bring you an in-app premium listening experience for all artists.
+
 ### What if I dont know anything about crypto or web3?
 
 That is fine because we use email wallets and guest wallets that allow you to have a low-knowledge experience and buy shares of your favorite artists with nothing but your credit card. While still seeing your shares in your wallet!
