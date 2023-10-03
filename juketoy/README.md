@@ -7,7 +7,10 @@
 ### Can I listen to music?
 
 - We are doing our best to bring you an in-app premium listening experience for all artists.
-  \_ now
+
+### Any music making tools?
+
+- We are doing our best to bring a suite of exculsive tools to producers on our platform
 
 ### What if I dont know anything about crypto or web3?
 
