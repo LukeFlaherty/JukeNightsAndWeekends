@@ -19,11 +19,7 @@ interface SongItemProps {
   playlists?: Playlist[];
 }
 
-const SongItem: React.FC<SongItemProps> = async ({
-  data,
-  onClick,
-  playlists,
-}) => {
+const SongItem: React.FC<SongItemProps> = ({ data, onClick, playlists }) => {
   const imagePath = useLoadImage(data);
   const { user } = useUser();
   const { deleteSong, error } = useDeleteSong();
