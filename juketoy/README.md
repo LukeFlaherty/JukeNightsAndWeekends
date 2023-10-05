@@ -18,6 +18,18 @@ That is fine because we use email wallets and guest wallets that allow you to ha
 
 - Dont worry, if you make a wallet in the future, we will transfer your shares free of charge!
 
+### Theory?
+
+Our question is how to onboard new users right into web 3
+
+- allow account creation officially or bringing in outside accounts
+- abstract accounts for those who dont have ones
+- - make sure the info is transferrable in the future to other accounts
+- - gasless? where does it fit in?
+- - can you prefund these accounts?
+- - account info dashboard in profile to show available balance IF you cant get it in Thirdweb icon
+- copy for the connect button? only needed to buy and links to what you own
+
 ## Getting Started
 
 First, run the development server:
