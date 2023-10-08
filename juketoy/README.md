@@ -30,6 +30,11 @@ Our question is how to onboard new users right into web 3
 - - account info dashboard in profile to show available balance IF you cant get it in Thirdweb icon
 - copy for the connect button? only needed to buy and links to what you own
 
+- give money in exchange for artist tokens: What are the tokens representing?
+- - shares of the artist?? No, its weird
+- - its just share prices in the artist, supply demand
+- - only 10,000 coins, you get a certain amount of the coins and their future value as the artist gains popularity
+
 ## Getting Started
 
 First, run the development server:
