@@ -35,6 +35,8 @@ Our question is how to onboard new users right into web 3
 - - its just share prices in the artist, supply demand
 - - only 10,000 coins, you get a certain amount of the coins and their future value as the artist gains popularity
 
+Artist controls how diluted their stuff is like a company does in the market
+
 ## Getting Started
 
 First, run the development server:
