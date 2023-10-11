@@ -37,6 +37,14 @@ Our question is how to onboard new users right into web 3
 
 Artist controls how diluted their stuff is like a company does in the market
 
+By creating more shares they could tank their own stuff
+
+- NEW THEORY
+
+force the account creation on the user, but make it as easy as possible
+such as automatically when account is created with email
+offer ability to transfer to own wallet later
+
 ## Getting Started
 
 First, run the development server:
