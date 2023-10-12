@@ -45,6 +45,8 @@ force the account creation on the user, but make it as easy as possible
 such as automatically when account is created with email
 offer ability to transfer to own wallet later
 
+I like this one
+
 ## Getting Started
 
 First, run the development server:
