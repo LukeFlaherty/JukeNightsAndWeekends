@@ -18,6 +18,8 @@ That is fine because we use email wallets and guest wallets that allow you to ha
 
 - Dont worry, if you make a wallet in the future, we will transfer your shares free of charge!
 
+- Need to find out what music labels can do about all this, maybe they cant do anything? idk, im not going to give them anything
+
 ### Theory?
 
 Our question is how to onboard new users right into web 3
