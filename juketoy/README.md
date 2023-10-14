@@ -20,6 +20,9 @@ That is fine because we use email wallets and guest wallets that allow you to ha
 
 - Need to find out what music labels can do about all this, maybe they cant do anything? idk, im not going to give them anything
 
+- Do we autopopulate the artists? But not add their music?
+  I think this is a good idea because then you could put "This artist has not joined Juke, heres a link to their socials to tell them to join!
+
 ### Theory?
 
 Our question is how to onboard new users right into web 3
