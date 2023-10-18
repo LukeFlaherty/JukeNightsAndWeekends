@@ -52,6 +52,8 @@ offer ability to transfer to own wallet later
 
 I like this one
 
+Dude just fucking write this shit its not even hard
+
 ## Getting Started
 
 First, run the development server:
