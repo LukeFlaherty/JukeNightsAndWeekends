@@ -54,6 +54,8 @@ I like this one
 
 Dude just fucking write this shit its not even hard
 
+Okay after comp lock in lets go
+
 ## Getting Started
 
 First, run the development server:
