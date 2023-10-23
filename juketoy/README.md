@@ -56,6 +56,8 @@ Dude just fucking write this shit its not even hard
 
 Okay after comp lock in lets go
 
+It is after comp but not tn
+
 ## Getting Started
 
 First, run the development server:
