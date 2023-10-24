@@ -58,6 +58,8 @@ Okay after comp lock in lets go
 
 It is after comp but not tn
 
+Ugh I really want to but im struggling with motivation. I need to get past this hurdle.
+
 ## Getting Started
 
 First, run the development server:
