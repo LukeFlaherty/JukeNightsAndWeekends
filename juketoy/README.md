@@ -64,7 +64,7 @@ Ill I have to say is im struggling to keep up I want to have this done by my bir
 
 Idk even know what I should be doing rn
 
-I need to implement account abstraction
+I need to implement account abstraction for users to get automatically signed up upon account creation OR do your own account
 
 ## Getting Started
 
