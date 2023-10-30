@@ -62,6 +62,8 @@ Ugh I really want to but im struggling with motivation. I need to get past this 
 
 Ill I have to say is im struggling to keep up I want to have this done by my birthday but idk at this point
 
+Idk even know what I should be doing rn
+
 ## Getting Started
 
 First, run the development server:
