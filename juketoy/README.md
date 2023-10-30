@@ -64,6 +64,8 @@ Ill I have to say is im struggling to keep up I want to have this done by my bir
 
 Idk even know what I should be doing rn
 
+I need to implement account abstraction
+
 ## Getting Started
 
 First, run the development server:
