@@ -66,7 +66,13 @@ Idk even know what I should be doing rn
 
 I need to implement account abstraction for users to get automatically signed up upon account creation OR do your own account
 
-Automatically give an account to everyone and store that in DB under auto accress
+Automatically give an account to everyone and store that in DB under auto address
+
+allow users to switch accounts? Does it save your holdings?
+
+Will have to pull holdings from account which I think is what happens anyways??
+
+Or just have all accounts be strictly for my app
 
 ## Getting Started
 
