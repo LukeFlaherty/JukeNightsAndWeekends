@@ -66,6 +66,8 @@ Idk even know what I should be doing rn
 
 I need to implement account abstraction for users to get automatically signed up upon account creation OR do your own account
 
+Automatically give an account to everyone and store that in DB under auto accress
+
 ## Getting Started
 
 First, run the development server:
