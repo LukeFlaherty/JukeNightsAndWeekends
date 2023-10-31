@@ -74,6 +74,8 @@ Will have to pull holdings from account which I think is what happens anyways??
 
 Or just have all accounts be strictly for my app
 
+bro pls be honest
+
 ## Getting Started
 
 First, run the development server:
