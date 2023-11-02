@@ -74,7 +74,7 @@ Will have to pull holdings from account which I think is what happens anyways??
 
 Or just have all accounts be strictly for my app
 
-alr its halloween
+oops another day
 
 ## Getting Started
 
