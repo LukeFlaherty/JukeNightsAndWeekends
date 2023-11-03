@@ -76,6 +76,8 @@ Or just have all accounts be strictly for my app
 
 oops another day
 
+kkiki is on my desk rn lol
+
 ## Getting Started
 
 First, run the development server:
