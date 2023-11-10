@@ -82,6 +82,8 @@ another dayt anotha dollar
 
 putting this in before midnight in case I come back
 
+im gonna put some work int ofamiliarizatino tn after I do some job stuff
+
 ## Getting Started
 
 First, run the development server:
