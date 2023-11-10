@@ -52,38 +52,6 @@ offer ability to transfer to own wallet later
 
 I like this one
 
-Dude just fucking write this shit its not even hard
-
-Okay after comp lock in lets go
-
-It is after comp but not tn
-
-Ugh I really want to but im struggling with motivation. I need to get past this hurdle.
-
-Ill I have to say is im struggling to keep up I want to have this done by my birthday but idk at this point
-
-Idk even know what I should be doing rn
-
-I need to implement account abstraction for users to get automatically signed up upon account creation OR do your own account
-
-Automatically give an account to everyone and store that in DB under auto address
-
-allow users to switch accounts? Does it save your holdings?
-
-Will have to pull holdings from account which I think is what happens anyways??
-
-Or just have all accounts be strictly for my app
-
-oops another day
-
-kkiki is on my desk rn lol
-
-another dayt anotha dollar
-
-putting this in before midnight in case I come back
-
-im gonna put some work int ofamiliarizatino tn after I do some job stuff
-
 ## Getting Started
 
 First, run the development server:
