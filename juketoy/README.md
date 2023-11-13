@@ -50,7 +50,14 @@ force the account creation on the user, but make it as easy as possible
 such as automatically when account is created with email
 offer ability to transfer to own wallet later
 
-I like this one
+When person creates account, we grab the email and use it to create an email wallet for the user.
+We then automatically connect their account to their profile
+
+- autograb email and display in account tab
+- autocreate wallet how
+  LATER:
+  We allow them to switch to a personal account in the account tab
+  Deletes the email wallet and transfers the shares to the new wallet
 
 ## Getting Started
 
