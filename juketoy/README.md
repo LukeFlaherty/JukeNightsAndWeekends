@@ -59,6 +59,14 @@ We then automatically connect their account to their profile
   We allow them to switch to a personal account in the account tab
   Deletes the email wallet and transfers the shares to the new wallet
 
+  What am I doing?
+  I am going to displat the email of the account in the account tab
+  and then autocreate wallets for users on account creation
+
+  - figure out how to modify the account creation page
+  - how to generate the wallets on account creation
+    -- account abstraction?
+
 ## Getting Started
 
 First, run the development server:
