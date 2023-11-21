@@ -67,6 +67,8 @@ We then automatically connect their account to their profile
   - how to generate the wallets on account creation
     -- account abstraction?
 
+  watch the youtube video on account abstraction
+
 ## Getting Started
 
 First, run the development server:
