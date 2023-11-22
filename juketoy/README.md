@@ -68,6 +68,10 @@ We then automatically connect their account to their profile
     -- account abstraction?
 
   watch the youtube video on account abstraction
+  I am going to display the email in the account tab as a non editable option for now
+  I am then going to work on permissing accounts to users on account creation and on sign in if they dont have one.
+
+  - That is done by creating a smart wallet for them in thirdweb and displaying the information about that in the account tab. Userdoes not need any other info
 
 ## Getting Started
 
