@@ -13,6 +13,7 @@ import Loading from "../loading";
 import { useAddress } from "@thirdweb-dev/react";
 import ManageMusicButton from "./ManageMusicButton";
 import UploadMusicButton from "./UploadMusicButton";
+import SectionAdmin from "./SectionAdmin";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -375,10 +376,11 @@ const AccountContent = () => {
           <p>{userDetails?.artist_approval_status || "Not Set"}</p>
         </div>
         {/* Admin Section */}
-        <div className="bg-hoverColor p-4 rounded-lg">
+        {/* <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Admin</h3>
           <p>{userDetails?.is_admin ? "Yes" : "No"}</p>
-        </div>
+        </div> */}
+        <SectionAdmin is_admin={userDetails?.is_admin} />
         {/* Artist Bio Section */}
         {userDetails?.is_artist && (
           <div className="bg-hoverColor p-4 rounded-lg">
