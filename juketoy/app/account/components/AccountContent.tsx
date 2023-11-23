@@ -265,7 +265,14 @@ const AccountContent = () => {
             </span>
           </div>
         </div>
-
+        {/* Email Section */}
+        <div className="bg-hoverColor p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">Email</h3>
+          <div className="flex items-center">
+            {/* <span className="text-mainBrandColor">{userDetails.email_address}</span> */}
+            <span className="text-mainBrandColor">Email will go here</span>
+          </div>
+        </div>
         {/* Investment Holdings Section */}
         <div className="bg-hoverColor p-4 rounded-lg col-span-2">
           <h3 className="font-medium text-lg mb-2 text-white">
@@ -300,7 +307,6 @@ const AccountContent = () => {
             </tbody>
           </table>
         </div>
-
         {/* Avatar Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Avatar</h3>
@@ -520,7 +526,6 @@ const AccountContent = () => {
         <UploadMusicButton
           showButton={userDetails?.artist_approval_status === "approved"}
         />
-
         {/* Manage Music Button */}
         <ManageMusicButton isArtist={userDetails?.is_artist || false} />
       </div>
