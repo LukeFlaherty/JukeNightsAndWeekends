@@ -14,6 +14,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import ManageMusicButton from "./ManageMusicButton";
 import UploadMusicButton from "./UploadMusicButton";
 import SectionAdmin from "./SectionAdmin";
+import SectionEmail from "./SectionEmail";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -274,6 +275,7 @@ const AccountContent = () => {
             <span className="text-mainBrandColor">Email will go here</span>
           </div>
         </div>
+        {/* <SectionEmail email={email} /> */}
         {/* Investment Holdings Section */}
         <div className="bg-hoverColor p-4 rounded-lg col-span-2">
           <h3 className="font-medium text-lg mb-2 text-white">
