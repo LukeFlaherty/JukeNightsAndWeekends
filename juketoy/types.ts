@@ -46,6 +46,7 @@ export interface UserDetails {
   id: string;
   full_name?: string;
   avatar_url?: string;
+  email_address?: string;
   is_artist: boolean;
   artist_approval_status: string;
   is_admin?: boolean;

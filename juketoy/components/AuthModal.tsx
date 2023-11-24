@@ -23,12 +23,38 @@ const AuthModal = () => {
       ? "Log In to your account"
       : "Sign Up for a new account";
 
+  // Effect to handle user session changes
   useEffect(() => {
     if (session) {
       router.refresh();
       onClose();
     }
   }, [session, router, onClose]);
+
+  // Effect to synchronize email on signup
+  // on user create or login, change actiontype to change
+  useEffect(() => {
+    async function syncEmailOnSignup() {
+      if (session && actionType === "login") {
+        const userEmail = session.user.email;
+        try {
+          const { error } = await supabaseClient
+            .from("users")
+            .update({ email_address: userEmail })
+            .eq("id", session.user.id);
+
+          if (error) {
+            throw error;
+          }
+        } catch (err) {
+          console.error("Failed to sync email:", err);
+          // Handle or log the error appropriately
+        }
+      }
+    }
+
+    syncEmailOnSignup();
+  }, [session, supabaseClient, actionType]);
 
   const onChange = (open: boolean) => {
     if (!open) {

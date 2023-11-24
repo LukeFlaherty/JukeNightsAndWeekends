@@ -271,8 +271,9 @@ const AccountContent = () => {
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">Email</h3>
           <div className="flex items-center">
-            {/* <span className="text-mainBrandColor">{userDetails.email_address}</span> */}
-            <span className="text-mainBrandColor">Email will go here</span>
+            <span className="text-mainBrandColor">
+              {userDetails?.email_address || "Email Not Found"}
+            </span>
           </div>
         </div>
         {/* <SectionEmail email={email} /> */}
