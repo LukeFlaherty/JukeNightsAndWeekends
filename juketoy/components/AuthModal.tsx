@@ -27,6 +27,8 @@ const AuthModal = () => {
       ? "Log In to your account"
       : "Sign Up for a new account";
 
+  // IS this working
+
   useEffect(() => {
     if (session) {
       router.refresh();
