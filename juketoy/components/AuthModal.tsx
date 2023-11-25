@@ -8,6 +8,7 @@ import {
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
+import useSyncEmail from "@/hooks/useSyncEmail"; // Import the new hook
 import { useEffect } from "react";
 
 const AuthModal = () => {
@@ -16,6 +17,9 @@ const AuthModal = () => {
   const { session } = useSessionContext();
   const { onClose, isOpen, actionType } = useAuthModal();
 
+  // Use the custom hook for email synchronization
+  const { loading, error } = useSyncEmail(session, actionType);
+
   const modalTitle =
     actionType === "login" ? "Welcome back" : "Create a new account";
   const modalDescription =
@@ -23,7 +27,6 @@ const AuthModal = () => {
       ? "Log In to your account"
       : "Sign Up for a new account";
 
-  // Effect to handle user session changes
   useEffect(() => {
     if (session) {
       router.refresh();
@@ -31,30 +34,8 @@ const AuthModal = () => {
     }
   }, [session, router, onClose]);
 
-  // Effect to synchronize email on signup
-  // on user create or login, change actiontype to change
-  useEffect(() => {
-    async function syncEmailOnSignup() {
-      if (session && actionType === "login") {
-        const userEmail = session.user.email;
-        try {
-          const { error } = await supabaseClient
-            .from("users")
-            .update({ email_address: userEmail })
-            .eq("id", session.user.id);
-
-          if (error) {
-            throw error;
-          }
-        } catch (err) {
-          console.error("Failed to sync email:", err);
-          // Handle or log the error appropriately
-        }
-      }
-    }
-
-    syncEmailOnSignup();
-  }, [session, supabaseClient, actionType]);
+  // Handle any loading or error states as needed
+  // For example, you can display a loading indicator or an error message
 
   const onChange = (open: boolean) => {
     if (!open) {
@@ -69,6 +50,8 @@ const AuthModal = () => {
       isOpen={isOpen}
       onChange={onChange}
     >
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
       <Auth
         theme="dark"
         magicLink
