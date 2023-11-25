@@ -10,7 +10,7 @@ const useSyncEmail = (session: Session | null, actionType: string) => {
 
   useEffect(() => {
     const syncEmail = async () => {
-      if (session && actionType === "login") {
+      if (session && actionType === "signup") {
         // Check for specific actionType
         setLoading(true);
         setError(null);
