@@ -8,8 +8,9 @@ import {
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
-import useSyncEmail from "@/hooks/useSyncEmail"; // Import the new hook
+import useSyncEmail from "@/hooks/useSyncEmail";
 import { useEffect } from "react";
+import { embeddedWallet } from "@thirdweb-dev/react";
 
 const AuthModal = () => {
   const supabaseClient = useSupabaseClient();
@@ -28,7 +29,15 @@ const AuthModal = () => {
       ? "Log In to your account"
       : "Sign Up for a new account";
 
-  // IS this working
+  // for wallet integration:
+  const embeddedWalletConfig = embeddedWallet({
+    styles: {
+      borderRadius: "10px",
+      colorBackground: "232323",
+      colorPrimary: "lightseagreen",
+      colorText: "#FFFFFF",
+    },
+  });
 
   useEffect(() => {
     if (session) {

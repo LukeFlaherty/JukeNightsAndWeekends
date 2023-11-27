@@ -8,6 +8,8 @@ interface ThirdwebProviderProps {
   children: React.ReactNode;
 }
 
+// NOT USED ANYWHERE RN, Set up for when I want to migrate them all to here
+
 const Providers: React.FC<ThirdwebProviderProps> = ({ children }) => {
   return (
     // Add a return statement here

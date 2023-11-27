@@ -276,7 +276,7 @@ const AccountContent = () => {
             </span>
           </div>
         </div>
-        {/* <SectionEmail email={email} /> */}
+        {/* <SectionEmail email={userDetails?.email_address} /> */}
         {/* Investment Holdings Section */}
         <div className="bg-hoverColor p-4 rounded-lg col-span-2">
           <h3 className="font-medium text-lg mb-2 text-white">
