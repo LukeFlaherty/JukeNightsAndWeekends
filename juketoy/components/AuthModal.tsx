@@ -18,6 +18,7 @@ const AuthModal = () => {
   const { onClose, isOpen, actionType } = useAuthModal();
 
   // Use the custom hook for email synchronization
+  // set for signups rn, can be set for logins as well
   const { loading, error } = useSyncEmail(session, actionType);
 
   const modalTitle =
