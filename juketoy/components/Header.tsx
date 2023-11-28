@@ -134,11 +134,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             </>
           )}
           {/* Always show the "Connect Wallet" button */}
-          <ConnectWallet
+          {/* <ConnectWallet
             theme="light"
             btnTitle="Connect"
             className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
-          />
+          /> */}
         </div>
       </div>
       {children}

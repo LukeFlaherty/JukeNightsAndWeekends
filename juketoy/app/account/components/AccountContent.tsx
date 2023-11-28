@@ -10,7 +10,7 @@ import useLoadUserImage from "@/hooks/useLoadUserImage";
 import useUpdateArtist from "@/hooks/useUpdateArtist";
 import Link from "next/link";
 import Loading from "../loading";
-import { useAddress } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import ManageMusicButton from "./ManageMusicButton";
 import UploadMusicButton from "./UploadMusicButton";
 import SectionAdmin from "./SectionAdmin";
@@ -256,6 +256,15 @@ const AccountContent = () => {
           )}
           {error && <div className="text-red-500 mt-2">{error}</div>}
         </div>
+        {/* Email Section */}
+        <div className="bg-hoverColor p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">Email</h3>
+          <div className="flex items-center">
+            <span className="text-mainBrandColor">
+              {userDetails?.email_address || "Email Not Found"}
+            </span>
+          </div>
+        </div>
         {/* Wallet Address Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">
@@ -267,15 +276,19 @@ const AccountContent = () => {
             </span>
           </div>
         </div>
-        {/* Email Section */}
+        {/* Wallet Connect Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
-          <h3 className="font-medium text-lg mb-2 text-white">Email</h3>
-          <div className="flex items-center">
-            <span className="text-mainBrandColor">
-              {userDetails?.email_address || "Email Not Found"}
-            </span>
-          </div>
+          <h3 className="font-medium text-lg mb-2 text-white">
+            Wallet Address
+          </h3>
+          <div className="flex items-center"></div>
+          <ConnectWallet
+            theme="light"
+            btnTitle="Connect"
+            className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
+          />
         </div>
+
         {/* <SectionEmail email={userDetails?.email_address} /> */}
         {/* Investment Holdings Section */}
         <div className="bg-hoverColor p-4 rounded-lg col-span-2">
