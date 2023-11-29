@@ -16,6 +16,7 @@ import usePlayer from "@/hooks/usePlayer";
 import { useMemo } from "react";
 
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import useSyncUserFromWalletLogin from "@/hooks/useSyncUserFromWalletLogin";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -28,7 +29,10 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // const address = useAddress();
+  const address = useAddress();
+  const { loading: syncWalletLoading, error: syncWalletError } =
+    useSyncUserFromWalletLogin();
+
   // console.log("address", address);
 
   const supabaseClient = useSupabaseClient();
@@ -103,42 +107,31 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         </div>
 
         <div className="flex gap-x-4 items-center">
-          {user ? (
-            <div className="flex gap-x-4 items-center">
-              <Button onClick={handleLogout} className="bg-white px-6 py-2">
+          {address ? (
+            // User is logged in (wallet is connected)
+            <>
+              {/* <Button onClick={handleLogout} className="bg-white px-6 py-2">
                 Logout
-              </Button>
+              </Button> */}
               <Button
                 onClick={() => router.push("/account")}
                 className="bg-white"
               >
                 <FaUserAlt />
               </Button>
-            </div>
+            </>
           ) : (
+            // User is not logged in (wallet is not connected)
             <>
-              <div className="flex gap-x-4 items-center">
-                <Button
-                  onClick={authModal.onOpenSignup}
-                  className="bg-transparent text-neutral-300 font-medium whitespace-nowrap"
-                >
-                  Sign Up
-                </Button>
-                <Button
-                  onClick={authModal.onOpenLogin}
-                  className="bg-white px-6 py-2"
-                >
-                  Log In
-                </Button>
-              </div>
+              {syncWalletLoading && <p>Loading...</p>}
+              {syncWalletError && <p>Error: {syncWalletError}</p>}
+              <ConnectWallet
+                theme="light"
+                btnTitle="Log In"
+                className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
+              />
             </>
           )}
-          {/* Always show the "Connect Wallet" button */}
-          {/* <ConnectWallet
-            theme="light"
-            btnTitle="Connect"
-            className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
-          /> */}
         </div>
       </div>
       {children}

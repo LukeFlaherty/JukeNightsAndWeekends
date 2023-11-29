@@ -88,7 +88,16 @@ const AccountContent = () => {
   const address = useAddress();
 
   useEffect(() => {
-    if (!isLoading && !userDetails) {
+    // OLD
+    // if (!isLoading && !userDetails) {
+    //   router.replace("/");
+    // }
+    // SHOULD USE
+    // if (!isLoading && !userDetails && (userDetails.email_wallet_address != address) ) {
+    //   router.replace("/");
+    // }
+    // FOR NOW
+    if (!isLoading && !address) {
       router.replace("/");
     }
 
@@ -279,7 +288,7 @@ const AccountContent = () => {
         {/* Wallet Connect Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">
-            Wallet Address
+            Wallet Connect
           </h3>
           <div className="flex items-center"></div>
           <ConnectWallet

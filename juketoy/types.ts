@@ -50,6 +50,8 @@ export interface UserDetails {
   is_artist: boolean;
   artist_approval_status: string;
   is_admin?: boolean;
+  smart_wallet_address?: string;
+  email_wallet_address?: string;
 }
 
 export interface ArtistDetails {

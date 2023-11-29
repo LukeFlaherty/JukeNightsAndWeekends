@@ -25,12 +25,7 @@ const Providers: React.FC<ThirdwebProviderProps> = ({ children }) => {
   return (
     // Add a return statement here
     <ThirdwebProvider
-      supportedWallets={[
-        smartWallet(embeddedWallet(), smartWalletConfig),
-        // metamaskWallet(),
-        coinbaseWallet(),
-        smartWallet(metamaskWallet(), smartWalletConfig),
-      ]}
+      supportedWallets={[embeddedWallet()]}
       activeChain={activeChain}
       clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
     >

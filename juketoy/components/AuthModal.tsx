@@ -10,9 +10,12 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
 import useSyncEmail from "@/hooks/useSyncEmail";
 import { useEffect } from "react";
-import { embeddedWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, embeddedWallet, useAddress } from "@thirdweb-dev/react";
+import useSyncUserFromWalletLogin from "@/hooks/useSyncUserFromWalletLogin";
 
 const AuthModal = () => {
+  const address = useAddress();
+
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const { session } = useSessionContext();
@@ -21,6 +24,8 @@ const AuthModal = () => {
   // Use the custom hook for email synchronization
   // set for signups rn, can be set for logins as well
   const { loading, error } = useSyncEmail(session, actionType);
+  const { loading: syncWalletLoading, error: syncWalletError } =
+    useSyncUserFromWalletLogin();
 
   const modalTitle =
     actionType === "login" ? "Welcome back" : "Create a new account";
@@ -64,7 +69,7 @@ const AuthModal = () => {
     >
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
-      <Auth
+      {/* <Auth
         theme="dark"
         magicLink
         providers={["github", "google"]}
@@ -80,7 +85,8 @@ const AuthModal = () => {
             },
           },
         }}
-      />
+      /> */}
+      <ConnectWallet />
     </Modal>
   );
 };
