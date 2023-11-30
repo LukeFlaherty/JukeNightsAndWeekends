@@ -268,7 +268,7 @@ const AccountContent = () => {
         {/* Wallet Address Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">
-            Wallet Address
+            Payment Account Number
           </h3>
           <div className="flex items-center">
             <span className="text-mainBrandColor">
@@ -279,12 +279,12 @@ const AccountContent = () => {
         {/* Wallet Connect Section */}
         <div className="bg-hoverColor p-4 rounded-lg">
           <h3 className="font-medium text-lg mb-2 text-white">
-            Wallet Address
+            Payment Account
           </h3>
           <div className="flex items-center"></div>
           <ConnectWallet
             theme="light"
-            btnTitle="Connect"
+            btnTitle="Add Payment Account"
             className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
           />
         </div>
