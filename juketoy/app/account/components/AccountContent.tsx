@@ -15,6 +15,7 @@ import ManageMusicButton from "./ManageMusicButton";
 import UploadMusicButton from "./UploadMusicButton";
 import SectionAdmin from "./SectionAdmin";
 import SectionEmail from "./SectionEmail";
+import BuyJukeCoinButton from "./BuyJukeCoinButton";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -271,9 +272,13 @@ const AccountContent = () => {
             Payment Account Number
           </h3>
           <div className="flex items-center">
-            <span className="text-mainBrandColor">
+            <span
+              className="text-mainBrandColor truncate"
+              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+            >
               {address || "Not Connected"}
             </span>
+            {/* TODO: Add a copy to clipboard button */}
           </div>
         </div>
         {/* Wallet Connect Section */}
@@ -289,6 +294,8 @@ const AccountContent = () => {
           />
         </div>
 
+        {/* Buy Juke Button */}
+        {address && <BuyJukeCoinButton showButton={true} />}
         {/* <SectionEmail email={userDetails?.email_address} /> */}
         {/* Investment Holdings Section */}
         <div className="bg-hoverColor p-4 rounded-lg col-span-2">
