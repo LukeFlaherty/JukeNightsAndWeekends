@@ -20,6 +20,9 @@ const BeatMaker = () => {
   const [bpm, setBpm] = useState(150);
   const [activePads, setActivePads] = useState(new Set());
 
+  // for tracking what is playing for transform
+  const [currentStep, setCurrentStep] = useState(0);
+
   // Mute state for each track
   const [isMuted, setIsMuted] = useState({
     kick: false,
@@ -165,6 +168,8 @@ const BeatMaker = () => {
 
   const playBeat = () => {
     const step = stepIndex.current % 8;
+    setCurrentStep(step); // Update the current step state
+
     // Logic to play the beat based on active pads
     if (activePads.has(`kick-pad-${step}`) && kickAudio.current) {
       kickAudio.current.currentTime = 0;
@@ -199,15 +204,29 @@ const BeatMaker = () => {
 
   // This function is called when a pad is clicked
   const renderPads = (track: "kick" | "snare" | "hihat") => {
-    return Array.from({ length: 8 }, (_, i) => (
-      <div
-        key={`${track}-pad-${i}`}
-        className={`w-12 h-12 m-1 rounded-md cursor-pointer ${
-          activePads.has(`${track}-pad-${i}`) ? "bg-red-500" : "bg-gray-200"
-        }`}
-        onClick={() => togglePad(track, i)}
-      />
-    ));
+    return Array.from({ length: 8 }, (_, i) => {
+      // Define base classes with transition properties
+      let baseClasses =
+        "w-12 h-12 m-1 rounded-md cursor-pointer transition duration-150 ";
+
+      // Add classes for active/inactive pads
+      baseClasses += activePads.has(`${track}-pad-${i}`)
+        ? "bg-red-500"
+        : "bg-gray-200";
+
+      // Add classes for the current step
+      if (currentStep === i) {
+        baseClasses += " scale-110"; // Tailwind classes for active step
+      }
+
+      return (
+        <div
+          key={`${track}-pad-${i}`}
+          className={baseClasses}
+          onClick={() => togglePad(track, i)}
+        />
+      );
+    });
   };
 
   type SoundOption = {
