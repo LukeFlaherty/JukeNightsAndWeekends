@@ -159,11 +159,19 @@ const BeatMaker = () => {
   // Implement the reset functionality
   const reset = () => {
     setActivePads(new Set());
+    setIsPlaying(false); // Stop the loop
+    setBpm(150); // Reset BPM to initial value or any default you prefer
     stepIndex.current = 0;
-    // Reset the audio time as well if needed
+
+    // Reset the audio time
     if (kickAudio.current) kickAudio.current.currentTime = 0;
     if (snareAudio.current) snareAudio.current.currentTime = 0;
     if (hihatAudio.current) hihatAudio.current.currentTime = 0;
+
+    // Optional: Reset sound selections to their default values
+    setCurrentKick(`./assets/sounds/kick-classic.wav`);
+    setCurrentSnare(`./assets/sounds/snare-lofi01.wav`);
+    setCurrentHihat(`./assets/sounds/hihat-808.wav`);
   };
 
   const playBeat = () => {
@@ -381,13 +389,12 @@ const BeatMaker = () => {
             />
           </div>
           <button
-            onClick={() => {
-              /* reset logic */
-            }}
+            onClick={reset} // Call the reset function directly
             className="mx-2 p-2 border-4 border-black rounded-full"
           >
             <FaTrash size={24} />
           </button>
+
           <a
             href="https://github.com/DevPadd"
             target="_blank"
