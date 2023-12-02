@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import Button from "@/components/Button";
 import { FaTrash } from "react-icons/fa";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import RecordLyrics from "./RecordLyrics";
+import MakeBeats from "./MakeBeats";
 
 const MakeMusicContent: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -11,67 +13,13 @@ const MakeMusicContent: React.FC = () => {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const startRecording = () => {
-    // Logic to start recording
-    setIsRecording(true);
-  };
-
-  const stopRecording = () => {
-    // Logic to stop recording and save the recording
-    setIsRecording(false);
-    // Dummy data to represent a recording
-    setRecordings((prev) => [...prev, "new-recording-url"]);
-  };
-
-  const playRecording = (recordingUrl: string) => {
-    if (audioRef.current) {
-      audioRef.current.src = recordingUrl;
-      audioRef.current.play();
-    }
-  };
-
-  const deleteRecording = (index: number) => {
-    setRecordings((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const recordingButtonClasses = isRecording
-    ? "additional-class-for-recording"
-    : "additional-class-for-not-recording";
-
   return (
-    <div className="p-6">
-      <div className="mb-4 flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Make Your Music</h2>
-        <div onClick={() => setIsCollapsed(!isCollapsed)}>
-          {isCollapsed ? <FaCaretDown /> : <FaCaretUp />}
-        </div>
-      </div>
-      {!isCollapsed && (
-        <div>
-          <div className="mb-4">
-            <Button
-              className={recordingButtonClasses}
-              onClick={isRecording ? stopRecording : startRecording}
-            >
-              {isRecording ? "Stop Recording" : "Start Recording"}
-            </Button>
-          </div>
-          <div>
-            {recordings.map((recording, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <Button onClick={() => playRecording(recording)}>
-                  Play Recording {index + 1}
-                </Button>
-                <FaTrash
-                  className="cursor-pointer"
-                  onClick={() => deleteRecording(index)}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      <audio ref={audioRef} />
+    <div>
+      {/* Other content */}
+      <RecordLyrics />
+      {/* Other content */}
+      <MakeBeats />
+      {/* Other content */}
     </div>
   );
 };
