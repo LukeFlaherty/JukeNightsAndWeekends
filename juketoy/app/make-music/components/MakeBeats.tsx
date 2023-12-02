@@ -51,6 +51,21 @@ const BeatMaker = () => {
     hihat: { sound: currentHihat, name: "Hi-hat Sound" },
   };
 
+  // temp sounds befoere I figure out how to fetch them
+  const kickSounds = [
+    { name: "Kick 1", file: "./assets/sounds/kick1.wav" },
+    { name: "Kick 2", file: "./assets/sounds/kick2.wav" },
+    // ... more sounds ...
+  ];
+  const snareSounds = [
+    { name: "Snare 1", file: "./assets/sounds/snare1.wav" },
+    // ... more sounds ...
+  ];
+  const hihatSounds = [
+    { name: "Hihat 1", file: "./assets/sounds/hihat1.wav" },
+    // ... more sounds ...
+  ];
+
   useEffect(() => {
     // Existing code to initialize audio elements
     if (typeof Audio !== "undefined") {
@@ -342,7 +357,7 @@ const BeatMaker = () => {
         <div className="flex items-center w-full justify-start my-4">
           <div className="flex flex-1 justify-between items-center mx-8">
             {/* ... Kick track controls */}
-            {/* {trackControls("kick", kickSounds, isMuted.kick)} */}
+            {trackControls("kick", kickSounds, isMuted.kick)}
           </div>
           <div className="flex">{renderPads("kick")}</div>
         </div>
@@ -351,7 +366,7 @@ const BeatMaker = () => {
         <div className="flex items-center w-full justify-start my-4">
           <div className="flex flex-1 justify-between items-center mx-8">
             {/* ... Snare track controls */}
-            {/* {trackControls("snare", snareSounds, isMuted.snare)} */}
+            {trackControls("snare", snareSounds, isMuted.snare)}
           </div>
           <div className="flex">{renderPads("snare")}</div>
         </div>
@@ -360,7 +375,7 @@ const BeatMaker = () => {
         <div className="flex items-center w-full justify-start my-4">
           <div className="flex flex-1 justify-between items-center mx-8">
             {/* ... Hihat track controls */}
-            {/* {trackControls("hihat", hihatSounds, isMuted.hihat)} */}
+            {trackControls("hihat", hihatSounds, isMuted.hihat)}
           </div>
           <div className="flex">{renderPads("hihat")}</div>
         </div>
