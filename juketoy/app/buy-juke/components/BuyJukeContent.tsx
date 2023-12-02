@@ -76,8 +76,8 @@ const BuyJukeContent: React.FC = () => {
       <div className="text-center p-6">
         <h2 className="text-2xl font-bold mb-4">Purchase Juke Tokens</h2>
         <p className="mb-4">
-          To start supporting your favorite artists, you'll need to connect your
-          Payment Account in your Account Settings first.
+          To start supporting your favorite artists, you&apos;ll need to connect
+          your Payment Account in your Account Settings first.
         </p>
         <button
           onClick={redirectToAccount}
@@ -95,7 +95,7 @@ const BuyJukeContent: React.FC = () => {
       <p className="mb-4">
         Juke tokens are your passport to the world of music investment on our
         platform. They empower you to support and grow with the artists you
-        love. Here's what you need to know:
+        love. Here&apos;s what you need to know:
       </p>
       <div className="mb-4 text-sm">
         <p>
@@ -105,8 +105,8 @@ const BuyJukeContent: React.FC = () => {
         </p>
         <p>
           <strong>Support Artists Directly:</strong> Use Juke tokens to invest
-          in music projects. Your contribution directly supports the artists'
-          creative endeavors.
+          in music projects. Your contribution directly supports the
+          artists&apos; creative endeavors.
         </p>
         <p>
           <strong>Participate in Success:</strong> As artists grow and succeed,
@@ -114,9 +114,9 @@ const BuyJukeContent: React.FC = () => {
           experiences.
         </p>
         <p>
-          <strong>Easy to Use:</strong> Whether you're a seasoned investor or
-          new to the scene, our platform makes it easy to get started with just
-          a few clicks.
+          <strong>Easy to Use:</strong> Whether you&apos;re a seasoned investor
+          or new to the scene, our platform makes it easy to get started with
+          just a few clicks.
         </p>
       </div>
       <div className="mb-4">
