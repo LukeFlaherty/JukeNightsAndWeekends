@@ -109,6 +109,15 @@ Try to get wallets working tomorrow in as fristionless of a way as possible
 3. If I just mint them to myself how do create value with them?
 4. Should I just start doing shit and figure it out, thats probably the answer
 
+# Pre real token creation
+
+I think Im going to fully test with fake artists and investors so I think im going to try and set up some stuff in my app to help out w that
+
+- I have a place for users to upload music
+- should I make a place for users to create music?
+- - could just be a place to record lyrics over 3 test instrumentals
+- - template online?
+
 ## Getting Started
 
 First, run the development server:
