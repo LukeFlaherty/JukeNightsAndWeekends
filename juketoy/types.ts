@@ -9,6 +9,16 @@ export interface Song {
   image_path: string;
 }
 
+export interface Sound {
+  id: string;
+  created_at: string;
+  name: string;
+  sound_url: string;
+  type_of_sound: string;
+  is_default: boolean;
+  user_id: string | null;
+}
+
 export interface PlaylistSong extends Song {
   playlist_song_id: string;
 }

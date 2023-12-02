@@ -10,10 +10,9 @@ import {
   FaGithubAlt,
 } from "react-icons/fa";
 
-import styles from "../styles/styles.module.css";
-import resetStyles from "../styles/reset.module.css";
-
 import useSound from "use-sound";
+
+import useGetDefaultSounds from "@/hooks/useGetDefaultSounds";
 
 const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,6 +21,9 @@ const BeatMaker = () => {
 
   // for tracking what is playing for transform
   const [currentStep, setCurrentStep] = useState(0);
+
+  // Get the default sounds
+  const { sounds, loading } = useGetDefaultSounds();
 
   // Mute state for each track
   const [isMuted, setIsMuted] = useState({
@@ -50,21 +52,6 @@ const BeatMaker = () => {
     snare: { sound: currentSnare, name: "Snare Sound" },
     hihat: { sound: currentHihat, name: "Hi-hat Sound" },
   };
-
-  // temp sounds befoere I figure out how to fetch them
-  const kickSounds = [
-    { name: "Kick 1", file: "./assets/sounds/kick1.wav" },
-    { name: "Kick 2", file: "./assets/sounds/kick2.wav" },
-    // ... more sounds ...
-  ];
-  const snareSounds = [
-    { name: "Snare 1", file: "./assets/sounds/snare1.wav" },
-    // ... more sounds ...
-  ];
-  const hihatSounds = [
-    { name: "Hihat 1", file: "./assets/sounds/hihat1.wav" },
-    // ... more sounds ...
-  ];
 
   useEffect(() => {
     // Existing code to initialize audio elements
@@ -117,6 +104,18 @@ const BeatMaker = () => {
     }
   );
 
+  // Function to render the dropdown options for sounds
+  // Define the type for the 'type' parameter
+  const renderSoundOptions = (type: string) => {
+    return sounds
+      .filter((sound) => sound.type_of_sound === type)
+      .map((sound) => (
+        <option key={sound.id} value={sound.sound_url}>
+          {sound.name}
+        </option>
+      ));
+  };
+
   // Function to handle playing the sounds
   const playSound = (track: "kick" | "snare" | "hihat") => {
     if (track === "kick") {
@@ -127,38 +126,6 @@ const BeatMaker = () => {
       playHihat();
     }
   };
-
-  // useEffect(() => {
-  //   const fetchSoundNames = async () => {
-  //     const filenames = await fetchSoundFilenames();
-  //     // Now you have an array of sound filenames in the 'filenames' variable
-  //     console.log(filenames);
-  //     // You can set this array in your state or use it directly to create sound options
-  //   };
-
-  //   fetchSoundNames();
-  // }, []); // Make sure to add any dependencies if needed
-
-  // // Function to fetch sound filenames from the public/assets/sounds directory
-  // const fetchSoundFilenames = () => {
-  //   try {
-  //     const soundDirectory = path.join(
-  //       process.cwd(),
-  //       "public",
-  //       "assets",
-  //       "sounds"
-  //     );
-  //     const filenames = fs
-  //       .readdirSync(soundDirectory)
-  //       .filter((filename) => filename.endsWith(".wav")); // Adjust the file extension as needed
-
-  //     console.log(filenames);
-  //     return filenames;
-  //   } catch (error) {
-  //     console.error("Error fetching sound filenames:", error);
-  //     return [];
-  //   }
-  // };
 
   const startStop = () => {
     if (isPlaying) {
@@ -252,14 +219,9 @@ const BeatMaker = () => {
     });
   };
 
-  type SoundOption = {
-    name: string;
-    file: string; // Assuming the file is a string path to the sound file
-  };
-
+  // Updated trackControls function
   const trackControls = (
     trackName: "kick" | "snare" | "hihat",
-    soundOptions: SoundOption[],
     muteStatus: boolean
   ) => {
     return (
@@ -267,28 +229,17 @@ const BeatMaker = () => {
         {/* Sound selector dropdown */}
         <select
           className="bg-gray-200 text-black rounded-lg p-2"
-          onChange={(e) => {
-            const selectedSound = e.target.value;
-            changeTrackSound(trackName, selectedSound); // Call a function to change the track sound
-          }}
-          value={getSelectedSound(trackName)} // Set the selected value based on the current sound
+          onChange={(e) => changeTrackSound(trackName, e.target.value)}
+          value={getSelectedSound(trackName)}
         >
-          {soundOptions.map((sound, idx) => (
-            <option key={idx} value={sound.file}>
-              {sound.name}
-            </option>
-          ))}
+          {loading ? (
+            <option>Loading...</option>
+          ) : (
+            renderSoundOptions(trackName)
+          )}
         </select>
-
         {/* Mute button */}
-        <button
-          className={`p-2 ml-4 ${muteStatus ? "bg-red-500" : "bg-gray-300"}`}
-          onClick={() => {
-            muteTrack(trackName); // Call a function to mute the track
-          }}
-        >
-          {muteStatus ? <FaVolumeMute /> : <FaVolumeUp />}
-        </button>
+        {/* ... Mute button logic ... */}
       </div>
     );
   };
@@ -344,8 +295,6 @@ const BeatMaker = () => {
     }
   };
 
-  // More event handlers and logic as per your original JS file
-
   return (
     <div className="bg-white text-black font-lato">
       <nav className="shadow-lg py-4">
@@ -356,8 +305,7 @@ const BeatMaker = () => {
         {/* Kick track */}
         <div className="flex items-center w-full justify-start my-4">
           <div className="flex flex-1 justify-between items-center mx-8">
-            {/* ... Kick track controls */}
-            {trackControls("kick", kickSounds, isMuted.kick)}
+            {trackControls("kick", isMuted.kick)}
           </div>
           <div className="flex">{renderPads("kick")}</div>
         </div>
@@ -365,8 +313,7 @@ const BeatMaker = () => {
         {/* Snare track */}
         <div className="flex items-center w-full justify-start my-4">
           <div className="flex flex-1 justify-between items-center mx-8">
-            {/* ... Snare track controls */}
-            {trackControls("snare", snareSounds, isMuted.snare)}
+            {trackControls("snare", isMuted.snare)}
           </div>
           <div className="flex">{renderPads("snare")}</div>
         </div>
@@ -374,8 +321,7 @@ const BeatMaker = () => {
         {/* Hihat track */}
         <div className="flex items-center w-full justify-start my-4">
           <div className="flex flex-1 justify-between items-center mx-8">
-            {/* ... Hihat track controls */}
-            {trackControls("hihat", hihatSounds, isMuted.hihat)}
+            {trackControls("hihat", isMuted.hihat)}
           </div>
           <div className="flex">{renderPads("hihat")}</div>
         </div>
@@ -409,14 +355,6 @@ const BeatMaker = () => {
           >
             <FaTrash size={24} />
           </button>
-
-          <a
-            href="https://github.com/DevPadd"
-            target="_blank"
-            className="mx-2 p-2 border-4 border-black rounded-full"
-          >
-            <FaGithubAlt size={24} />
-          </a>
         </div>
       </div>
     </div>
