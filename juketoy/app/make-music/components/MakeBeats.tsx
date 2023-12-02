@@ -13,6 +13,7 @@ import {
 import useSound from "use-sound";
 
 import useGetDefaultSounds from "@/hooks/useGetDefaultSounds";
+import Dropdown from "./DropDown";
 
 const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -41,11 +42,14 @@ const BeatMaker = () => {
   const [currentHihat, setCurrentHihat] = useState(
     `./assets/sounds/hihat-808.wav`
   );
-  console.log(currentKick, currentSnare, currentHihat);
 
   const kickAudio = useRef<HTMLAudioElement | null>(null);
   const snareAudio = useRef<HTMLAudioElement | null>(null);
   const hihatAudio = useRef<HTMLAudioElement | null>(null);
+
+  type TrackName = "kick" | "snare" | "hihat";
+
+  const trackNames: TrackName[] = ["kick", "snare", "hihat"];
 
   const soundOptions = {
     kick: { sound: currentKick, name: "Kick Sound" },
@@ -220,24 +224,19 @@ const BeatMaker = () => {
   };
 
   // Updated trackControls function
-  const trackControls = (
-    trackName: "kick" | "snare" | "hihat",
-    muteStatus: boolean
-  ) => {
+  const trackControls = (trackName: TrackName, muteStatus: boolean) => {
+    const soundOptions = sounds.filter(
+      (sound) => sound.type_of_sound === trackName
+    );
+    const selectedSound = getSelectedSound(trackName);
+
     return (
       <div className="flex items-center justify-between">
-        {/* Sound selector dropdown */}
-        <select
-          className="bg-gray-200 text-black rounded-lg p-2"
-          onChange={(e) => changeTrackSound(trackName, e.target.value)}
-          value={getSelectedSound(trackName)}
-        >
-          {loading ? (
-            <option>Loading...</option>
-          ) : (
-            renderSoundOptions(trackName)
-          )}
-        </select>
+        <Dropdown
+          options={soundOptions} // Ensure soundOptions is an array of Sound objects
+          selectedValue={selectedSound}
+          onChange={(newSoundUrl) => changeTrackSound(trackName, newSoundUrl)}
+        />
         {/* Mute button */}
         {/* ... Mute button logic ... */}
       </div>
@@ -297,37 +296,26 @@ const BeatMaker = () => {
 
   return (
     <div className="bg-white text-black font-lato">
-      <nav className="shadow-lg py-4">
+      <nav className="py-4">
+        {" "}
+        {/* Removed shadow-lg */}
         <h1 className="text-center text-3xl font-bold">BeatMaker App</h1>
       </nav>
 
       <div className="flex flex-col items-center justify-center mt-20">
-        {/* Kick track */}
-        <div className="flex items-center w-full justify-start my-4">
-          <div className="flex flex-1 justify-between items-center mx-8">
-            {trackControls("kick", isMuted.kick)}
+        {trackNames.map((track: TrackName) => (
+          <div
+            className="flex items-center w-full justify-start my-4"
+            key={track}
+          >
+            <div className="flex flex-1 justify-between items-center mx-8">
+              {trackControls(track, isMuted[track as keyof typeof isMuted])}
+            </div>
+            <div className="flex">{renderPads(track)}</div>
           </div>
-          <div className="flex">{renderPads("kick")}</div>
-        </div>
-
-        {/* Snare track */}
-        <div className="flex items-center w-full justify-start my-4">
-          <div className="flex flex-1 justify-between items-center mx-8">
-            {trackControls("snare", isMuted.snare)}
-          </div>
-          <div className="flex">{renderPads("snare")}</div>
-        </div>
-
-        {/* Hihat track */}
-        <div className="flex items-center w-full justify-start my-4">
-          <div className="flex flex-1 justify-between items-center mx-8">
-            {trackControls("hihat", isMuted.hihat)}
-          </div>
-          <div className="flex">{renderPads("hihat")}</div>
-        </div>
+        ))}
       </div>
-
-      {/* Controls bar now moved under the pads and not fixed */}
+      {/* Controls bar */}
       <div className="py-4 bg-white">
         <div className="flex justify-center items-center">
           <button
