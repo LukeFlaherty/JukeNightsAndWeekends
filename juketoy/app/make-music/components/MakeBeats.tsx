@@ -49,13 +49,30 @@ const BeatMaker = () => {
   };
 
   useEffect(() => {
-    // This code will only run in the browser
+    // Existing code to initialize audio elements
     if (typeof Audio !== "undefined") {
       kickAudio.current = new Audio(currentKick);
       snareAudio.current = new Audio(currentSnare);
       hihatAudio.current = new Audio(currentHihat);
     }
-  }, [currentKick, currentSnare, currentHihat]);
+
+    // Clear existing interval
+    if (intervalId.current) {
+      clearInterval(intervalId.current);
+    }
+
+    // Set new interval if playing
+    if (isPlaying) {
+      intervalId.current = setInterval(playBeat, (60 / bpm) * 1000);
+    }
+
+    // Cleanup function
+    return () => {
+      if (intervalId.current) {
+        clearInterval(intervalId.current);
+      }
+    };
+  }, [currentKick, currentSnare, currentHihat, activePads, bpm, isPlaying]); // Updated dependencies list
 
   const intervalId = useRef<NodeJS.Timeout | null>(null);
   let stepIndex = useRef(0);
@@ -162,11 +179,6 @@ const BeatMaker = () => {
       hihatAudio.current.play();
     }
     stepIndex.current++;
-
-    // Check if we should continue looping
-    if (isPlaying) {
-      setTimeout(playBeat, (60 / bpm) * 1000); // Schedule the next beat
-    }
   };
 
   const togglePad = (track: "kick" | "snare" | "hihat", index: number) => {
