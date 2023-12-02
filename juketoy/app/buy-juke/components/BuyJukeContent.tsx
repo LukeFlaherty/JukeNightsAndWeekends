@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import { ConnectWallet } from "@thirdweb-dev/react";
 import { useRouter } from "next/navigation";
 import TokenInput from "./TokenInput";
@@ -11,6 +11,31 @@ const BuyJukeContent: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const address = useAddress(); // Get the connected wallet address
   const router = useRouter();
+
+  // Replace with your actual contract address
+  const contractAddress = "0x875bd9Db81732Be0585f8808F0c56bDB074747c3";
+  const { contract } = useContract(contractAddress);
+
+  // Replace "mint" with the actual function name you want to call on your contract
+  // If your function name is different, update accordingly
+  const { mutateAsync: mintTokens, isLoading: isMinting } = useContractWrite(
+    contract,
+    "mint"
+  );
+
+  //   const handleBuyTokens = async () => {
+  //     try {
+  //       // Call the mint function of your smart contract
+  //       const mintResult = await mintTokens({
+  //         args: [address, amount] // Replace with actual arguments for your contract's function
+  //       });
+  //       console.info("Mint transaction successful", mintResult);
+  //       alert(`Successfully purchased ${amount} Juke tokens!`);
+  //     } catch (error) {
+  //       console.error('Failed to purchase Juke tokens:', error);
+  //       alert('Failed to purchase Juke tokens.');
+  //     }
+  //   };
 
   // Redirect function to the account page
   const redirectToAccount = () => {
@@ -29,8 +54,14 @@ const BuyJukeContent: React.FC = () => {
     try {
       // TODO: Integrate with your payment or blockchain API
       console.log(`Purchasing ${amount} Juke tokens...`);
-      // Simulation of API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Call the mint function of your smart contract
+      const mintResult = await mintTokens({
+        args: [address, amount], // Replace with actual arguments for your contract's function
+      });
+      //   // Simulation of API call
+      //   await new Promise((resolve) => setTimeout(resolve, 2000));
+      //   alert(`Successfully purchased ${amount} Juke tokens!`);
+      console.info("Mint transaction successful", mintResult);
       alert(`Successfully purchased ${amount} Juke tokens!`);
     } catch (error) {
       console.error("Failed to purchase Juke tokens:", error);
@@ -90,15 +121,18 @@ const BuyJukeContent: React.FC = () => {
       </div>
       <div className="mb-4">
         <div className="mt-1">
-          <TokenInput amount={amount} onAmountChange={setAmount} />
+          <TokenInput
+            amount={amount}
+            onAmountChange={(value: string) => setAmount(value)}
+          />
         </div>
       </div>
       <button
         onClick={handleBuyTokens}
-        disabled={isProcessing || !amount}
+        disabled={!amount || isMinting}
         className="mt-3 w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mainBrandColor hover:bg-mainBrandColorDark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mainBrandColor"
       >
-        {isProcessing ? "Securing Tokens..." : "Exchange for Tokens"}
+        {isMinting ? "Processing..." : "Exchange for Tokens"}
       </button>
     </div>
   );

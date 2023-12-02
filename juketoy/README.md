@@ -97,6 +97,18 @@ Try to get wallets working tomorrow in as fristionless of a way as possible
 - branch with only thirdweb sign in and second hand user creation in supabase
 - branch with the account wallet creation with custom wallet connect modal
 
+# Accounts and wallets appear to work for now, but next step is allowing users to claim Juke coins with fiat
+
+- I can set up a stripe and connect it to buying something from a thirdweb contract but thats not the problem.
+- I need to work out the tokenomics.
+- I cant make Juke a stable coin and peg it to the dollar becasue I cant limit use outside the platform I dont think, maybe later with smart wallets but not top priority.
+- I need to figure out how I need to start minting Juke tokens. The following are questions I have:
+
+1. Do I mint and initial amount to myself and then users can buy after that?
+2. I dont think that people buy the tokens from me I think they buy them from the contract
+3. If I just mint them to myself how do create value with them?
+4. Should I just start doing shit and figure it out, thats probably the answer
+
 ## Getting Started
 
 First, run the development server:
