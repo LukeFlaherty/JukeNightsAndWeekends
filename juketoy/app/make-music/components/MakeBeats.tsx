@@ -65,6 +65,10 @@ const BeatMaker = () => {
     name: string;
   };
 
+  type AudioElements = {
+    [key: number]: HTMLAudioElement;
+  };
+
   const trackNames: TrackName[] = ["kick", "snare", "hihat"];
 
   const soundOptions = {
@@ -73,6 +77,20 @@ const BeatMaker = () => {
     hihat: { sound: currentHihat, name: "Hi-hat Sound" },
     allSounds: { sound: currentAllSound, name: "All Sounds" }, // New entry
   };
+
+  const dynamicTrackAudios = useRef<AudioElements>({});
+
+  useEffect(() => {
+    dynamicTracks.forEach((track) => {
+      if (track.sound) {
+        dynamicTrackAudios.current[track.id] = new Audio(track.sound);
+      }
+    });
+
+    return () => {
+      // Cleanup audio elements if needed
+    };
+  }, [dynamicTracks]);
 
   useEffect(() => {
     // Existing code to initialize audio elements
@@ -228,6 +246,17 @@ const BeatMaker = () => {
       allSoundsAudio.current.play();
     }
 
+    // Logic for dynamic tracks
+    dynamicTracks.forEach((track) => {
+      if (
+        activePads.has(`${track.id}-pad-${step}`) &&
+        dynamicTrackAudios.current[track.id]
+      ) {
+        dynamicTrackAudios.current[track.id].currentTime = 0;
+        dynamicTrackAudios.current[track.id].play();
+      }
+    });
+
     // Debugging for allSounds track
     if (activePads.has(`allSounds-pad-${step}`)) {
       console.log("Trying to play sound on allSounds track:", currentAllSound);
@@ -243,7 +272,7 @@ const BeatMaker = () => {
     stepIndex.current++;
   };
 
-  const togglePad = (trackId: string, index: number) => {
+  const togglePad = (trackId: string | number, index: number) => {
     const padId = `${trackId}-pad-${index}`;
     setActivePads((prev) => {
       const newPads = new Set(prev);
@@ -261,8 +290,14 @@ const BeatMaker = () => {
       allSoundsAudio.current.play();
     }
 
-    // Existing logic for other tracks...
-    if (trackId === "kick" || trackId === "snare" || trackId === "hihat") {
+    // Play the sound for dynamic tracks
+    if (typeof trackId === "number" && dynamicTrackAudios.current[trackId]) {
+      dynamicTrackAudios.current[trackId].currentTime = 0;
+      dynamicTrackAudios.current[trackId].play();
+    }
+
+    // Play the sound for predefined tracks
+    if (typeof trackId === "string" && trackId !== "allSounds") {
       playSound(trackId as "kick" | "snare" | "hihat");
     }
   };
