@@ -30,6 +30,8 @@ const BeatMaker = () => {
 
   const [customTracks, setCustomTracks] = useState<CustomTrack[]>([]);
 
+  const [currentAllSound, setCurrentAllSound] = useState("");
+
   // Get the default sounds
   const { sounds, loading } = useGetDefaultSounds();
 
@@ -53,9 +55,10 @@ const BeatMaker = () => {
   const kickAudio = useRef<HTMLAudioElement | null>(null);
   const snareAudio = useRef<HTMLAudioElement | null>(null);
   const hihatAudio = useRef<HTMLAudioElement | null>(null);
+  const allSoundsAudio = useRef<HTMLAudioElement | null>(null);
 
   type TrackName = "kick" | "snare" | "hihat";
-  type Track = CustomTrack | "kick" | "snare" | "hihat";
+  type Track = CustomTrack | "kick" | "snare" | "hihat" | "allSounds";
 
   const trackNames: TrackName[] = ["kick", "snare", "hihat"];
 
@@ -63,6 +66,7 @@ const BeatMaker = () => {
     kick: { sound: currentKick, name: "Kick Sound" },
     snare: { sound: currentSnare, name: "Snare Sound" },
     hihat: { sound: currentHihat, name: "Hi-hat Sound" },
+    allSounds: { sound: currentAllSound, name: "All Sounds" }, // New entry
   };
 
   useEffect(() => {
@@ -71,6 +75,11 @@ const BeatMaker = () => {
       kickAudio.current = new Audio(currentKick);
       snareAudio.current = new Audio(currentSnare);
       hihatAudio.current = new Audio(currentHihat);
+    }
+
+    if (typeof Audio !== "undefined") {
+      allSoundsAudio.current = new Audio(currentAllSound);
+      console.log("Initialized allSoundsAudio with:", currentAllSound);
     }
 
     // Clear existing interval
@@ -89,7 +98,15 @@ const BeatMaker = () => {
         clearInterval(intervalId.current);
       }
     };
-  }, [currentKick, currentSnare, currentHihat, activePads, bpm, isPlaying]); // Updated dependencies list
+  }, [
+    currentKick,
+    currentSnare,
+    currentHihat,
+    currentAllSound,
+    activePads,
+    bpm,
+    isPlaying,
+  ]); // Updated dependencies list
 
   const intervalId = useRef<NodeJS.Timeout | null>(null);
   let stepIndex = useRef(0);
@@ -190,6 +207,24 @@ const BeatMaker = () => {
       hihatAudio.current.currentTime = 0;
       hihatAudio.current.play();
     }
+    // Logic for allSounds track
+    if (activePads.has(`allSounds-pad-${step}`) && allSoundsAudio.current) {
+      allSoundsAudio.current.currentTime = 0;
+      allSoundsAudio.current.play();
+    }
+
+    // Debugging for allSounds track
+    if (activePads.has(`allSounds-pad-${step}`)) {
+      console.log("Trying to play sound on allSounds track:", currentAllSound);
+      if (allSoundsAudio.current) {
+        console.log("Audio element is present");
+        allSoundsAudio.current.currentTime = 0;
+        allSoundsAudio.current.play();
+      } else {
+        console.log("Audio element is not initialized");
+      }
+    }
+
     stepIndex.current++;
   };
 
@@ -205,9 +240,13 @@ const BeatMaker = () => {
       return newPads;
     });
 
-    // Play the sound associated with the clicked pad
-    // playSound(trackId); // Call the playSound function with the track parameter
-    // You might need to adjust how you call playSound depending on trackId
+    // Play the sound immediately for the "allSounds" track
+    if (trackId === "allSounds" && allSoundsAudio.current) {
+      allSoundsAudio.current.currentTime = 0;
+      allSoundsAudio.current.play();
+    }
+
+    // Existing logic for other tracks...
     if (trackId === "kick" || trackId === "snare" || trackId === "hihat") {
       playSound(trackId as "kick" | "snare" | "hihat");
     }
@@ -331,6 +370,29 @@ const BeatMaker = () => {
                 <div className="flex">{renderPads(track)}</div>
               </div>
             ))}
+
+            {/* UI for the "allSounds" track */}
+            <div className="flex items-center w-full justify-start my-4">
+              <div className="flex flex-1 justify-between items-center mx-8">
+                {/* Dropdown for selecting a sound for the "allSounds" track */}
+                <Dropdown
+                  options={sounds} // Ensure this lists all available sounds
+                  selectedValue={currentAllSound}
+                  onChange={(newSoundUrl) => {
+                    console.log(
+                      "Selected sound for allSounds track:",
+                      newSoundUrl
+                    );
+                    setCurrentAllSound(newSoundUrl);
+                  }}
+                />
+                {/* Add any additional controls you might need here */}
+              </div>
+              <div className="flex">
+                {/* Render pads for the "allSounds" track */}
+                {renderPads("allSounds")}
+              </div>
+            </div>
 
             {/* Render custom tracks */}
             {customTracks.map((customTrack, index) => (
