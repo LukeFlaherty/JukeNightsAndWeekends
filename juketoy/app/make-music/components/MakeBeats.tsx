@@ -8,12 +8,14 @@ import {
   FaVolumeUp,
   FaVolumeMute,
   FaGithubAlt,
+  FaPlus,
 } from "react-icons/fa";
 
 import useSound from "use-sound";
 
 import useGetDefaultSounds from "@/hooks/useGetDefaultSounds";
 import Dropdown from "./DropDown";
+import { CustomTrack } from "@/types";
 
 const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,6 +24,8 @@ const BeatMaker = () => {
 
   // for tracking what is playing for transform
   const [currentStep, setCurrentStep] = useState(0);
+
+  const [customTracks, setCustomTracks] = useState<CustomTrack[]>([]);
 
   // Get the default sounds
   const { sounds, loading } = useGetDefaultSounds();
@@ -48,6 +52,7 @@ const BeatMaker = () => {
   const hihatAudio = useRef<HTMLAudioElement | null>(null);
 
   type TrackName = "kick" | "snare" | "hihat";
+  type Track = CustomTrack | "kick" | "snare" | "hihat";
 
   const trackNames: TrackName[] = ["kick", "snare", "hihat"];
 
@@ -108,16 +113,21 @@ const BeatMaker = () => {
     }
   );
 
-  // Function to render the dropdown options for sounds
-  // Define the type for the 'type' parameter
-  const renderSoundOptions = (type: string) => {
-    return sounds
-      .filter((sound) => sound.type_of_sound === type)
-      .map((sound) => (
-        <option key={sound.id} value={sound.sound_url}>
-          {sound.name}
-        </option>
-      ));
+  // Function to add a new custom track
+  const addCustomTrack = () => {
+    const newTrack: CustomTrack = {
+      id: Date.now(), // Simple unique ID
+      sound: "", // Default sound for a new track
+      name: "New Sound",
+    };
+    setCustomTracks((prevTracks) => [...prevTracks, newTrack]);
+  };
+
+  // Function to remove a custom track by id
+  const removeCustomTrack = (trackId: number) => {
+    setCustomTracks((prevTracks) =>
+      prevTracks.filter((track) => track.id !== trackId)
+    );
   };
 
   // Function to handle playing the sounds
@@ -180,8 +190,8 @@ const BeatMaker = () => {
     stepIndex.current++;
   };
 
-  const togglePad = (track: "kick" | "snare" | "hihat", index: number) => {
-    const padId = `${track}-pad-${index}`;
+  const togglePad = (trackId: string, index: number) => {
+    const padId = `${trackId}-pad-${index}`;
     setActivePads((prev) => {
       const newPads = new Set(prev);
       if (newPads.has(padId)) {
@@ -193,31 +203,32 @@ const BeatMaker = () => {
     });
 
     // Play the sound associated with the clicked pad
-    playSound(track); // Call the playSound function with the track parameter
+    // playSound(trackId); // Call the playSound function with the track parameter
+    // You might need to adjust how you call playSound depending on trackId
+    if (trackId === "kick" || trackId === "snare" || trackId === "hihat") {
+      playSound(trackId as "kick" | "snare" | "hihat");
+    }
   };
 
   // This function is called when a pad is clicked
-  const renderPads = (track: "kick" | "snare" | "hihat") => {
+  const renderPads = (track: Track) => {
+    const trackId = typeof track === "string" ? track : track.id.toString();
+
     return Array.from({ length: 8 }, (_, i) => {
-      // Define base classes with transition properties
       let baseClasses =
         "w-12 h-12 m-1 rounded-md cursor-pointer transition duration-150 ";
 
-      // Add classes for active/inactive pads
-      baseClasses += activePads.has(`${track}-pad-${i}`)
-        ? "bg-red-500"
-        : "bg-gray-200";
-
-      // Add classes for the current step
+      const isActive = activePads.has(`${trackId}-pad-${i}`);
+      baseClasses += isActive ? "bg-red-500" : "bg-gray-200";
       if (currentStep === i) {
         baseClasses += " scale-110"; // Tailwind classes for active step
       }
 
       return (
         <div
-          key={`${track}-pad-${i}`}
+          key={`${trackId}-pad-${i}`}
           className={baseClasses}
-          onClick={() => togglePad(track, i)}
+          onClick={() => togglePad(trackId, i)}
         />
       );
     });
@@ -297,24 +308,62 @@ const BeatMaker = () => {
   return (
     <div className="bg-white text-black font-lato">
       <nav className="py-4">
-        {" "}
-        {/* Removed shadow-lg */}
         <h1 className="text-center text-3xl font-bold">BeatMaker App</h1>
       </nav>
 
       <div className="flex flex-col items-center justify-center mt-20">
-        {trackNames.map((track: TrackName) => (
+        {trackNames.map((track) => (
           <div
             className="flex items-center w-full justify-start my-4"
             key={track}
           >
             <div className="flex flex-1 justify-between items-center mx-8">
-              {trackControls(track, isMuted[track as keyof typeof isMuted])}
+              {trackControls(track, isMuted[track])}
             </div>
             <div className="flex">{renderPads(track)}</div>
           </div>
         ))}
+
+        {/* Render custom tracks */}
+        {customTracks.map((customTrack, index) => (
+          <div
+            className="flex items-center w-full justify-start my-4"
+            key={customTrack.id}
+          >
+            <div className="flex flex-1 justify-between items-center mx-8">
+              <Dropdown
+                options={sounds} // Pass all sounds for custom tracks
+                selectedValue={customTrack.sound}
+                onChange={(newSoundUrl) => {
+                  // Here we need to handle the change event to update the sound for the custom track
+                  const updatedTracks = customTracks.map((track) => {
+                    if (track.id === customTrack.id) {
+                      return { ...track, sound: newSoundUrl };
+                    }
+                    return track;
+                  });
+                  setCustomTracks(updatedTracks);
+                }}
+              />
+              <button
+                onClick={() => removeCustomTrack(customTrack.id)}
+                className="text-red-500 hover:text-red-700 ml-4"
+              >
+                <FaTrash />
+              </button>
+            </div>
+            <div className="flex">{renderPads(customTrack)}</div>
+          </div>
+        ))}
+
+        <button
+          onClick={addCustomTrack}
+          className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+        >
+          <FaPlus /> Add Track
+        </button>
       </div>
+
       {/* Controls bar */}
       <div className="py-4 bg-white">
         <div className="flex justify-center items-center">
