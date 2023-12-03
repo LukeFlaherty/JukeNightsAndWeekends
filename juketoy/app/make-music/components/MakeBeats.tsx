@@ -23,6 +23,7 @@ const BeatMaker = () => {
   const [bpm, setBpm] = useState(150);
   const [activePads, setActivePads] = useState(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [trackLength, setTrackLength] = useState(8);
 
   // for tracking what is playing for transform
   const [currentStep, setCurrentStep] = useState(0);
@@ -154,6 +155,10 @@ const BeatMaker = () => {
     }
   );
 
+  const addExtraBeat = () => {
+    setTrackLength((currentLength) => currentLength + 1);
+  };
+
   const addDynamicTrack = () => {
     const newTrack: DynamicTrack = {
       id: Date.now(),
@@ -224,7 +229,7 @@ const BeatMaker = () => {
   };
 
   const playBeat = () => {
-    const step = stepIndex.current % 8;
+    const step = stepIndex.current % trackLength;
     setCurrentStep(step); // Update the current step state
 
     // Logic to play the beat based on active pads
@@ -257,7 +262,7 @@ const BeatMaker = () => {
       }
     });
 
-    stepIndex.current++;
+    stepIndex.current = (stepIndex.current + 1) % trackLength; // Cycle through the current number of steps
   };
 
   const togglePad = (trackId: string | number, index: number) => {
@@ -300,7 +305,7 @@ const BeatMaker = () => {
     const trackId =
       typeof track === "object" && track !== null ? track.id : track;
 
-    return Array.from({ length: 8 }, (_, i) => {
+    return Array.from({ length: trackLength }, (_, i) => {
       let baseClasses =
         "w-12 h-12 m-1 rounded-md cursor-pointer transition duration-150 ";
 
@@ -410,10 +415,7 @@ const BeatMaker = () => {
         <>
           <div className="flex flex-col items-center justify-center mt-0">
             {trackNames.map((track) => (
-              <div
-                className="flex items-center w-full justify-start my-4"
-                key={track}
-              >
+              <div className="flex items-center w-full my-4" key={track}>
                 <div className="flex flex-col mr-4">
                   <div className="text-lg font-semibold mb-2">
                     {track.toUpperCase()}
@@ -440,7 +442,6 @@ const BeatMaker = () => {
             </div>
 
             {/* Render dynamic tracks */}
-            {/* Label for Dynamic Tracks */}
             {dynamicTracks.length > 0 && (
               <div className="w-full my-4 text-lg font-semibold">
                 CUSTOM TRACKS
@@ -452,7 +453,6 @@ const BeatMaker = () => {
                 key={track.id}
               >
                 <div className="flex flex-1 justify-between items-center mx-8">
-                  {/* Dropdown for selecting a sound */}
                   <Dropdown
                     options={sounds}
                     selectedValue={track.sound}
@@ -460,15 +460,11 @@ const BeatMaker = () => {
                       updateTrackSound(track.id, newSoundUrl)
                     }
                   />
-                  {/* Delete button */}
                   <button onClick={() => removeDynamicTrack(track.id)}>
                     <FaTrash />
                   </button>
                 </div>
-                <div className="flex">
-                  {/* Render pads */}
-                  {renderPads(track)}
-                </div>
+                <div className="flex">{renderPads(track)}</div>
               </div>
             ))}
 
@@ -477,6 +473,13 @@ const BeatMaker = () => {
               className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
             >
               <FaPlus /> Add Track
+            </button>
+
+            <button
+              onClick={addExtraBeat}
+              className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+            >
+              <FaPlus /> Add Extra Beat
             </button>
           </div>
 
