@@ -9,6 +9,8 @@ import {
   FaVolumeMute,
   FaGithubAlt,
   FaPlus,
+  FaCaretDown,
+  FaCaretUp,
 } from "react-icons/fa";
 
 import useSound from "use-sound";
@@ -21,6 +23,7 @@ const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(150);
   const [activePads, setActivePads] = useState(new Set());
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   // for tracking what is playing for transform
   const [currentStep, setCurrentStep] = useState(0);
@@ -306,94 +309,100 @@ const BeatMaker = () => {
   };
 
   return (
-    <div className="bg-white text-black font-lato">
-      <nav className="py-4">
-        <h1 className="text-center text-3xl font-bold">BeatMaker App</h1>
-      </nav>
-
-      <div className="flex flex-col items-center justify-center mt-20">
-        {trackNames.map((track) => (
-          <div
-            className="flex items-center w-full justify-start my-4"
-            key={track}
-          >
-            <div className="flex flex-1 justify-between items-center mx-8">
-              {trackControls(track, isMuted[track])}
-            </div>
-            <div className="flex">{renderPads(track)}</div>
-          </div>
-        ))}
-
-        {/* Render custom tracks */}
-        {customTracks.map((customTrack, index) => (
-          <div
-            className="flex items-center w-full justify-start my-4"
-            key={customTrack.id}
-          >
-            <div className="flex flex-1 justify-between items-center mx-8">
-              <Dropdown
-                options={sounds} // Pass all sounds for custom tracks
-                selectedValue={customTrack.sound}
-                onChange={(newSoundUrl) => {
-                  // Here we need to handle the change event to update the sound for the custom track
-                  const updatedTracks = customTracks.map((track) => {
-                    if (track.id === customTrack.id) {
-                      return { ...track, sound: newSoundUrl };
-                    }
-                    return track;
-                  });
-                  setCustomTracks(updatedTracks);
-                }}
-              />
-              <button
-                onClick={() => removeCustomTrack(customTrack.id)}
-                className="text-red-500 hover:text-red-700 ml-4"
-              >
-                <FaTrash />
-              </button>
-            </div>
-            <div className="flex">{renderPads(customTrack)}</div>
-          </div>
-        ))}
-
-        <button
-          onClick={addCustomTrack}
-          className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
-        >
-          <FaPlus /> Add Track
-        </button>
-      </div>
-
-      {/* Controls bar */}
-      <div className="py-4 bg-white">
-        <div className="flex justify-center items-center">
-          <button
-            onClick={startStop}
-            className="mx-2 p-2 border-4 border-black rounded-full"
-          >
-            {isPlaying ? <FaStop size={24} /> : <FaPlay size={24} />}
-          </button>
-          <div className="flex items-center mx-2">
-            <h2 className="text-xl mr-2">
-              <span className="text-2xl font-bold">{bpm}</span> BPM
-            </h2>
-            <input
-              type="range"
-              className="w-1/2"
-              min="30"
-              max="240"
-              value={bpm}
-              onChange={updateBpm}
-            />
-          </div>
-          <button
-            onClick={reset} // Call the reset function directly
-            className="mx-2 p-2 border-4 border-black rounded-full"
-          >
-            <FaTrash size={24} />
-          </button>
+    <div className="text-black font-lato p-6">
+      <div className="mb-4 flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Make a Beat</h2>
+        <div onClick={() => setIsCollapsed(!isCollapsed)}>
+          {isCollapsed ? <FaCaretDown /> : <FaCaretUp />}
         </div>
       </div>
+
+      {!isCollapsed && (
+        <>
+          <div className="flex flex-col items-center justify-center mt-0">
+            {trackNames.map((track) => (
+              <div
+                className="flex items-center w-full justify-start my-4"
+                key={track}
+              >
+                <div className="flex flex-1 justify-between items-center mx-8">
+                  {trackControls(track, isMuted[track])}
+                </div>
+                <div className="flex">{renderPads(track)}</div>
+              </div>
+            ))}
+
+            {/* Render custom tracks */}
+            {customTracks.map((customTrack, index) => (
+              <div
+                className="flex items-center w-full justify-start my-4"
+                key={customTrack.id}
+              >
+                <div className="flex flex-1 justify-between items-center mx-8">
+                  <Dropdown
+                    options={sounds}
+                    selectedValue={customTrack.sound}
+                    onChange={(newSoundUrl) => {
+                      const updatedTracks = customTracks.map((track) => {
+                        if (track.id === customTrack.id) {
+                          return { ...track, sound: newSoundUrl };
+                        }
+                        return track;
+                      });
+                      setCustomTracks(updatedTracks);
+                    }}
+                  />
+                  <button
+                    onClick={() => removeCustomTrack(customTrack.id)}
+                    className="text-red-500 hover:text-red-700 ml-4"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+                <div className="flex">{renderPads(customTrack)}</div>
+              </div>
+            ))}
+
+            <button
+              onClick={addCustomTrack}
+              className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+            >
+              <FaPlus /> Add Track
+            </button>
+          </div>
+
+          {/* Controls bar */}
+          <div className="py-4">
+            <div className="flex justify-center items-center">
+              <button
+                onClick={startStop}
+                className="mx-2 p-2 border-4 border-black rounded-full"
+              >
+                {isPlaying ? <FaStop size={24} /> : <FaPlay size={24} />}
+              </button>
+              <div className="flex items-center mx-2">
+                <h2 className="text-xl mr-2">
+                  <span className="text-2xl font-bold">{bpm}</span> BPM
+                </h2>
+                <input
+                  type="range"
+                  className="w-1/2"
+                  min="30"
+                  max="240"
+                  value={bpm}
+                  onChange={updateBpm}
+                />
+              </div>
+              <button
+                onClick={reset}
+                className="mx-2 p-2 border-4 border-black rounded-full"
+              >
+                <FaTrash size={24} />
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
