@@ -28,9 +28,8 @@ const BeatMaker = () => {
   // for tracking what is playing for transform
   const [currentStep, setCurrentStep] = useState(0);
 
-  const [customTracks, setCustomTracks] = useState<CustomTrack[]>([]);
-
   const [currentAllSound, setCurrentAllSound] = useState("");
+  const [dynamicTracks, setDynamicTracks] = useState<DynamicTrack[]>([]);
 
   // Get the default sounds
   const { sounds, loading } = useGetDefaultSounds();
@@ -58,7 +57,13 @@ const BeatMaker = () => {
   const allSoundsAudio = useRef<HTMLAudioElement | null>(null);
 
   type TrackName = "kick" | "snare" | "hihat";
-  type Track = CustomTrack | "kick" | "snare" | "hihat" | "allSounds";
+  type Track = "kick" | "snare" | "hihat" | "allSounds" | DynamicTrack;
+
+  type DynamicTrack = {
+    id: number;
+    sound: string;
+    name: string;
+  };
 
   const trackNames: TrackName[] = ["kick", "snare", "hihat"];
 
@@ -133,20 +138,30 @@ const BeatMaker = () => {
     }
   );
 
-  // Function to add a new custom track
-  const addCustomTrack = () => {
-    const newTrack: CustomTrack = {
-      id: Date.now(), // Simple unique ID
-      sound: "", // Default sound for a new track
-      name: "New Sound",
+  const addDynamicTrack = () => {
+    const newTrack: DynamicTrack = {
+      id: Date.now(),
+      sound: "", // Default sound
+      name: "New Track", // Default name
     };
-    setCustomTracks((prevTracks) => [...prevTracks, newTrack]);
+    setDynamicTracks([...dynamicTracks, newTrack]);
   };
 
-  // Function to remove a custom track by id
-  const removeCustomTrack = (trackId: number) => {
-    setCustomTracks((prevTracks) =>
+  // Function to remove a dynamic track by id
+  const removeDynamicTrack = (trackId: number) => {
+    setDynamicTracks((prevTracks) =>
       prevTracks.filter((track) => track.id !== trackId)
+    );
+  };
+
+  const updateTrackSound = (trackId: number, newSoundUrl: any) => {
+    setDynamicTracks(
+      dynamicTracks.map((track) => {
+        if (track.id === trackId) {
+          return { ...track, sound: newSoundUrl };
+        }
+        return track;
+      })
     );
   };
 
@@ -394,39 +409,35 @@ const BeatMaker = () => {
               </div>
             </div>
 
-            {/* Render custom tracks */}
-            {customTracks.map((customTrack, index) => (
+            {/* Render dynamic tracks */}
+            {dynamicTracks.map((track) => (
               <div
                 className="flex items-center w-full justify-start my-4"
-                key={customTrack.id}
+                key={track.id}
               >
                 <div className="flex flex-1 justify-between items-center mx-8">
+                  {/* Dropdown for selecting a sound */}
                   <Dropdown
                     options={sounds}
-                    selectedValue={customTrack.sound}
-                    onChange={(newSoundUrl) => {
-                      const updatedTracks = customTracks.map((track) => {
-                        if (track.id === customTrack.id) {
-                          return { ...track, sound: newSoundUrl };
-                        }
-                        return track;
-                      });
-                      setCustomTracks(updatedTracks);
-                    }}
+                    selectedValue={track.sound}
+                    onChange={(newSoundUrl) =>
+                      updateTrackSound(track.id, newSoundUrl)
+                    }
                   />
-                  <button
-                    onClick={() => removeCustomTrack(customTrack.id)}
-                    className="text-red-500 hover:text-red-700 ml-4"
-                  >
+                  {/* Delete button */}
+                  <button onClick={() => removeDynamicTrack(track.id)}>
                     <FaTrash />
                   </button>
                 </div>
-                <div className="flex">{renderPads(customTrack)}</div>
+                <div className="flex">
+                  {/* Render pads */}
+                  {renderPads(track)}
+                </div>
               </div>
             ))}
 
             <button
-              onClick={addCustomTrack}
+              onClick={addDynamicTrack}
               className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
             >
               <FaPlus /> Add Track
