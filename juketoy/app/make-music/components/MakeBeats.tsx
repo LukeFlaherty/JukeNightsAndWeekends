@@ -17,7 +17,6 @@ import useSound from "use-sound";
 
 import useGetDefaultSounds from "@/hooks/useGetDefaultSounds";
 import Dropdown from "./DropDown";
-import { CustomTrack } from "@/types";
 
 const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -102,7 +101,6 @@ const BeatMaker = () => {
 
     if (typeof Audio !== "undefined") {
       allSoundsAudio.current = new Audio(currentAllSound);
-      console.log("Initialized allSoundsAudio with:", currentAllSound);
     }
 
     // Clear existing interval
@@ -176,6 +174,8 @@ const BeatMaker = () => {
     setDynamicTracks(
       dynamicTracks.map((track) => {
         if (track.id === trackId) {
+          // Update the audio element for this track
+          dynamicTrackAudios.current[trackId] = new Audio(newSoundUrl);
           return { ...track, sound: newSoundUrl };
         }
         return track;
@@ -257,22 +257,14 @@ const BeatMaker = () => {
       }
     });
 
-    // Debugging for allSounds track
-    if (activePads.has(`allSounds-pad-${step}`)) {
-      console.log("Trying to play sound on allSounds track:", currentAllSound);
-      if (allSoundsAudio.current) {
-        console.log("Audio element is present");
-        allSoundsAudio.current.currentTime = 0;
-        allSoundsAudio.current.play();
-      } else {
-        console.log("Audio element is not initialized");
-      }
-    }
-
     stepIndex.current++;
   };
 
   const togglePad = (trackId: string | number, index: number) => {
+    if (!isNaN(Number(trackId))) {
+      trackId = Number(trackId);
+    }
+
     const padId = `${trackId}-pad-${index}`;
     setActivePads((prev) => {
       const newPads = new Set(prev);
@@ -304,7 +296,9 @@ const BeatMaker = () => {
 
   // This function is called when a pad is clicked
   const renderPads = (track: Track) => {
-    const trackId = typeof track === "string" ? track : track.id.toString();
+    // Determine the trackId based on whether the track is a dynamic track or a predefined track
+    const trackId =
+      typeof track === "object" && track !== null ? track.id : track;
 
     return Array.from({ length: 8 }, (_, i) => {
       let baseClasses =
@@ -320,7 +314,13 @@ const BeatMaker = () => {
         <div
           key={`${trackId}-pad-${i}`}
           className={baseClasses}
-          onClick={() => togglePad(trackId, i)}
+          // Ensure trackId is passed as a number for dynamic tracks, and as a string for predefined tracks
+          onClick={() =>
+            togglePad(
+              typeof trackId === "number" ? trackId : trackId.toString(),
+              i
+            )
+          }
         />
       );
     });
@@ -414,7 +414,11 @@ const BeatMaker = () => {
                 className="flex items-center w-full justify-start my-4"
                 key={track}
               >
-                <div className="flex flex-1 justify-between items-center mx-8">
+                <div className="flex flex-col mr-4">
+                  <div className="text-lg font-semibold mb-2">
+                    {track.toUpperCase()}
+                  </div>{" "}
+                  {/* Track Label */}
                   {trackControls(track, isMuted[track])}
                 </div>
                 <div className="flex">{renderPads(track)}</div>
@@ -423,28 +427,25 @@ const BeatMaker = () => {
 
             {/* UI for the "allSounds" track */}
             <div className="flex items-center w-full justify-start my-4">
-              <div className="flex flex-1 justify-between items-center mx-8">
-                {/* Dropdown for selecting a sound for the "allSounds" track */}
+              <div className="flex flex-col mr-4">
+                <div className="text-lg font-semibold mb-2">ALL SOUNDS</div>{" "}
+                {/* Label for allSounds track */}
                 <Dropdown
-                  options={sounds} // Ensure this lists all available sounds
+                  options={sounds}
                   selectedValue={currentAllSound}
-                  onChange={(newSoundUrl) => {
-                    console.log(
-                      "Selected sound for allSounds track:",
-                      newSoundUrl
-                    );
-                    setCurrentAllSound(newSoundUrl);
-                  }}
+                  onChange={(newSoundUrl) => setCurrentAllSound(newSoundUrl)}
                 />
-                {/* Add any additional controls you might need here */}
               </div>
-              <div className="flex">
-                {/* Render pads for the "allSounds" track */}
-                {renderPads("allSounds")}
-              </div>
+              <div className="flex">{renderPads("allSounds")}</div>
             </div>
 
             {/* Render dynamic tracks */}
+            {/* Label for Dynamic Tracks */}
+            {dynamicTracks.length > 0 && (
+              <div className="w-full my-4 text-lg font-semibold">
+                CUSTOM TRACKS
+              </div>
+            )}
             {dynamicTracks.map((track) => (
               <div
                 className="flex items-center w-full justify-start my-4"

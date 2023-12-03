@@ -19,12 +19,6 @@ export interface Sound {
   user_id: string | null;
 }
 
-export interface CustomTrack {
-  id: number;
-  sound: string;
-  name: string;
-}
-
 export interface PlaylistSong extends Song {
   playlist_song_id: string;
 }
