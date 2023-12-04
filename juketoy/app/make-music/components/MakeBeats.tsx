@@ -444,15 +444,17 @@ const BeatMaker = () => {
                       CUSTOM TRACK
                     </div>
                     <div className="flex items-center justify-start mb-4">
-                      <Dropdown
-                        options={sounds}
-                        selectedValue={track.sound}
-                        onChange={(newSoundUrl) =>
-                          updateTrackSound(track.id, newSoundUrl)
-                        }
-                      />
+                      <div className="flex flex-grow">
+                        <Dropdown
+                          options={sounds}
+                          selectedValue={track.sound}
+                          onChange={(newSoundUrl) =>
+                            updateTrackSound(track.id, newSoundUrl)
+                          }
+                        />
+                      </div>
                       <button
-                        className="ml-4" // This adds a margin to the left of the delete button
+                        className="ml-4 flex-none" // This adds a margin to the left of the delete button and prevents it from shrinking
                         onClick={() => removeDynamicTrack(track.id)}
                       >
                         <FaTrash />
