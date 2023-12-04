@@ -435,29 +435,31 @@ const BeatMaker = () => {
                 />
               </div>
               {/* Render dynamic tracks */}
-              {dynamicTracks.length > 0 && (
-                <div className="mb-4 text-lg font-semibold">CUSTOM TRACKS</div>
-              )}
-              <div className="flex flex-col space-y-12">
-                {/* Adjust space-y-4 to match the spacing of the pads */}
+              {/* {dynamicTracks.length > 0 && (
+                <div className="text-lg font-semibold mb-2">CUSTOM TRACK</div>
+              )} */}
+              <div className="flex flex-col mb-4">
                 {dynamicTracks.map((track) => (
-                  <div
-                    className="flex items-center justify-start"
-                    key={track.id}
-                  >
-                    <Dropdown
-                      options={sounds}
-                      selectedValue={track.sound}
-                      onChange={(newSoundUrl) =>
-                        updateTrackSound(track.id, newSoundUrl)
-                      }
-                    />
-                    <button
-                      className="ml-4" // This adds a margin to the left of the delete button
-                      onClick={() => removeDynamicTrack(track.id)}
-                    >
-                      <FaTrash />
-                    </button>
+                  <div key={track.id}>
+                    {/* This will render "CUSTOM TRACK" above the dropdown */}
+                    <div className="text-lg font-semibold mb-2">
+                      CUSTOM TRACK
+                    </div>
+                    <div className="flex items-center justify-start mb-4">
+                      <Dropdown
+                        options={sounds}
+                        selectedValue={track.sound}
+                        onChange={(newSoundUrl) =>
+                          updateTrackSound(track.id, newSoundUrl)
+                        }
+                      />
+                      <button
+                        className="ml-4" // This adds a margin to the left of the delete button
+                        onClick={() => removeDynamicTrack(track.id)}
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
