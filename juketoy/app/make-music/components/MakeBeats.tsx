@@ -472,19 +472,22 @@ const BeatMaker = () => {
               </div>
             ))}
 
-            <button
-              onClick={addDynamicTrack}
-              className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
-            >
-              <FaPlus /> Add Track
-            </button>
+            {/* New container for "Add Track" and "Add Extra Beat" buttons */}
+            <div className="my-4 flex justify-center items-center">
+              <button
+                onClick={addDynamicTrack}
+                className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+              >
+                <FaPlus /> Add Track
+              </button>
 
-            <button
-              onClick={addExtraBeat}
-              className="my-4 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
-            >
-              <FaPlus /> Add Extra Beat
-            </button>
+              <button
+                onClick={addExtraBeat}
+                className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+              >
+                <FaPlus /> Add Extra Beat
+              </button>
+            </div>
           </div>
 
           {/* Controls bar */}
