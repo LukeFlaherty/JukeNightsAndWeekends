@@ -419,11 +419,13 @@ const BeatMaker = () => {
                 <div className="flex flex-col mr-4">
                   <div className="text-lg font-semibold mb-2">
                     {track.toUpperCase()}
-                  </div>{" "}
+                  </div>
                   {/* Track Label */}
                   {trackControls(track, isMuted[track])}
                 </div>
-                <div className="flex">{renderPads(track)}</div>
+                <div className="flex-1 flex overflow-x-auto">
+                  {renderPads(track)}
+                </div>
               </div>
             ))}
 
@@ -438,7 +440,9 @@ const BeatMaker = () => {
                   onChange={(newSoundUrl) => setCurrentAllSound(newSoundUrl)}
                 />
               </div>
-              <div className="flex">{renderPads("allSounds")}</div>
+              <div className="flex-1 flex overflow-x-auto">
+                {renderPads("allSounds")}
+              </div>
             </div>
 
             {/* Render dynamic tracks */}
@@ -464,7 +468,9 @@ const BeatMaker = () => {
                     <FaTrash />
                   </button>
                 </div>
-                <div className="flex">{renderPads(track)}</div>
+                <div className="flex-1 flex overflow-x-auto">
+                  {renderPads(track)}
+                </div>
               </div>
             ))}
 
