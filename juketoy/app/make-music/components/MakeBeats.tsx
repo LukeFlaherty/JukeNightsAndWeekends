@@ -434,10 +434,8 @@ const BeatMaker = () => {
                   onChange={(newSoundUrl) => setCurrentAllSound(newSoundUrl)}
                 />
               </div>
+
               {/* Render dynamic tracks */}
-              {/* {dynamicTracks.length > 0 && (
-                <div className="text-lg font-semibold mb-2">CUSTOM TRACK</div>
-              )} */}
               <div className="flex flex-col mb-4">
                 {dynamicTracks.map((track) => (
                   <div key={track.id}>

@@ -42,7 +42,9 @@ const Dropdown: React.FC<DropdownProps> = ({
         className="w-full bg-gray-200 text-gray-700 py-3 pl-4 pr-10 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 flex justify-between items-center"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedSound ? selectedSound.name : "Select a sound"}
+        <span className="truncate flex-grow">
+          {selectedSound ? selectedSound.name : "Select a sound"}
+        </span>
         {/* Icon */}
         <svg
           className="fill-current h-4 w-4 transform transition-transform"
