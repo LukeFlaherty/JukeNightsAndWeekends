@@ -12,9 +12,11 @@ import {
   FaCaretDown,
   FaCaretUp,
   FaMinus,
+  FaDownload,
 } from "react-icons/fa";
 
 import useSound from "use-sound";
+import toWav from "audiobuffer-to-wav";
 
 import useGetDefaultSounds from "@/hooks/useGetDefaultSounds";
 import Dropdown from "./DropDown";
@@ -25,7 +27,9 @@ import Dropdown from "./DropDown";
 const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(150);
-  const [activePads, setActivePads] = useState(new Set());
+  // const [activePads, setActivePads] = useState(new Set());
+  // Correctly typing the activePads state declaration
+  const [activePads, setActivePads] = useState<Set<string>>(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [trackLength, setTrackLength] = useState(8);
 
@@ -158,6 +162,188 @@ const BeatMaker = () => {
       interrupt: true,
     }
   );
+
+  const handleExportClick = () => {
+    const loopCountStr = prompt("Enter the number of loops:");
+    if (loopCountStr === null) {
+      return;
+    }
+    const loopCount = parseInt(loopCountStr);
+
+    if (isNaN(loopCount) || loopCount <= 0) {
+      alert("Please enter a valid number");
+      return;
+    }
+
+    if (loopCount > 10) {
+      alert("The number of loops cannot exceed 10");
+      return;
+    }
+
+    exportBeats(loopCount);
+  };
+
+  const exportBeats = async (loopCount: number) => {
+    const audioCtx = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
+
+    // Define trackUrls here, or pass it as a parameter
+    const trackUrls: string[] = [currentKick, currentSnare, currentHihat]; // Add more as needed
+
+    console.log("Track URLs: before", trackUrls);
+    const trackBuffers = await Promise.all(
+      trackUrls.map((url) => fetchAndDecodeAudio(url, audioCtx))
+    );
+
+    console.log("Track URLs: after", trackUrls);
+
+    console.log("Active Pads:before", Array.from(activePads));
+
+    // Mix the tracks together
+    // Pass the activePads and trackLength as arguments to mixTracks
+    const mixedBuffer = mixTracks(
+      trackBuffers,
+      loopCount,
+      audioCtx,
+      activePads,
+      trackLength,
+      bpm
+    );
+
+    console.log("Active Pads: after", Array.from(activePads));
+
+    // Convert to WAV and trigger download (function implementation to follow)
+    convertToWavAndDownload(mixedBuffer, audioCtx);
+  };
+
+  const fetchAndDecodeAudio = async (url: string, audioCtx: AudioContext) => {
+    try {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+      // Log to check each decoded audio buffer
+      console.log(`Audio buffer decoded for URL: ${url}`, audioBuffer);
+      return audioBuffer;
+    } catch (error) {
+      console.error(`Error fetching or decoding audio for URL: ${url}`, error);
+      throw error;
+    }
+  };
+
+  // Define a map for the track names to their respective buffer indices
+  const trackNameToBufferIndex: { [key: string]: number } = {
+    kick: 0, // index of the kick buffer in trackBuffers
+    snare: 1, // index of the snare buffer in trackBuffers
+    hihat: 2, // index of the hihat buffer in trackBuffers
+    // ... any additional static tracks
+  };
+
+  // For dynamic tracks, you would update this mapping when you fetch and decode the buffers
+  dynamicTracks.forEach((track, index) => {
+    // Assuming dynamicTracks are added to trackBuffers after the static tracks
+    trackNameToBufferIndex[track.name] = index + 3; // +3 for the three static tracks above
+  });
+
+  // pre It seems like the issue is that the startOffset calculation is causing the tracks to be placed end-to-end rather than layered on top of each other.
+  const mixTracks = (
+    trackBuffers: AudioBuffer[],
+    loopCount: number,
+    audioCtx: AudioContext,
+    activePads: Set<string>,
+    trackLength: number,
+    bpm: number
+  ): AudioBuffer => {
+    const oneBeatLength = audioCtx.sampleRate * (60 / bpm); // One beat length in samples
+    const oneLoopLength = oneBeatLength * trackLength; // Full loop length in samples
+    const totalLength = oneLoopLength * loopCount; // Total length of the mix in samples
+
+    const numberOfChannels = Math.max(
+      ...trackBuffers.map((buffer) => buffer.numberOfChannels)
+    );
+    const mixedBuffer = audioCtx.createBuffer(
+      numberOfChannels,
+      totalLength,
+      audioCtx.sampleRate
+    );
+
+    console.log(
+      `Mixing tracks with loop count: ${loopCount}, track length: ${trackLength}, bpm: ${bpm}`
+    );
+
+    activePads.forEach((pad) => {
+      const [trackName, padIndexStr] = pad.split("-");
+      const padIndex = parseInt(padIndexStr, 10);
+
+      if (isNaN(padIndex)) {
+        console.error(`Invalid pad index encountered for pad: ${pad}`);
+        return; // Skip this pad if the index is not a number
+      }
+
+      const bufferIndex = trackNameToBufferIndex[trackName];
+      console.log(
+        `Processing pad: ${pad}, track name: ${trackName}, pad index: ${padIndex}, buffer index: ${bufferIndex}`
+      );
+
+      if (bufferIndex !== undefined) {
+        const trackBuffer = trackBuffers[bufferIndex];
+        console.log(
+          `Adding track: ${trackName}, buffer index: ${bufferIndex}, channel count: ${trackBuffer.numberOfChannels}`
+        );
+
+        for (let channel = 0; channel < numberOfChannels; channel++) {
+          if (channel < trackBuffer.numberOfChannels) {
+            const trackData = trackBuffer.getChannelData(channel);
+            const mixedData = mixedBuffer.getChannelData(channel);
+
+            for (let loop = 0; loop < loopCount; loop++) {
+              const startOffset =
+                loop * oneLoopLength + padIndex * oneBeatLength;
+              console.log(
+                `Adding sound at start offset: ${
+                  startOffset / audioCtx.sampleRate
+                }s`
+              );
+
+              for (let i = 0; i < trackData.length; i++) {
+                if (startOffset + i < mixedData.length) {
+                  mixedData[startOffset + i] += trackData[i];
+                }
+              }
+            }
+          }
+        }
+      } else {
+        console.error(`Buffer not found for track: ${trackName}`);
+      }
+    });
+
+    console.log("Mixed Buffer:", mixedBuffer);
+
+    return mixedBuffer;
+  };
+
+  const convertToWavAndDownload = (
+    buffer: AudioBuffer,
+    audioCtx: AudioContext
+  ) => {
+    // Convert the AudioBuffer to a WAV file
+    const wav = toWav(buffer);
+    const blob = new Blob([wav], { type: "audio/wav" });
+
+    // Create a download link and trigger the download
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = "beat.wav";
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
 
   const addExtraBeat = () => {
     setTrackLength((currentLength) => currentLength + 1);
@@ -518,6 +704,13 @@ const BeatMaker = () => {
               className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
             >
               <FaMinus /> Remove Extra Beat
+            </button>
+            {/* Export Beat button */}
+            <button
+              onClick={handleExportClick}
+              className="mx-2 p-2 bg-green-500 text-white hover:bg-green-700 rounded"
+            >
+              <FaDownload /> Export Beat
             </button>
           </div>
 
