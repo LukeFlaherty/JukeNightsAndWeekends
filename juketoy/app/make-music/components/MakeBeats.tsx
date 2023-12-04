@@ -425,7 +425,6 @@ const BeatMaker = () => {
                   {trackControls(track, isMuted[track])}
                 </div>
               ))}
-
               {/* UI for the "allSounds" track */}
               <div className="flex flex-col mb-4">
                 <div className="text-lg font-semibold mb-2">ALL SOUNDS</div>
@@ -435,28 +434,33 @@ const BeatMaker = () => {
                   onChange={(newSoundUrl) => setCurrentAllSound(newSoundUrl)}
                 />
               </div>
-
               {/* Render dynamic tracks */}
               {dynamicTracks.length > 0 && (
                 <div className="mb-4 text-lg font-semibold">CUSTOM TRACKS</div>
               )}
-              {dynamicTracks.map((track) => (
-                <div className="flex flex-col mb-4" key={track.id}>
-                  <Dropdown
-                    options={sounds}
-                    selectedValue={track.sound}
-                    onChange={(newSoundUrl) =>
-                      updateTrackSound(track.id, newSoundUrl)
-                    }
-                  />
-                  <button
-                    className="mt-4"
-                    onClick={() => removeDynamicTrack(track.id)}
+              <div className="flex flex-col space-y-12">
+                {/* Adjust space-y-4 to match the spacing of the pads */}
+                {dynamicTracks.map((track) => (
+                  <div
+                    className="flex items-center justify-start"
+                    key={track.id}
                   >
-                    <FaTrash />
-                  </button>
-                </div>
-              ))}
+                    <Dropdown
+                      options={sounds}
+                      selectedValue={track.sound}
+                      onChange={(newSoundUrl) =>
+                        updateTrackSound(track.id, newSoundUrl)
+                      }
+                    />
+                    <button
+                      className="ml-4" // This adds a margin to the left of the delete button
+                      onClick={() => removeDynamicTrack(track.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Container for all pads */}
