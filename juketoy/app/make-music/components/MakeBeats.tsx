@@ -416,7 +416,7 @@ const BeatMaker = () => {
           {/* Main container for controls and pads with flex and align-items-start */}
           <div className="flex w-full items-start">
             {/* Container for all track controls with a specified max-height */}
-            <div className="w-1/2 mr-4 overflow-y-auto">
+            <div className="w-1/3 mr-4 overflow-y-auto">
               {trackNames.map((track) => (
                 <div className="flex flex-col mb-4" key={track}>
                   <div className="text-lg font-semibold mb-2">
@@ -466,7 +466,7 @@ const BeatMaker = () => {
             </div>
 
             {/* Container for all pads */}
-            <div className="w-1/2 flex flex-col overflow-x-auto">
+            <div className="w-2/3 flex flex-col overflow-x-auto">
               {/* Consistent margin for all pads */}
               <div className="flex flex-col space-y-10">
                 {trackNames.map((track) => (
