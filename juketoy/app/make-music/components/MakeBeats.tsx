@@ -314,6 +314,8 @@ const BeatMaker = () => {
         baseClasses += " scale-110"; // Tailwind classes for active step
       }
 
+      baseClasses += " hover:scale-125"; // This will scale up the pad to 125% on hover
+
       return (
         <div
           key={`${trackId}-pad-${i}`}
@@ -411,10 +413,10 @@ const BeatMaker = () => {
 
       {!isCollapsed && (
         <>
-          {/* Main container for controls and pads */}
-          <div className="flex w-full">
-            {/* Container for all track controls */}
-            <div className="w-1/2 mr-4">
+          {/* Main container for controls and pads with flex and align-items-start */}
+          <div className="flex w-full items-start">
+            {/* Container for all track controls with a specified max-height */}
+            <div className="w-1/2 mr-4 overflow-y-auto">
               {trackNames.map((track) => (
                 <div className="flex flex-col mb-4" key={track}>
                   <div className="text-lg font-semibold mb-2">
@@ -447,50 +449,56 @@ const BeatMaker = () => {
                       updateTrackSound(track.id, newSoundUrl)
                     }
                   />
-                  <button onClick={() => removeDynamicTrack(track.id)}>
+                  <button
+                    className="mt-4"
+                    onClick={() => removeDynamicTrack(track.id)}
+                  >
                     <FaTrash />
                   </button>
                 </div>
               ))}
-
-              {/* Container for "Add Track" and "Add Extra Beat" buttons */}
-              <div className="flex justify-center my-4">
-                <button
-                  onClick={addDynamicTrack}
-                  className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
-                >
-                  <FaPlus /> Add Track
-                </button>
-
-                <button
-                  onClick={addExtraBeat}
-                  className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
-                >
-                  <FaPlus /> Add Extra Beat
-                </button>
-              </div>
             </div>
 
             {/* Container for all pads */}
             <div className="w-1/2 flex flex-col overflow-x-auto">
-              {trackNames.map((track) => (
-                <div className="flex items-center mb-4" key={track}>
-                  <div className="flex space-x-1">{renderPads(track)}</div>
-                </div>
-              ))}
+              {/* Consistent margin for all pads */}
+              <div className="flex flex-col space-y-10">
+                {trackNames.map((track) => (
+                  <div className="flex items-center mt-8 mb-0" key={track}>
+                    <div className="flex">{renderPads(track)}</div>
+                  </div>
+                ))}
 
-              {/* Pads for the "allSounds" track */}
-              <div className="flex items-center mb-4">
-                {renderPads("allSounds")}
+                {/* Pads for the "allSounds" track */}
+                <div className="flex items-center mb-8">
+                  {renderPads("allSounds")}
+                </div>
+
+                {/* Pads for dynamic tracks */}
+                {dynamicTracks.map((track) => (
+                  <div className="flex items-center " key={track.id}>
+                    {renderPads(track)}
+                  </div>
+                ))}
               </div>
-
-              {/* Pads for dynamic tracks */}
-              {dynamicTracks.map((track) => (
-                <div className="flex items-center mb-4" key={track.id}>
-                  {renderPads(track)}
-                </div>
-              ))}
             </div>
+          </div>
+
+          {/* Container for "Add Track" and "Add Extra Beat" buttons */}
+          <div className="flex justify-center my-4">
+            <button
+              onClick={addDynamicTrack}
+              className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+            >
+              <FaPlus /> Add Track
+            </button>
+
+            <button
+              onClick={addExtraBeat}
+              className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+            >
+              <FaPlus /> Add Extra Beat
+            </button>
           </div>
 
           {/* Controls bar */}
