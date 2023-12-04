@@ -11,6 +11,7 @@ import {
   FaPlus,
   FaCaretDown,
   FaCaretUp,
+  FaMinus,
 } from "react-icons/fa";
 
 import useSound from "use-sound";
@@ -18,6 +19,9 @@ import useSound from "use-sound";
 import useGetDefaultSounds from "@/hooks/useGetDefaultSounds";
 import Dropdown from "./DropDown";
 
+// TODO: Add unique colors for each track, red blue and yellow for default 3, black for all sounds, and random for custom tracks
+// TODO: Add Export Beat function, exports a singular loop of the beat or a designated amount of loops?
+// TODO: fix dropdown truncation of boxes
 const BeatMaker = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [bpm, setBpm] = useState(150);
@@ -157,6 +161,10 @@ const BeatMaker = () => {
 
   const addExtraBeat = () => {
     setTrackLength((currentLength) => currentLength + 1);
+  };
+
+  const removeExtraBeat = () => {
+    setTrackLength((currentLength) => currentLength - 1);
   };
 
   const addDynamicTrack = () => {
@@ -504,6 +512,12 @@ const BeatMaker = () => {
               className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
             >
               <FaPlus /> Add Extra Beat
+            </button>
+            <button
+              onClick={removeExtraBeat}
+              className="mx-2 p-2 bg-blue-500 text-white hover:bg-blue-700 rounded"
+            >
+              <FaMinus /> Remove Extra Beat
             </button>
           </div>
 

@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "./components/PageContent";
 import getPlaylistsByUserId from "@/actions/getPlaylistsByUserId";
+import Button from "@/components/Button";
+import Link from "next/link";
 
 export const revalidate = 0;
 
@@ -33,6 +35,9 @@ export default async function Home() {
           <h1 className="text-mainBrandColor text-2xl font-semibold">
             All Uploaded Songs
           </h1>
+          <Link href="/make-music" passHref>
+            <Button className="w-auto px-4 text-white">Make Music</Button>
+          </Link>
         </div>
         <PageContent songs={songs} playlists={userPlaylists} />
       </div>
