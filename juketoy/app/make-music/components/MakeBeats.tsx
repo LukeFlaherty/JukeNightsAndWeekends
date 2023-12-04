@@ -301,13 +301,12 @@ const BeatMaker = () => {
 
   // This function is called when a pad is clicked
   const renderPads = (track: Track) => {
-    // Determine the trackId based on whether the track is a dynamic track or a predefined track
     const trackId =
       typeof track === "object" && track !== null ? track.id : track;
 
     return Array.from({ length: trackLength }, (_, i) => {
       let baseClasses =
-        "w-12 h-12 m-1 rounded-md cursor-pointer transition duration-150 ";
+        "w-12 h-12 m-1 rounded-md cursor-pointer transition duration-150 flex-shrink-0 min-w-12 ";
 
       const isActive = activePads.has(`${trackId}-pad-${i}`);
       baseClasses += isActive ? "bg-red-500" : "bg-gray-200";
@@ -319,7 +318,6 @@ const BeatMaker = () => {
         <div
           key={`${trackId}-pad-${i}`}
           className={baseClasses}
-          // Ensure trackId is passed as a number for dynamic tracks, and as a string for predefined tracks
           onClick={() =>
             togglePad(
               typeof trackId === "number" ? trackId : trackId.toString(),
@@ -424,7 +422,7 @@ const BeatMaker = () => {
                   {trackControls(track, isMuted[track])}
                 </div>
                 <div className="flex-1 flex overflow-x-auto">
-                  {renderPads(track)}
+                  <div className="flex space-x-1">{renderPads(track)}</div>
                 </div>
               </div>
             ))}
