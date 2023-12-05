@@ -161,13 +161,6 @@ const RecordLyrics = () => {
                   className="cursor-pointer"
                   onClick={() => deleteRecording(index)}
                 />
-                <a
-                  href={recording}
-                  download={`recording-${index + 1}.mp3`}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                >
-                  Download
-                </a>
               </div>
             ))}
           </div>
