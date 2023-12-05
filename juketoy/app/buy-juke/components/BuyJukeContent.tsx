@@ -9,6 +9,8 @@ import {
 } from "@thirdweb-dev/react";
 import { useRouter } from "next/navigation";
 import TokenInput from "./TokenInput";
+import JukeBalance from "./JukeBalance";
+import Button from "@/components/Button";
 
 const BuyJukeContent: React.FC = () => {
   const [amount, setAmount] = useState("");
@@ -41,6 +43,11 @@ const BuyJukeContent: React.FC = () => {
     mintTokens({ to: address, amount: tokenAmount });
   };
 
+  const isAmountValid = (amount: string) => {
+    const num = Number(amount);
+    return num > 0 && num < 100;
+  };
+
   if (error) {
     console.error("Failed to mint tokens", error);
   }
@@ -71,10 +78,9 @@ const BuyJukeContent: React.FC = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Buy Juke Tokens</h2>
       {address && (
-        <p>
-          Your current Juke token balance:{" "}
-          {tokenBalance ? tokenBalance.displayValue : "Loading..."}
-        </p>
+        <JukeBalance
+          balance={tokenBalance ? tokenBalance.displayValue : null}
+        />
       )}
       <p className="mb-4">
         Juke tokens are your passport to the world of music investment on our
@@ -108,13 +114,12 @@ const BuyJukeContent: React.FC = () => {
           <TokenInput amount={amount} onAmountChange={setAmount} />
         </div>
       </div>
-      <button
+      <Button
         onClick={handleBuyTokens}
-        disabled={!amount || isMinting}
-        className="mt-3 w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-mainBrandColor hover:bg-mainBrandColorDark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mainBrandColor"
+        disabled={!isAmountValid(amount) || isMinting}
       >
-        {isMinting ? "Processing..." : "Mint Tokens"}
-      </button>
+        {isMinting ? "Processing..." : "Buy Juke Coins"}
+      </Button>
     </div>
   );
 };

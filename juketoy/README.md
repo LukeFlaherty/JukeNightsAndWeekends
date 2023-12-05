@@ -118,6 +118,19 @@ I think Im going to fully test with fake artists and investors so I think im goi
 - - could just be a place to record lyrics over 3 test instrumentals
 - - template online?
 
+# Been a while:
+
+Keeping these notes here:
+Pricing Mechanisms
+
+A pricing mechanism is a way to determine the price of a token. Here are two common types:
+
+Bonding Curve: This is a mathematical curve that determines the price of a token based on its supply. As more tokens are bought, the price goes up, and as more tokens are sold, the price goes down. This is often used in automated market makers (AMMs) on DEXs.
+
+Set Price: This means the price of the token is fixed. For example, 1 Juke token might always be exchangeable for 1 dollar. This is simpler but doesn't reflect changes in market demand.
+
+Since you are using the Mumbai testnet, which is a testing environment for the Polygon network, the "listing" of a token doesn't hold the same significance as it would on the mainnet since no real economic value is generally associated with testnet tokens. They are primarily for developers to test their applications. Pricing mechanisms are also typically not in place for testnet tokens unless you are simulating or testing a particular economic model.
+
 ## Getting Started
 
 First, run the development server:

@@ -10,12 +10,18 @@ import useLoadUserImage from "@/hooks/useLoadUserImage";
 import useUpdateArtist from "@/hooks/useUpdateArtist";
 import Link from "next/link";
 import Loading from "../loading";
-import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useAddress,
+  useContract,
+  useTokenBalance,
+} from "@thirdweb-dev/react";
 import ManageMusicButton from "./ManageMusicButton";
 import UploadMusicButton from "./UploadMusicButton";
 import SectionAdmin from "./SectionAdmin";
 import SectionEmail from "./SectionEmail";
 import BuyJukeCoinButton from "./BuyJukeCoinButton";
+import JukeBalance from "@/app/buy-juke/components/JukeBalance";
 
 const AccountContent = () => {
   const router = useRouter();
@@ -87,6 +93,11 @@ const AccountContent = () => {
 
   // Initialize wallet address
   const address = useAddress();
+
+  const { contract } = useContract(
+    "0x875bd9Db81732Be0585f8808F0c56bDB074747c3"
+  );
+  const { data: tokenBalance } = useTokenBalance(contract, address);
 
   useEffect(() => {
     if (!isLoading && !userDetails) {
@@ -292,6 +303,28 @@ const AccountContent = () => {
             btnTitle="Add Payment Account"
             className="px-3 py-2 hover:opacity-75 !bg-white !text-black !font-bold !rounded-full !transition"
           />
+        </div>
+
+        {/* Juke Balance Section */}
+        <div className="bg-hoverColor p-4 rounded-lg">
+          <h3 className="font-medium text-lg mb-2 text-white">
+            Juke Token Balance
+          </h3>
+          <div className="flex justify-between items-center">
+            <span
+              className="text-mainBrandColor truncate"
+              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+            >
+              {tokenBalance ? tokenBalance.displayValue : "Loading..."}
+            </span>
+            {/* Add a Link to the /buy-juke page */}
+            <Link
+              className="text-blue-500 hover:text-blue-600 transition duration-300 ease-in-out"
+              href="/buy-juke"
+            >
+              Buy More
+            </Link>
+          </div>
         </div>
 
         {/* Buy Juke Button */}
