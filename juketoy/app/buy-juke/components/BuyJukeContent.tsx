@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAddress, useContract, useMintToken } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useContract,
+  useMintToken,
+  useTokenBalance,
+} from "@thirdweb-dev/react";
 import { useRouter } from "next/navigation";
 import TokenInput from "./TokenInput";
 
@@ -13,6 +18,8 @@ const BuyJukeContent: React.FC = () => {
   const { contract } = useContract(
     "0x875bd9Db81732Be0585f8808F0c56bDB074747c3"
   );
+  const { data: tokenBalance } = useTokenBalance(contract, address);
+
   const {
     mutate: mintTokens,
     isLoading: isMinting,
@@ -63,6 +70,12 @@ const BuyJukeContent: React.FC = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Buy Juke Tokens</h2>
+      {address && (
+        <p>
+          Your current Juke token balance:{" "}
+          {tokenBalance ? tokenBalance.displayValue : "Loading..."}
+        </p>
+      )}
       <p className="mb-4">
         Juke tokens are your passport to the world of music investment on our
         platform. They empower you to support and grow with the artists you
