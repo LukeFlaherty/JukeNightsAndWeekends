@@ -2,7 +2,22 @@
 
 ## Introduction
 
-Overview of Juke.fyi
+### Overview of Juke.fyi
+
+**Juke.fyi** is an innovative investing platform that merges the music industry with cryptocurrency. It enables music enthusiasts to invest in their favorite artists, akin to stock market investments. Here's an expanded breakdown of its key features:
+
+- **Artist Participation**: Artists join the platform, giving fans a direct way to invest in their careers.
+- **Listener Investment**: Fans buy Juke Coins with fiat currency, using these tokens to invest in artists.
+- **Juke Coins**: Digital tokens representing investment in artists, their value potentially linked to the artist's success and popularity.
+- **Investment Returns**: Similar to stocks, as an artist's popularity grows, so does the value of investments in them.
+- **Artist Benefits**: Artists financially benefit from increased investor support, fostering mutual growth.
+- **Revenue Model**: Platform revenue is tied to Juke Coins circulation.
+- **Interaction with Artists**: A significant aspect of Juke.fyi is enabling investors to interact with artists, enhancing the investment experience.
+- **Frictionless User Experience**: Efforts are made to minimize the visibility of complex Web3 elements, focusing on a seamless user experience.
+- **Market Dynamics**: The platform creates a dynamic marketplace where artist success influences investment value.
+
+For more detailed information, you can visit [Juke.fyi](https://www.juke.fyi/).
+
 Purpose of the tokenomics document
 Brief on how Juke.fyi integrates blockchain and music investment
 
