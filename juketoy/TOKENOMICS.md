@@ -18,14 +18,31 @@
 
 For more detailed information, you can visit [Juke.fyi](https://www.juke.fyi/).
 
-Purpose of the tokenomics document
-Brief on how Juke.fyi integrates blockchain and music investment
+### Purpose of the Tokenomics Document
+
+This document outlines the economic framework and principles governing Juke.fyi's native digital currency, Juke Coins. It's designed to provide clarity on how Juke Coins are integrated within the platform, detailing their utility, distribution, and the economic mechanisms that ensure their stability and growth. This serves as a guide for users, investors, and artists, offering insight into our commitment to a sustainable and equitable economic model that supports the growth of both artists and their investor community.
+
+### Brief on how Juke.fyi integrates blockchain and music investment
+
+In Juke.fyi, blockchain technology is fundamental to virtually every user interaction within the app. From the creation of smart wallets to the purchase and management of Juke Coins, and even knowing which artists users invest in, blockchain is the underlying technology that ensures these processes are secure, transparent, and efficient. This integration of blockchain allows for a high degree of trust and reliability in transactions, which is crucial in an investment environment, especially one as dynamic and user-driven as Juke.fyi.
 
 ## Juke Coin Overview
 
-Definition and purpose of Juke Coins
-Total supply (if capped) and issuance plan (if any)
-If applicable, information on artist-specific tokens
+### Definition and purpose of Juke Coins
+
+Juke Coins are digital tokens at the heart of Juke.fyi, designed to facilitate investment in the music industry. These tokens represent a user's stake in an artist's potential growth and success. The purpose of Juke Coins is to provide a medium for fans to financially support and invest in their favorite artists, while also potentially earning returns based on the artists' career advancements. They embody a new, blockchain-based approach to music investment, merging fan engagement with economic participation.
+
+### Total supply
+
+For Juke.fyi, the decision has been made to maintain an uncapped supply of Juke Coins. This approach aligns with the platform's commitment to inclusivity and scalability. Without a cap, Juke Coins can be issued in response to increasing demand and user growth, ensuring that new and existing users alike have ample opportunity to invest. This also supports the long-term vision of continuous and sustainable growth, both for the platform and for the artists it supports. The focus remains on the utility and accessibility of Juke Coins, rather than creating scarcity-driven value.
+
+### Issuance plan
+
+Juke.fyi will issue Juke Coins exclusively in exchange for 1 USD fiat, reinforcing its role as a pure utility token. No additional tokens will be pre-issued to avoid impacting this utility. Selling tokens at a fixed rate ensures equitable access and maintains the token's stability as a reliable medium for transactions on the platform. This strategy upholds the principle of fairness and transparency, pivotal in building trust among users and artists.
+
+### Artist-specific tokens
+
+Artist-specific tokens are unique digital assets representing investment in individual artists on Juke.fyi. Each artist will have a predetermined number of tokens, which can be purchased by users with Juke Coins. The value of these tokens can fluctuate based on the artist's popularity and market demand. New batches of tokens may be released by artists based on predefined criteria, such as reaching certain career milestones or popularity levels, ensuring that the token supply aligns with their growing market value.
 
 ## Value Proposition
 
