@@ -46,7 +46,13 @@ Artist-specific tokens are unique digital assets representing investment in indi
 
 ## Value Proposition
 
-How Juke Coins create value for users
+### How Juke Coins create value for users
+
+- **Direct Investment in Music**: Juke Coins allow users to invest directly in their favorite artists, creating a closer fan-artist relationship.
+- **Utility Token**: Pegged at one dollar each, Juke Coins serve as a stable and reliable medium for transactions on the platform.
+- **Access to Artist Tokens**: Users can exchange Juke Coins for artist-specific tokens, whose value can fluctuate based on the artist's success.
+- **Potential for Profit**: Investing in artist-specific tokens offers the opportunity for financial gain, similar to stock market investments.
+
 How they benefit artists
 Long-term value for stakeholders
 
