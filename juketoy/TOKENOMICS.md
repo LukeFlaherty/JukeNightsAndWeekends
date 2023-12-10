@@ -53,8 +53,33 @@ Artist-specific tokens are unique digital assets representing investment in indi
 - **Access to Artist Tokens**: Users can exchange Juke Coins for artist-specific tokens, whose value can fluctuate based on the artist's success.
 - **Potential for Profit**: Investing in artist-specific tokens offers the opportunity for financial gain, similar to stock market investments.
 
-How they benefit artists
-Long-term value for stakeholders
+### How they benefit artists
+
+- **Immediate Financial Support**: Artists receive Juke Coins from fans in exchange for their artist-specific tokens, providing a direct source of income.
+- **Value Appreciation**: As an artist's popularity grows, a portion of artist-apecific tokens minted directly to the artist can appreciate in value, allowing them to profit from selling these at a higher price later.
+- **Community Engagement**: The platform encourages artists to interact with fans, strengthening their community and potentially increasing their token's value.
+- **Alternative to Traditional Record Deals**: By using Juke.fyi, artists have a modern avenue for revenue and exposure, distinct from traditional record label contracts, which often require relinquishing certain rights to their music.
+- **Control Over Token Supply**: Artists can release new batches of artist-specific tokens based on predefined criteria, ensuring that the token supply aligns with their growing market value and goals for their "stock price".
+
+### Long-term value for stakeholders
+
+- **Artists**:
+
+  - Long-term revenue through direct token sales and royalties.
+  - Enhanced career opportunities and artistic freedom due to greater market visibility and fan loyalty.
+
+- **Investors/Fans**:
+
+  - Potential financial gains from appreciating artist tokens.
+  - Deeper engagement and emotional investment in artists' success, enriching the music community experience.
+
+- **Platform Owners**:
+
+  - Sustained revenue from platform transactions and user growth.
+  - Pioneering role in the integration of music and blockchain, enhancing the platform's market position.
+
+- **Music Industry**:
+  - Introduction of a new artist-centric funding model, potentially setting new standards for music promotion and distribution.
 
 ## Utility and Functionality
 
