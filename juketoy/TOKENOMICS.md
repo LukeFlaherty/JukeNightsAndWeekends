@@ -162,6 +162,19 @@ Artist-specific tokens are unique digital assets representing investment in indi
 
 ---
 
+## Automated Gas Fee Management for User Transactions
+
+In the production environment, a designated wallet is pre-funded with cryptocurrency to cover gas fees for transactions such as account creation and token minting. This backend process is invisible to the user, providing a frictionless experience.
+
+- Mumbai testnet embedded wallet: 0x1d3429866596c5b29164c6c81677b2DFC1e3B8d1
+- Polyscan Link: https://mumbai.polygonscan.com/address/0x1d3429866596c5b29164c6c81677b2DFC1e3B8d1
+
+- **Transaction Fee Incorporation**: When users purchase tokens, a transaction fee is applied. This fee includes the cost of gas required for blockchain operations.
+- **Wallet Replenishment**: A portion of the transaction fees collected from token sales is allocated to replenish the designated wallet, ensuring it has sufficient funds to cover future transactions.
+- **Seamless User Experience**: Users interact with the platform and acquire tokens without the need to manage or pay gas fees directly, streamlining their engagement with the platform.
+
+---
+
 ## Governance and Regulatory Compliance
 
 ### Governance Structure for Major Decisions (if applicable)

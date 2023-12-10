@@ -100,6 +100,19 @@ const AccountContent = () => {
   const { data: tokenBalance } = useTokenBalance(contract, address);
 
   useEffect(() => {
+    const checkMinterStatus = async () => {
+      if (address && contract) {
+        const minterAddresses = await contract.roles.get("minter");
+        if (minterAddresses && !minterAddresses.includes(address)) {
+          await contract.roles.grant("minter", address);
+        }
+      }
+    };
+
+    checkMinterStatus();
+  }, [address, contract]);
+
+  useEffect(() => {
     if (!isLoading && !userDetails) {
       router.replace("/");
     }
