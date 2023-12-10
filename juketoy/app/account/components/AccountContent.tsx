@@ -101,10 +101,22 @@ const AccountContent = () => {
 
   useEffect(() => {
     const checkMinterStatus = async () => {
+      console.log("Checking minter status for address:", address);
       if (address && contract) {
-        const minterAddresses = await contract.roles.get("minter");
-        if (minterAddresses && !minterAddresses.includes(address)) {
-          await contract.roles.grant("minter", address);
+        try {
+          const minterAddresses = await contract.roles.get("minter");
+          console.log("Retrieved minter addresses:", minterAddresses);
+          if (minterAddresses && !minterAddresses.includes(address)) {
+            console.log(
+              `Address ${address} is not a minter. Granting minter role.`
+            );
+            await contract.roles.grant("minter", address);
+            console.log(`Minter role granted to address ${address}`);
+          } else {
+            console.log(`Address ${address} already has minter role.`);
+          }
+        } catch (error) {
+          console.error("Error checking or granting minter role:", error);
         }
       }
     };
