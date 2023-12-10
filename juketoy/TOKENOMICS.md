@@ -1,5 +1,7 @@
 # Tokenomics Document Outline for Juke.fyi
 
+---
+
 ## Introduction
 
 ### Overview of Juke.fyi
@@ -26,6 +28,8 @@ This document outlines the economic framework and principles governing Juke.fyi'
 
 In Juke.fyi, blockchain technology is fundamental to virtually every user interaction within the app. From the creation of smart wallets to the purchase and management of Juke Coins, and even knowing which artists users invest in, blockchain is the underlying technology that ensures these processes are secure, transparent, and efficient. This integration of blockchain allows for a high degree of trust and reliability in transactions, which is crucial in an investment environment, especially one as dynamic and user-driven as Juke.fyi.
 
+---
+
 ## Juke Coin Overview
 
 ### Definition and purpose of Juke Coins
@@ -43,6 +47,8 @@ Juke.fyi will issue Juke Coins exclusively in exchange for 1 USD fiat, reinforci
 ### Artist-specific tokens
 
 Artist-specific tokens are unique digital assets representing investment in individual artists on Juke.fyi. Each artist will have a predetermined number of tokens, which can be purchased by users with Juke Coins. The value of these tokens can fluctuate based on the artist's popularity and market demand. New batches of tokens may be released by artists based on predefined criteria, such as reaching certain career milestones or popularity levels, ensuring that the token supply aligns with their growing market value.
+
+---
 
 ## Value Proposition
 
@@ -81,46 +87,154 @@ Artist-specific tokens are unique digital assets representing investment in indi
 - **Music Industry**:
   - Introduction of a new artist-centric funding model, potentially setting new standards for music promotion and distribution.
 
+---
+
 ## Utility and Functionality
 
-Primary functions of Juke Coins in the ecosystem
-Additional utilities (e.g., voting rights, access to exclusive content)
-If applicable, details on artist-specific tokens and their unique utilities
+### Primary functions of Juke Coins in the ecosystem
+
+- **Investment in Artists**: Juke Coins are used to purchase artist-specific tokens, which represent investment in an artist's career.
+
+### Additional utilities (e.g., voting rights, access to exclusive content)
+
+- **Platform Transactions**:
+
+  - Juke Coins can be used for various transactions on the platform, like accessing exclusive content, merchandise, or event tickets.
+
+- **Fan Rewards**:
+
+  - Implementing a rewards system where fans earn Juke Coins for engaging with the platform and promoting artists.
+
+- **Voting Rights**:
+  - Possibility of using Juke Coins to grant users voting rights in platform decisions or artist-related events.
+
+### Details on artist-specific tokens and their unique utilities
+
+- **Direct Artist Support**:
+
+  - Fans can buy these tokens with Juke Coins, directly investing in individual artists.
+
+- **Value Fluctuation**:
+
+  - The value of artist-specific tokens can change based on the artist's popularity and success, similar to stock market dynamics.
+
+- **Exclusive Access**:
+
+  - Holding these tokens could grant special privileges like access to exclusive content, early ticket sales, or personalized interactions with the artist.
+
+- **Artist-Fan Interaction**:
+  - These tokens can serve as a bridge for deeper artist-fan connections, enabling unique engagement opportunities.
+
+---
 
 ## Economic Model
 
-Details on how Juke Coins are used for investments
-Revenue model for artists and investors
-Mechanisms for price stabilization if Juke Coins are not pegged to fiat
+### Details on How Juke Coins are Used for Investments
+
+- Juke Coins enable fans to invest in artists by purchasing artist-specific tokens, providing direct support and potential financial returns.
+
+### Revenue Model for Artists and Investors
+
+- Artists earn through the sale of their tokens and potential royalties from secondary market transactions.
+- Investors may gain financially if the value of the artist-specific tokens appreciates.
+
+### Mechanisms for Price Stabilization if Juke Coins are Not Pegged to Fiat
+
+- Adjusting supply based on market demand.
+- Implementing reserve funds or algorithmic methods to maintain price stability.
+
+---
 
 ## Token Distribution and Allocation
 
-Initial distribution plan for Juke Coins
-Allocation for founders, investors, artists, platform development, etc.
-Vesting schedules and lock-up periods, if any
+### Initial Distribution Plan for Juke Coins
+
+- Juke Coins will be distributed through direct sales at a fixed rate of 1 USD per coin.
+
+### Allocation for Founders, Investors, Artists, Platform Development, etc.
+
+- No pre-allocated coins for founders or investors to ensure transparency.
+- Artists receive coins through sales of their specific tokens.
+
+### Vesting Schedules and Lock-up Periods, if any
+
+- Future strategic decisions will define vesting schedules and lock-up periods, focusing on long-term stability and growth incentives.
+
+---
 
 ## Governance and Regulatory Compliance
 
-Governance structure for major decisions (if applicable)
-Compliance with relevant regulations (financial and music industry)
+### Governance Structure for Major Decisions (if applicable)
+
+- A decentralized governance model is considered, allowing stakeholders to influence major decisions using Juke Coins for voting.
+
+### Compliance with Relevant Regulations (Financial and Music Industry)
+
+- Financial: Necessary adherence to financial regulations related to cryptocurrencies and investment laws.
+- Music Industry: Other than watching out for artists as to make sure their IP is not violated, we will seek to not comply with any other regulations in the music industry. We believe that the music industry is broken and we are here to fix it.
+
+---
 
 ## Risk Management
 
-Strategies to mitigate risks (market volatility, regulatory changes)
-Security measures to protect token integrity and user investments
+### Strategies to Mitigate Risks
+
+- Diversify investments to reduce market dependence. Only to an extent, we are fully committed to the platform. We strive to also be a music workplace, where artists, producers, and hobbyiests alike can create, collaborate, and share their art.
+- Regular legal consultations for agility in regulatory compliance.
+
+### Security Measures
+
+- Implement strong security protocols for blockchain infrastructure.
+- Conduct regular security audits.
+- Advanced user authentication methods to protect investments.
+
+---
 
 ## Market Dynamics and Sustainability
 
-How supply and demand will be managed
-Strategies for scalability and long-term sustainability
-Partnerships and integrations with other platforms
+### Managing Supply and Demand
+
+- Unlimtited supply of Juke Coins to ensure equitable access. They will always be available for a dollar, thus, ensuring they do not become a speculative asset.
+- Balance artist token issuance with market demand. Artists can release new batches of tokens based on predefined criteria, ensuring that the token supply aligns with their growing market value and personal vision for their brand.
+
+### Strategies for Scalability and Long-Term Sustainability
+
+- Continuously upgrade the platform for increased user traffic.
+- Develop scalable blockchain solutions. In the future we hope to implement our own blockchain, but for now we will use Ethereum. We also hope to host our own marketplace for artist tokens.
+
+### Partnerships and Integrations
+
+- Collaborate with Artists heavily through our artist application process. Which we will scale as the platform grows.
+- As a controversial approach to the music industry we anticipate integrations being tough to setup. That being said, we are open to working with and integrating with music platforms. Ideally SoundCloud.
 
 ## Future Developments and Roadmap
 
-Planned upgrades or features
-Long-term vision for Juke.fyi and its token ecosystem
+### Planned Upgrades or Features
+
+- Continual central focus on a frictionless Web3 experience.
+- Enhanced blockchain functionalities for transaction efficiency.
+- Expanding utilities of artist-specific tokens.
+- Platform expansion to include other music-related services. Such as a marketplace for artist tokens, a music workplace, and a music streaming service.
+
+### Long-term Vision for Juke.fyi and its Token Ecosystem
+
+- Aspire to be a leader in merging music with blockchain technology.
+- Focus on growing the artist and investor community.
+- Aim to establish a sustainable, innovative economic model in the music industry.
 
 ## Conclusion
 
-Summary of the key points
-Call to action for potential investors, artists, and users
+### Summary of Key Points
+
+- Juke.fyi merges music and blockchain, providing a unique investment platform.
+- Juke Coins enable direct artist support and potential investment returns.
+- The platform prioritizes fairness, transparency, and scalability.
+- A focus on growing a community of artists, investors, and fans.
+
+### Call to Action
+
+- We invite potential investors, artists, and users to embrace this innovative approach.
+- Join Juke.fyi to be part of a transformative music community.
+- Contribute to the evolving landscape of music and blockchain.
+
+For more detailed information, you can visit [Juke.fyi](https://www.juke.fyi/).
