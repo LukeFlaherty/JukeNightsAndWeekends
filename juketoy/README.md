@@ -131,6 +131,19 @@ Set Price: This means the price of the token is fixed. For example, 1 Juke token
 
 Since you are using the Mumbai testnet, which is a testing environment for the Polygon network, the "listing" of a token doesn't hold the same significance as it would on the mainnet since no real economic value is generally associated with testnet tokens. They are primarily for developers to test their applications. Pricing mechanisms are also typically not in place for testnet tokens unless you are simulating or testing a particular economic model.
 
+# Current Issue:
+
+I have to individually permiss the ability to buy tokens based on wallet address.
+
+Two approaches:
+
+1. Find a fix to this and proceed to implementing fiat checkout
+2. Continue individually permissing permissions and implement fiat checkout
+
+Now that im writing out the options it seems obvious what to do becasue both have effort before implementing fiat checkout so it would be better to just continue towards the end goal wit number 1 rather than waste time on number 2 and features that would be phased out when I circled back anyways.
+
+I guess ill do that
+
 ## Getting Started
 
 First, run the development server:
