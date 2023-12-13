@@ -144,6 +144,8 @@ Now that im writing out the options it seems obvious what to do becasue both hav
 
 I guess ill do that
 
+havent taken a look but I have a meeting w matt on friday to talk about feasibility and value prop
+
 ## Getting Started
 
 First, run the development server:
