@@ -146,6 +146,14 @@ I guess ill do that
 
 havent taken a look but I have a meeting w matt on friday to talk about feasibility and value prop
 
+What to talk about?
+What to ask about?
+Why did I want to talk to him?
+What am I doing well?
+What am I doing poorly?
+
+# Meeting with Matt
+
 ## Getting Started
 
 First, run the development server:
